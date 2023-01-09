@@ -3,9 +3,13 @@ import random
 
 """ Xem thông tin hộ khẩu | Trả về 2 list, list đầu tiên là thông tin hộ khẩu, list tiếp theo là thông tin các cư dân """
 def XemSoHoKhau(MaSo):
+    error_code = 0
     # Thông tin hộ khẩu: 
     # MaSo, CCCDChuHo, SoThanhVien, SoNha/TenDuong, Phuong/Xa, Quan/Huyen,Tinh
-    HoKhau = connectDB.getHoKhau(MaSo)[0]
+    try:
+        HoKhau = connectDB.getHoKhau(MaSo)[0]
+    except:
+        return error_code, 1, 1
     ListCCCD = connectDB.getListCuDanFromHoKhau(HoKhau[0])
     ListCuDan = []
     # Thông tin nhân khẩu:
@@ -13,7 +17,7 @@ def XemSoHoKhau(MaSo):
     for i in range(len(ListCCCD)):
         thongtincudan = connectDB.getCUDAN(ListCCCD[i][0])[0]
         ListCuDan.append(tuple(thongtincudan))
-    return HoKhau,ListCuDan
+    return error_code, HoKhau, ListCuDan
 
 """ Thêm nhân khẩu mới gia đình sinh thêm con thì sẽ thêm mới thông tin nhân khẩu như trên, bỏ trống các chi tiết về nghề nghiệp, CMND và nơi
  thường trú chuyển đến sẽ ghi là “mới sinh” """
