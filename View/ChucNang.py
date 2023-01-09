@@ -1,5 +1,6 @@
 import connectDB
 import random
+import datetime
 
 """ Xem thông tin hộ khẩu | Trả về 2 list, list đầu tiên là thông tin hộ khẩu, list tiếp theo là thông tin các cư dân """
 def XemSoHoKhau(MaSo):
@@ -9,6 +10,7 @@ def XemSoHoKhau(MaSo):
     try:
         HoKhau = connectDB.getHoKhau(MaSo)[0]
     except:
+        error_code = 1
         return error_code, 1, 1
     ListCCCD = connectDB.getListCuDanFromHoKhau(HoKhau[0])
     ListCuDan = []
@@ -66,3 +68,42 @@ def TachHoKhau(HoKhau_1, HoKhau_2):
     connectDB.InsertSoHoKhau(MaSo_2, DanhSachNhanKhau, SoNha, Phuong, Quan, Tinh)
     NoiDung = 'Sổ hộ khẩu ' + str(MaSo_1) + ' được tách thành 2 sổ hộ khẩu mới là: ' + str(MaSo_1) +' và ' + str(MaSo_2)
     connectDB.insertBienDoi(KieuBienDoi='Tách hộ khẩu', NoiDungBienDoi = NoiDung, MaSo = MaSo_1)
+    
+""" Khi hộ gia đình có ai đó đi xa dài ngày thì phải đến gặp tổ trưởng thông báo và xin cấp giấy tạm vắng có thời hạn. Ngược lại nếu có nhân khẩu từ địa
+phương khác đến cư trú tạm thời trong một khoảng thời gian thì phải khai báo để được cấp giấy tạm trú """
+def CapGiayTamVang(HoTen , CCCD, NoiTamVang ,NgayBatDau: datetime.datetime, NgayKetThuc: datetime.datetime, LyDo, NgayLamDon: datetime.datetime):
+    error_code = 0
+    try:
+        MaSo = connectDB.LayMaHoKhauTuTenCCCD(HoTen, CCCD)
+    except:
+        error_code = 1
+        return error_code
+    connectDB.InsertTamVang(HoTen, CCCD, NoiTamVang, NgayBatDau, NgayKetThuc, LyDo, NgayLamDon)
+    NoiDung = 'Cấp giấy tạm vắng cho cư dân ' + HoTen + ', số căn cước ' + CCCD + ' từ ngày ' + str(NgayBatDau) + ' đến ngày ' + str(NgayKetThuc)
+    connectDB.insertBienDoi(KieuBienDoi='Cấp giấy tạm vắng', NoiDungBienDoi = NoiDung, MaSo = MaSo)
+    return error_code
+
+# Thông tin giấy tạm vắng bao gồm:
+# MaGiayTamVang, HoTen, CCCD, NoiTamVang ,Tu, Den, LyDo, NgayLamDon
+def XemGiayTamVang(HoTen, CCCD):
+    ThongTinGiayTamVang = connectDB.getTamVang(HoTen, CCCD)[0]
+    return ThongTinGiayTamVang
+
+#----------------------------------------------------------------
+def CapGiayTamTru(HoTen , CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.datetime, NgayKetThuc: datetime.datetime, LyDo, NgayLamDon: datetime.datetime):
+    error_code = 0
+    try:
+        MaSo = connectDB.LayMaHoKhauTuTenCCCD(HoTen, CCCD)
+    except:
+        error_code = 1
+        return error_code
+    connectDB.InsertTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau, NgayKetThuc, LyDo, NgayLamDon)
+    NoiDung = 'Cấp giấy tạm trú cho cư dân ' + HoTen + ', số căn cước ' + CCCD + ' từ ngày ' + str(NgayBatDau) + ' đến ngày ' + str(NgayKetThuc) + ' tại ' + DiaChiThuongTru
+    connectDB.insertBienDoi(KieuBienDoi='Cấp giấy tạm trú', NoiDungBienDoi = NoiDung, MaSo = MaSo)
+    return error_code
+
+# Thông tin giấy tạm vắng bao gồm:
+# MaGiayTamVang, HoTen, CCCD, Tu, Den, LyDo, NgayLamDon
+def XemGiayTamTru(HoTen, CCCD):
+    ThongTinGiayTamTru = connectDB.getTamTru(HoTen, CCCD)[0]
+    return ThongTinGiayTamTru

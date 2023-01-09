@@ -29,12 +29,21 @@ def getCUDAN(ID):
     # biến truyền vào dưới dạng 1 mảng
     cursor.execute(query, val)
     return cursor.fetchall()
+
+# Lấy mã hộ khẩu từ tên và cccd
+def LayMaHoKhauTuTenCCCD(HoTen, CCCD):
+    query = " select MaSo from CUDAN where HoTen = ? and CCCD = ? "
+    values = (HoTen, CCCD)
+    cursor.execute(query, values)
+    return cursor.fetchall()[0][0]
+
 #Lấy thông tin hộ khẩu
 def getHoKhau(hostId):
     query = "SELECT * FROM SOHOKHAU WHERE  MaSo = ?"
     val = (hostId,)
     cursor.execute(query, val)
     return cursor.fetchall()
+
 # Lấy danh sách ID cư dân thuộc hộ khẩu
 def getListCuDanFromHoKhau(MaSo):
     query = "select ID from CUDAN where MaSo = ?"
@@ -95,3 +104,29 @@ def LayDanhSachMaHoKhau():
     for i in tmp:
         arr.append(i[0])
     return arr
+
+# Thêm giấy tạm vắng
+def InsertTamVang(HoTen, CCCD, NoiTamVang, Tu, Den, LyDo, NgayLamDon):
+    values = (HoTen, CCCD, NoiTamVang, Tu, Den, LyDo, NgayLamDon)
+    query = "insert into TAMVANG values(?,?,?,?,?,?,?)"
+    cursor.execute(query, values)
+    mydb.commit()
+# Xem giấy tạm vắng
+def getTamVang(HoTen, CCCD):
+    query = " select * from TAMVANG where HoTen = ? and CCCD = ?"
+    values = (HoTen, CCCD)
+    cursor.execute(query, values)
+    return cursor.fetchall()
+
+# Thêm giấy tạm trú
+def InsertTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, Tu, Den, LyDo, NgayLamDon):
+    values = (HoTen, CCCD, QueQuan, DiaChiThuongTru, Tu, Den, LyDo, NgayLamDon)
+    query = "insert into TAMTRU values(?,?,?,?,?,?,?,?)"
+    cursor.execute(query, values)
+    mydb.commit()
+# Xem giấy tạm trú
+def getTamTru(HoTen, CCCD):
+    query = " select * from TAMTRU where HoTen = ? and CCCD = ?"
+    values = (HoTen, CCCD)
+    cursor.execute(query, values)
+    return cursor.fetchall()

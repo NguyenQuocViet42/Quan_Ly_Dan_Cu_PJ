@@ -1,5 +1,4 @@
 ﻿use QLCUDAN
 
-update CUDAN
-set QuanHe = 'test'
-where ID = 6 
+alter table SOHOKHAU
+alter column MaSo nvarchar(10)
