@@ -18,7 +18,7 @@ def getAllHoKhau():
 
 # Thêm nhân khẩu mới
 def insertCUDAN(values):
-    query = "INSERT INTO CUDAN (CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu, NgayChuyenDi, NoiChuyenDi, GhiChu) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, None, None, None)"
+    query = "INSERT INTO CUDAN (CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu, NgayChuyenDi, NoiChuyenDi, GhiChu) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     cursor.execute(query, values)
     mydb.commit()
 
@@ -61,3 +61,37 @@ def ThayDoiQuanHe(ID, QuanHeMoi):
     query = "UPDATE CUDAN SET QuanHe = ? WHERE ID =?"
     cursor.execute(query, values)
     mydb.commit()
+
+# Xóa một hộ khẩu
+def DeleteSoHoKhau(MaSo):
+    query = " delete from SOHOKHAU where MaSo = ? "
+    val = (MaSo,)
+    cursor.execute(query, val)
+    mydb.commit()
+        
+# Thêm một hộ khẩu
+def InsertSoHoKhau(MaSo, DanhSachNhanKhau, SoNha, Phuong, Quan, Tinh):
+    IDChuHo = None
+    SoThanhVien = len(DanhSachNhanKhau)
+    for i in DanhSachNhanKhau:
+        id, quanhe = i[0], i[1]
+        if quanhe.upper() == 'Chủ hộ'.upper():
+            IDChuHo = id
+        query = "update CUDAN set QuanHe = ?, MaSo = ?  where ID = ? "
+        values = (quanhe, MaSo,id)
+        cursor.execute(query, values)
+        mydb.commit()
+    query = " insert into SOHOKHAU values (?,?,?,?,?,?,?) "
+    values = (MaSo, SoThanhVien, SoNha, Phuong, Quan, Tinh, IDChuHo)
+    cursor.execute(query, values)
+    mydb.commit()
+    
+# Lấy danh sách Mã hộ khẩu
+def LayDanhSachMaHoKhau():
+    query = " select MaSo from SOHOKHAU "
+    cursor.execute(query)
+    arr = []
+    tmp = cursor.fetchall()
+    for i in tmp:
+        arr.append(i[0])
+    return arr

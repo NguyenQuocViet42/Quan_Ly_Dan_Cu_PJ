@@ -1,4 +1,5 @@
 import connectDB
+import random
 
 """ Xem thông tin hộ khẩu | Trả về 2 list, list đầu tiên là thông tin hộ khẩu, list tiếp theo là thông tin các cư dân """
 def XemSoHoKhau(MaSo):
@@ -22,7 +23,7 @@ def ThemNhanKhauMoi(CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghie
     CCCD = 'Mới Sinh'
     DiaChiCu = 'Mới Sinh'
     NgheNghiep = None
-    val = (CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, MaSo , QuanHe, NgayDangKyThuongTru, DiaChiCu)
+    val = (CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, MaSo , QuanHe, NgayDangKyThuongTru, DiaChiCu, None, None, None)
     # Thêm vào data base
     connectDB.insertCUDAN(val)
     NoiDung = 'Thêm nhân khẩu ' + Hoten + ' '  + CCCD + ' vào hộ khẩu ' + MaSo 
@@ -46,3 +47,18 @@ def ThayDoiChuHo(DanhSachIDThanhVien, DanhSachQuanHe, MaSo):
         connectDB.ThayDoiQuanHe(ID=DanhSachIDThanhVien[i], QuanHeMoi=DanhSachQuanHe[i])
     NoiDung = 'Hộ khẩu ' + MaSo +  'thay đổi chủ hộ'
     connectDB.insertBienDoi(KieuBienDoi='Thay đổi chủ hộ', NoiDungBienDoi = NoiDung, MaSo = MaSo)
+    
+""" Khi tách hộ từ một hộ khẩu đã có thì một sổ hộ khẩu mới sẽ được tạo ra với các nhân khẩu được chọn """
+# HoKhau_1 và HoKhau_2 có dạng: [ MaSo, [ [ID, QuanHe], [ID, QuanHe],... ], SoNha, Phuong, Quan, Tinh]
+def TachHoKhau(HoKhau_1, HoKhau_2):
+    MaSo_1, DanhSachNhanKhau, SoNha, Phuong, Quan, Tinh = HoKhau_1[0], HoKhau_1[1], HoKhau_1[2], HoKhau_1[3], HoKhau_1[4], HoKhau_1[5]
+    connectDB.DeleteSoHoKhau(MaSo_1)
+    connectDB.InsertSoHoKhau(MaSo_1, DanhSachNhanKhau, SoNha, Phuong, Quan, Tinh)
+    MaSo_2, DanhSachNhanKhau, SoNha, Phuong, Quan, Tinh = HoKhau_2[0], HoKhau_2[1], HoKhau_2[2], HoKhau_2[3], HoKhau_2[4], HoKhau_2[5]
+    MaSo_2 = random.randint(100000002, 999999999)
+    DanhSachMaHoKhau = connectDB.LayDanhSachMaHoKhau()
+    while MaSo_2 in DanhSachMaHoKhau:
+        MaSo_2 = random.randint(100000002, 999999999)
+    connectDB.InsertSoHoKhau(MaSo_2, DanhSachNhanKhau, SoNha, Phuong, Quan, Tinh)
+    NoiDung = 'Sổ hộ khẩu ' + str(MaSo_1) + ' được tách thành 2 sổ hộ khẩu mới là: ' + str(MaSo_1) +' và ' + str(MaSo_2)
+    connectDB.insertBienDoi(KieuBienDoi='Tách hộ khẩu', NoiDungBienDoi = NoiDung, MaSo = MaSo_1)
