@@ -5,7 +5,7 @@ import tkinter
 import os
 from PIL import ImageTk, Image
 from tkcalendar import Calendar, DateEntry
-import connectDB
+import ChucNang
 
 dirname = os.path.dirname(__file__)
 win_bg = config.win_bg
@@ -33,7 +33,7 @@ y = (hs/2) - (config.win_h/2)
 root.geometry(f"{config.win_w}x{config.win_h}+{int(x)}+0")
 
 
-def switch(frame, hostId=""):
+def switch(frame, hostId="", HoKhau=(), ListCuDan=[]):
     for f in frames:
         for widget in f.winfo_children():
             widget.destroy()
@@ -47,7 +47,7 @@ def switch(frame, hostId=""):
         btn_home_bg = win_bg
         btn_family_bg = config.selected_bg
         btn_demand_bg = win_bg
-        ViewFamily(hostId)
+        ViewFamily(HoKhau, ListCuDan)
     elif (frame == f_authen_change):
         btn_home_bg = win_bg
         btn_family_bg = win_bg
@@ -114,15 +114,6 @@ def switch(frame, hostId=""):
 # Kiểm tra xem 1 sổ hộ khẩu có tồn tại hay không theo số hộ khẩu
 
 
-def CheckHostId(hostId):
-    # getAllHoKhau trả về 1 list các tupple chứa các trường => đưa hostId vào 1 tupple để so sánh
-    hostId = (hostId,)
-    allHostId = connectDB.getAllHoKhau()
-    if (hostId in allHostId):
-        return True
-    return False
-
-
 def AuthenticationChange(hostId, message, chosed):
     # Nếu hộ khẩu tồn tại => Chuyển tới các chức năng theo yêu cầu
     if (CheckHostId(hostId)):
@@ -140,6 +131,7 @@ def AuthenticationChange(hostId, message, chosed):
 
 
 def AuthenticationFamily(hostId, message):
+    ChucNang.XemSoHoKhau(hostId)
     if (CheckHostId(hostId)):
         switch(f_family, hostId)
     else:
@@ -182,6 +174,7 @@ def AuthenticationTachKhau(hostId, message):
 someStyle = ttk.Style()
 someStyle.configure('DropDownStyle.TMenubutton',
                     font=('Arial', 12, "bold"))
+                    
 '''Load IMAGE'''
 # Nav Bar
 pathLogo = os.path.join(
@@ -305,7 +298,7 @@ nav_bar = tkinter.Frame(root, bg=win_bg)
 nav_bar.place(relx=0, rely=0, relheight=1, relwidth=0.198, anchor=NW)
 
 
-'''Code Nav Bar'''
+# '''Code Nav Bar'''
 
 
 def Nav():
@@ -537,9 +530,8 @@ def AuthenFamily():
 # Frame Hiện thông tin gia đình
 
 
-def ViewFamily(hostId):
-    datas = connectDB.getHoKhau(hostId)
-    n = len(datas)
+def ViewFamily(HoKhau, ListCuDan):
+    n = len(ListCuDan)
     # Create a child frame to destroy when no use parent frame
     f_all_view_family = tkinter.Frame(
         f_family, highlightbackground="black", highlightthickness=2)
@@ -1098,7 +1090,7 @@ def FixInfo(CCCD):
     buttonSubmit.grid(column=0, row=10, padx=padx, pady=pady, columnspan=4)
 
     '''
-    Get số hộ khẩu và CCCD => CHECK 
+    Get số hộ khẩu và CCCD => CHECK
     => XUẤT HIỆN THÔNG TIN (GIỐNG THÊM NHÂN KHẨU)
     '''
 
