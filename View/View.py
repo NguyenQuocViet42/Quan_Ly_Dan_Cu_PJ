@@ -458,7 +458,7 @@ def ViewAuthenChange():
         if (chose == "Thêm nhân khẩu mới"):
             switch(f_add_person)
         elif (chose == "Thay đổi nhân khẩu"):
-            pass
+            switch(f_change_person)
         elif (chose == "Thay đổi chủ hộ"):
             pass
             # CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, Mã sổ , QuanHe, Ngày đăng kí thường trú, dịa chỉ cũ
@@ -619,22 +619,12 @@ def ChangePerson():
     # f_all_change_person.grid_columnconfigure(2, weight=1)
     # f_all_change_person.grid_columnconfigure(3, weight=1)
 
+    # NgayChuyenDi, NoiChuyenDi, GhiChu, HoTen, CCCD, MaSo
     # row 0
-    tkinter.Label(
-        f_all_change_person, text="Giới tính: ", font=font_content, anchor=W).grid(column=0, row=0, sticky=W, padx=padx, pady=pady, columnspan=1)
-
-    option = ("Chuyển đi", "Đã mất")
-    chosed = StringVar(f_all_change_person)
-
-    dropDownGender = ttk.OptionMenu(
-        f_all_change_person, chosed, option[0], *option, style='DropDownStyle.TMenubutton')
-    dropDownGender['menu'].configure(font=('Arial', 12))
-    dropDownGender.grid(column=1, row=0, sticky=W,
-                        padx=padx, pady=pady, columnspan=1)
+    tkinter.Label(f_all_change_person, text="Thay đổi nhân khẩu",
+                  font=font_header1, justify=CENTER).grid(column=0, row=0, columnspan=4)
 
     # row 1
-    tkinter.Button(
-        f_all_change_person, text="Gửi", font=font_content, relief="groove", cursor='hand2', command=lambda: submit(chosed.get())).grid(column=0, row=1, padx=padx, pady=pady, columnspan=2)
 
     # # row 2
     # tkinter.Label(
