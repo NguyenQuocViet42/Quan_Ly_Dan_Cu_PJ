@@ -208,10 +208,17 @@ def ThongKeTheoDoTuoi():
     LaoDong = [15,60]
     NghiHuu = [61,999]
     CacKhoangTuoi = [MamNon, MauGiao, Cap1, Cap2, Cap3, LaoDong, NghiHuu]
-    ThongKe = [0, 0, 0, 0, 0, 0, 0]
+    ThongKeDoTuoi = [0, 0, 0, 0, 0, 0, 0]
     DanhSachTuoi = connectDB.LayDanhSachTuoi()
     for tuoi in DanhSachTuoi:
         for i in range(len(CacKhoangTuoi)):
             if CheckTuoi(tuoi, CacKhoangTuoi[i]):
-                ThongKe[i] +=1
-    return ThongKe
+                ThongKeDoTuoi[i] +=1
+    return ThongKeDoTuoi
+
+""" Thống kê tạm trú, tạm vắng """
+# Hàm trả về 2 giá trị: Số lượng tạm trú, số lượng tạm vắng
+def ThongKeTamtruTamVang():
+    SoLuongTamTru = connectDB.LaySoLuongTamTru()
+    SoLuongTamVang = connectDB.LaySoLuongTamVang()
+    return SoLuongTamTru, SoLuongTamVang

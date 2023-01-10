@@ -172,3 +172,19 @@ def LayDanhSachTuoi():
         DanhSachTuoi.append(i[0])
     return DanhSachTuoi
     
+# Hàm trả về số lượng tạm trú, số lượng tạm vắng
+def LaySoLuongTamVang():
+    try:
+        query = " select count(MaGiayTamVang) from TamVang"
+        cursor.execute(query)
+        return cursor.fetchall()[0][0]
+    except:
+        return 0
+    
+def LaySoLuongTamTru():
+    try:
+        query = " select count(MaGiayTamTru) from TamTru"
+        cursor.execute(query)
+        return cursor.fetchall()[0][0]
+    except:
+        return 0
