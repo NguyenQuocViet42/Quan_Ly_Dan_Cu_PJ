@@ -80,7 +80,7 @@ def CapGiayTamVang(HoTen , CCCD, NoiTamVang ,NgayBatDau: datetime.datetime, Ngay
         error_code = 1
         return error_code
     connectDB.InsertTamVang(HoTen, CCCD, NoiTamVang, NgayBatDau, NgayKetThuc, LyDo, NgayLamDon)
-    NoiDung = 'Cấp giấy tạm vắng cho cư dân ' + HoTen + ', số căn cước ' + CCCD + ' từ ngày ' + str(NgayBatDau) + ' đến ngày ' + str(NgayKetThuc)
+    NoiDung = 'Cấp giấy tạm vắng cho cư dân ' + HoTen + ', số căn cước ' + CCCD + ' từ ngày ' + str(NgayBatDau).split(' ')[0] + ' đến ngày ' + str(NgayKetThuc).split(' ')[0]
     connectDB.insertBienDoi(KieuBienDoi='Cấp giấy tạm vắng', NoiDungBienDoi = NoiDung, MaSo = MaSo)
     return error_code
 
@@ -99,7 +99,7 @@ def CapGiayTamTru(HoTen , CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.d
         error_code = 1
         return error_code
     connectDB.InsertTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau, NgayKetThuc, LyDo, NgayLamDon)
-    NoiDung = 'Cấp giấy tạm trú cho cư dân ' + HoTen + ', số căn cước ' + CCCD + ' từ ngày ' + str(NgayBatDau) + ' đến ngày ' + str(NgayKetThuc) + ' tại ' + DiaChiThuongTru
+    NoiDung = 'Cấp giấy tạm trú cho cư dân ' + HoTen + ', số căn cước ' + CCCD + ' từ ngày ' + str(NgayBatDau).split(' ')[0] + ' đến ngày ' + str(NgayKetThuc).split(' ')[0] + ' tại ' + DiaChiThuongTru
     connectDB.insertBienDoi(KieuBienDoi='Cấp giấy tạm trú', NoiDungBienDoi = NoiDung, MaSo = MaSo)
     return error_code
 
@@ -108,3 +108,13 @@ def CapGiayTamTru(HoTen , CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.d
 def XemGiayTamTru(HoTen, CCCD):
     ThongTinGiayTamTru = connectDB.getTamTru(HoTen, CCCD)[0]
     return ThongTinGiayTamTru
+
+""" Xem lịch sử biến đổi nhân khẩu """
+# Hàm trả về danh sách tất cả Thay đổi nhân khẩu
+# Thông tin một bảng thay đổi: MaBienDoi, Ngay, KieuBienDoi, NoiDungBienDoi, MaSo
+def LayLichSuBienDoiNhanKhau(MaSo):
+    return connectDB.GetDanhSachThayDoiNhanKhau()
+
+# Hàm trả thông tin của các bản thay đổi nhân khẩu của một Sổ Hộ Khẩu
+def XemLichSuBienDoiNhanKhau(MaSo):
+    return connectDB.XemDanhSachThayDoiNhanKhau(MaSo)

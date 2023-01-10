@@ -137,3 +137,16 @@ def TimIDTuMaSoCCCDHoTen(MaSo, CCCD, HoTen):
     values = (MaSo, CCCD, HoTen)
     cursor.execute(query, values)
     return cursor.fetchall()[0][0]
+
+# Hàm trả về danh sách tất cả Thay đổi nhân khẩu
+def GetDanhSachThayDoiNhanKhau():
+    query = "select * from BienDoi"
+    cursor.execute(query)
+    return cursor.fetchall()
+
+# Hàm trả về danh sách tất cả Thay đổi nhân khẩu của một Hộ khẩu
+def XemDanhSachThayDoiNhanKhau(MaSo):
+    query = "select * from BienDoi where MaSo = ?"
+    val = (MaSo,)
+    cursor.execute(query, val)
+    return cursor.fetchall()
