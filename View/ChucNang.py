@@ -133,8 +133,13 @@ def CapGiayTamVang(HoTen, CCCD, NoiTamVang, NgayBatDau: datetime.datetime, NgayK
 
 
 def XemGiayTamVang(HoTen, CCCD):
-    ThongTinGiayTamVang = connectDB.getTamVang(HoTen, CCCD)[0]
-    return ThongTinGiayTamVang
+    error_code = 0
+    try :
+        ThongTinGiayTamVang = connectDB.getTamVang(HoTen, CCCD)[0]
+    except:
+        error_code = 1
+        return 1,1
+    return error_code, ThongTinGiayTamVang
 
 # ----------------------------------------------------------------
 
@@ -160,20 +165,25 @@ def CapGiayTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.da
 
 
 def XemGiayTamTru(HoTen, CCCD):
-    ThongTinGiayTamTru = connectDB.getTamTru(HoTen, CCCD)[0]
-    return ThongTinGiayTamTru
+    try:
+        ThongTinGiayTamTru = connectDB.getTamTru(HoTen, CCCD)[0]
+    except:
+        return 1,1
+    return 0, ThongTinGiayTamTru
 
 
 """ Xem lịch sử biến đổi nhân khẩu """
 # Hàm trả về danh sách tất cả Thay đổi nhân khẩu
 # Thông tin một bảng thay đổi: MaBienDoi, Ngay, KieuBienDoi, NoiDungBienDoi, MaSo
-
-
-def LayLichSuBienDoiNhanKhau(MaSo):
-    return connectDB.GetDanhSachThayDoiNhanKhau()
+def LayLichSuBienDoiNhanKhau():
+    try:
+        return 0, connectDB.GetDanhSachThayDoiNhanKhau()
+    except:
+        return 1,1
 
 # Hàm trả thông tin của các bản thay đổi nhân khẩu của một Sổ Hộ Khẩu
-
-
 def XemLichSuBienDoiNhanKhau(MaSo):
-    return connectDB.XemDanhSachThayDoiNhanKhau(MaSo)
+    try:
+        return 0, connectDB.XemDanhSachThayDoiNhanKhau(MaSo)
+    except:
+        return 1,1
