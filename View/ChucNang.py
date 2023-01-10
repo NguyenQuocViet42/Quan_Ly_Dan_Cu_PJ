@@ -37,7 +37,8 @@ def ThemNhanKhauMoi(CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghie
     
 """ Thay đổi nhân khẩu: nếu có một nhân khẩu chuyển đi nơi khác thì sẽ thêm các chi tiết như sau: ngày chuyển đi, nơi chuyển, ghi chú. Trường hợp 
 nhân khẩu qua đời thì phần ghi chú là “Đã qua đời” """
-def ThayDoiNhanKhau(ID, NgayChuyenDi, NoiChuyenDi, GhiChu, HoTen, CCCD, MaSo):
+def ThayDoiNhanKhau(NgayChuyenDi, NoiChuyenDi, GhiChu, HoTen, CCCD, MaSo):
+    ID = connectDB.TimIDTuMaSoCCCDHoTen(MaSo, CCCD, HoTen)
     NgayChuyenDi = str(NgayChuyenDi)
     NgayChuyenDi = NgayChuyenDi.split(' ')[0]
     connectDB.updateCUDAN_ChuyenDi(ID, NgayChuyenDi, NoiChuyenDi, GhiChu)
@@ -61,7 +62,7 @@ def TachHoKhau(HoKhau_1, HoKhau_2):
     connectDB.DeleteSoHoKhau(MaSo_1)
     connectDB.InsertSoHoKhau(MaSo_1, DanhSachNhanKhau, SoNha, Phuong, Quan, Tinh)
     MaSo_2, DanhSachNhanKhau, SoNha, Phuong, Quan, Tinh = HoKhau_2[0], HoKhau_2[1], HoKhau_2[2], HoKhau_2[3], HoKhau_2[4], HoKhau_2[5]
-    MaSo_2 = random.randint(100000002, 999999999)
+    MaSo_2 = random.randint(240000002, 259999999)
     DanhSachMaHoKhau = connectDB.LayDanhSachMaHoKhau()
     while MaSo_2 in DanhSachMaHoKhau:
         MaSo_2 = random.randint(100000002, 999999999)

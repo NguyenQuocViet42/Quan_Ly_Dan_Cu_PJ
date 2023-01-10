@@ -130,3 +130,10 @@ def getTamTru(HoTen, CCCD):
     values = (HoTen, CCCD)
     cursor.execute(query, values)
     return cursor.fetchall()
+
+# Tìm ID dựa trên MaSo, CCCD, HoTen
+def TimIDTuMaSoCCCDHoTen(MaSo, CCCD, HoTen):
+    query = " select ID from CUDAN where MaSo = ? and CCCD = ? and HoTen = ? "
+    values = (MaSo, CCCD, HoTen)
+    cursor.execute(query, values)
+    return cursor.fetchall()[0][0]
