@@ -20,7 +20,13 @@ def XemSoHoKhau(MaSo):
     # ID ,CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, Mã sổ , QuanHe, Ngày đăng kí thường trú, dịa chỉ cũ, Ngày chuyển đi, nơi chuyển đi, ghi chú
     for i in range(len(ListCCCD)):
         thongtincudan = connectDB.getCUDAN(ListCCCD[i][0])[0]
-        ListCuDan.append(tuple(thongtincudan))
+        ListCuDan.append(list(thongtincudan))
+    for i in range(len(ListCuDan)):
+        if ListCuDan[i][11].upper() == 'Chủ Hộ'.upper():
+            tmp = ListCuDan[0]
+            ListCuDan[0] = ListCuDan[i]
+            ListCuDan[i] = tmp
+            break
     return error_code, HoKhau, ListCuDan
 
 
@@ -133,8 +139,13 @@ def CapGiayTamVang(HoTen, CCCD, NoiTamVang, NgayBatDau: datetime.datetime, NgayK
 
 
 def XemGiayTamVang(HoTen, CCCD):
-    ThongTinGiayTamVang = connectDB.getTamVang(HoTen, CCCD)[0]
-    return ThongTinGiayTamVang
+    error_code = 0
+    try :
+        ThongTinGiayTamVang = connectDB.getTamVang(HoTen, CCCD)[0]
+    except:
+        error_code = 1
+        return 1,1
+    return error_code, ThongTinGiayTamVang
 
 # ----------------------------------------------------------------
 
@@ -160,20 +171,60 @@ def CapGiayTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.da
 
 
 def XemGiayTamTru(HoTen, CCCD):
-    ThongTinGiayTamTru = connectDB.getTamTru(HoTen, CCCD)[0]
-    return ThongTinGiayTamTru
+    try:
+        ThongTinGiayTamTru = connectDB.getTamTru(HoTen, CCCD)[0]
+    except:
+        return 1,1
+    return 0, ThongTinGiayTamTru
 
 
 """ Xem lịch sử biến đổi nhân khẩu """
 # Hàm trả về danh sách tất cả Thay đổi nhân khẩu
 # Thông tin một bảng thay đổi: MaBienDoi, Ngay, KieuBienDoi, NoiDungBienDoi, MaSo
-
-
-def LayLichSuBienDoiNhanKhau(MaSo):
-    return connectDB.GetDanhSachThayDoiNhanKhau()
+def LayLichSuBienDoiNhanKhau():
+    try:
+        return 0, connectDB.GetDanhSachThayDoiNhanKhau()
+    except:
+        return 1,1
 
 # Hàm trả thông tin của các bản thay đổi nhân khẩu của một Sổ Hộ Khẩu
-
-
 def XemLichSuBienDoiNhanKhau(MaSo):
-    return connectDB.XemDanhSachThayDoiNhanKhau(MaSo)
+    try:
+        return 0, connectDB.XemDanhSachThayDoiNhanKhau(MaSo)
+    except:
+        return 1,1
+
+""" Thống kê theo giới tính """
+def ThongKeGioiTinh():
+    # Trả về số lượng Nam, Nữ
+    return connectDB.LaySoLuongGioiTinh()
+
+""" Thống kê theo độ tuổi theo độ tuổi (mầm non / mẫu giáo / cấp 1 / cấp 2 / cấp 3 / độ tuổi lao động / nghỉ hưu) """
+def CheckTuoi(Tuoi, Khoang):
+    if Tuoi >= Khoang[0] and Tuoi <= Khoang[1]:
+        return 1
+    return 0
+# Hàm trả về list chứa số lượng cư dân ứng với các độ tuổi: mầm non / mẫu giáo / cấp 1 / cấp 2 / cấp 3 / độ tuổi lao động / nghỉ hưu
+def ThongKeTheoDoTuoi():
+    MamNon = [0,3]
+    MauGiao = [3,5]
+    Cap1 = [6,10]
+    Cap2 = [11,15]
+    Cap3 = [15,18]
+    LaoDong = [15,60]
+    NghiHuu = [61,999]
+    CacKhoangTuoi = [MamNon, MauGiao, Cap1, Cap2, Cap3, LaoDong, NghiHuu]
+    ThongKeDoTuoi = [0, 0, 0, 0, 0, 0, 0]
+    DanhSachTuoi = connectDB.LayDanhSachTuoi()
+    for tuoi in DanhSachTuoi:
+        for i in range(len(CacKhoangTuoi)):
+            if CheckTuoi(tuoi, CacKhoangTuoi[i]):
+                ThongKeDoTuoi[i] +=1
+    return ThongKeDoTuoi
+
+""" Thống kê tạm trú, tạm vắng """
+# Hàm trả về 2 giá trị: Số lượng tạm trú, số lượng tạm vắng
+def ThongKeTamtruTamVang():
+    SoLuongTamTru = connectDB.LaySoLuongTamTru()
+    SoLuongTamVang = connectDB.LaySoLuongTamVang()
+    return SoLuongTamTru, SoLuongTamVang

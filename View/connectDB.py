@@ -32,8 +32,8 @@ def getCUDAN(ID):
 
 # Lấy mã hộ khẩu từ tên và cccd
 def LayMaHoKhauTuTenCCCD(HoTen, CCCD):
-    query = " select MaSo from CUDAN where HoTen = ? and CCCD = ? "
-    values = (HoTen, CCCD)
+    query = " select MaSo from CUDAN where upper(HoTen) = ? and CCCD = ? "
+    values = (HoTen.upper(), CCCD)
     cursor.execute(query, values)
     return cursor.fetchall()[0][0]
 
@@ -113,8 +113,8 @@ def InsertTamVang(HoTen, CCCD, NoiTamVang, Tu, Den, LyDo, NgayLamDon):
     mydb.commit()
 # Xem giấy tạm vắng
 def getTamVang(HoTen, CCCD):
-    query = " select * from TAMVANG where HoTen = ? and CCCD = ?"
-    values = (HoTen, CCCD)
+    query = " select * from TAMVANG where upper(HoTen) = ? and CCCD = ?"
+    values = (HoTen.upper(), CCCD)
     cursor.execute(query, values)
     return cursor.fetchall()
 
@@ -126,15 +126,15 @@ def InsertTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, Tu, Den, LyDo, NgayLamDo
     mydb.commit()
 # Xem giấy tạm trú
 def getTamTru(HoTen, CCCD):
-    query = " select * from TAMTRU where HoTen = ? and CCCD = ?"
-    values = (HoTen, CCCD)
+    query = " select * from TAMTRU where upper(HoTen) = ? and CCCD = ?"
+    values = (HoTen.upper(), CCCD)
     cursor.execute(query, values)
     return cursor.fetchall()
 
 # Tìm ID dựa trên MaSo, CCCD, HoTen
 def TimIDTuMaSoCCCDHoTen(MaSo, CCCD, HoTen):
-    query = " select ID from CUDAN where MaSo = ? and CCCD = ? and HoTen = ? "
-    values = (MaSo, CCCD, HoTen)
+    query = " select ID from CUDAN where MaSo = ? and CCCD = ? and upper(HoTen) = ? "
+    values = (MaSo, CCCD, HoTen.upper())
     cursor.execute(query, values)
     return cursor.fetchall()[0][0]
 
@@ -150,3 +150,41 @@ def XemDanhSachThayDoiNhanKhau(MaSo):
     val = (MaSo,)
     cursor.execute(query, val)
     return cursor.fetchall()
+
+# Hàm trả về số lượng giới tính nam và nữ trong tổ dân phố
+def LaySoLuongGioiTinh():
+    query = " select count(ID) from CUDAN"
+    cursor.execute(query)
+    SoLuongCuDan = cursor.fetchall()[0][0]
+    query = " select count(ID) from CUDAN where upper(GioiTinh) = upper('Nam')"
+    cursor.execute(query)
+    SoLuongNam = cursor.fetchall()[0][0]
+    SoLuongNu = SoLuongCuDan - SoLuongNam
+    return SoLuongNam, SoLuongNu
+
+# Hàm trả về danh sách tuổi của tất cả Cư dân
+def LayDanhSachTuoi():
+    query = " select ( year(getdate()) - year(NgaySinh)) from CUDAN "
+    cursor.execute(query)
+    DuLieuTuoi = cursor.fetchall()
+    DanhSachTuoi = []
+    for i in DuLieuTuoi:
+        DanhSachTuoi.append(i[0])
+    return DanhSachTuoi
+    
+# Hàm trả về số lượng tạm trú, số lượng tạm vắng
+def LaySoLuongTamVang():
+    try:
+        query = " select count(MaGiayTamVang) from TamVang"
+        cursor.execute(query)
+        return cursor.fetchall()[0][0]
+    except:
+        return 0
+    
+def LaySoLuongTamTru():
+    try:
+        query = " select count(MaGiayTamTru) from TamTru"
+        cursor.execute(query)
+        return cursor.fetchall()[0][0]
+    except:
+        return 0
