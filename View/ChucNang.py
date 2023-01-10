@@ -187,3 +187,31 @@ def XemLichSuBienDoiNhanKhau(MaSo):
         return 0, connectDB.XemDanhSachThayDoiNhanKhau(MaSo)
     except:
         return 1,1
+
+""" Thống kê theo giới tính """
+def ThongKeGioiTinh():
+    # Trả về số lượng Nam, Nữ
+    return connectDB.LaySoLuongGioiTinh()
+
+""" Thống kê theo độ tuổi theo độ tuổi (mầm non / mẫu giáo / cấp 1 / cấp 2 / cấp 3 / độ tuổi lao động / nghỉ hưu) """
+def CheckTuoi(Tuoi, Khoang):
+    if Tuoi >= Khoang[0] and Tuoi <= Khoang[1]:
+        return 1
+    return 0
+# Hàm trả về list chứa số lượng cư dân ứng với các độ tuổi: mầm non / mẫu giáo / cấp 1 / cấp 2 / cấp 3 / độ tuổi lao động / nghỉ hưu
+def ThongKeTheoDoTuoi():
+    MamNon = [0,3]
+    MauGiao = [3,5]
+    Cap1 = [6,10]
+    Cap2 = [11,15]
+    Cap3 = [15,18]
+    LaoDong = [15,60]
+    NghiHuu = [61,999]
+    CacKhoangTuoi = [MamNon, MauGiao, Cap1, Cap2, Cap3, LaoDong, NghiHuu]
+    ThongKe = [0, 0, 0, 0, 0, 0, 0]
+    DanhSachTuoi = connectDB.LayDanhSachTuoi()
+    for tuoi in DanhSachTuoi:
+        for i in range(len(CacKhoangTuoi)):
+            if CheckTuoi(tuoi, CacKhoangTuoi[i]):
+                ThongKe[i] +=1
+    return ThongKe

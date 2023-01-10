@@ -1,4 +1,4 @@
 ﻿use QLCUDAN
 
-alter table SOHOKHAU
-alter column MaSo nvarchar(10)
+select ( year(getdate()) - year(NgaySinh))
+from CUDAN
