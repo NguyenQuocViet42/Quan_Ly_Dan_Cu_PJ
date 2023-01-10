@@ -20,7 +20,13 @@ def XemSoHoKhau(MaSo):
     # ID ,CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, Mã sổ , QuanHe, Ngày đăng kí thường trú, dịa chỉ cũ, Ngày chuyển đi, nơi chuyển đi, ghi chú
     for i in range(len(ListCCCD)):
         thongtincudan = connectDB.getCUDAN(ListCCCD[i][0])[0]
-        ListCuDan.append(tuple(thongtincudan))
+        ListCuDan.append(list(thongtincudan))
+    for i in range(len(ListCuDan)):
+        if ListCuDan[i][11].upper() == 'Chủ Hộ'.upper():
+            tmp = ListCuDan[0]
+            ListCuDan[0] = ListCuDan[i]
+            ListCuDan[i] = tmp
+            break
     return error_code, HoKhau, ListCuDan
 
 
