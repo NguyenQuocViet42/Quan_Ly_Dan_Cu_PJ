@@ -388,35 +388,29 @@ def Home():
         requestFrame_bottom_home, text="Gửi yêu cầu", font=font_header2, anchor=W, padx=20, pady=10, bg=win_bg)
     labelText_request.place(relx=0, rely=0, relwidth=1, anchor=NW)
     # ---------------------------------------
-
+    # thay đổi nhân khẩu
     buttonChangePerson = tkinter.Button(
         requestFrame_bottom_home, cursor="hand2", image=changePersonImage, borderwidth=0, bg=win_bg, command=lambda: switch(f_authen_change))
     buttonChangePerson.place(
         relx=0.1, rely=0.1, relwidth=0.8, relheight=0.07, anchor=NW)
-    # -----------------------------------------
-
-    buttonViewMyInfo = tkinter.Button(
-        requestFrame_bottom_home, cursor="hand2", image=viewMyInfoImage, borderwidth=0, bg=win_bg, command=lambda: switch(f_authen_view_my_info))
-    buttonViewMyInfo.place(
-        relx=0.1, rely=0.18, relwidth=0.8, relheight=0.07, anchor=NW)
     # -------------------------------------------
-
+    # tách khẩu
     buttonTachKhau = tkinter.Button(
         requestFrame_bottom_home, cursor="hand2", image=tachKhauImage, borderwidth=0, bg=win_bg, command=lambda: switch(f_authen_tach_khau))
     buttonTachKhau.place(
-        relx=0.1, rely=0.26, relwidth=0.8, relheight=0.07, anchor=NW)
+        relx=0.1, rely=0.18, relwidth=0.8, relheight=0.07, anchor=NW)
     # ---------------------------------------------
-
+    # tạm trú
     buttonTamTru = tkinter.Button(
         requestFrame_bottom_home, cursor="hand2", image=tamTruImage, borderwidth=0, bg=win_bg, command=lambda: switch(f_tam_tru))
     buttonTamTru.place(
-        relx=0.1, rely=0.34, relwidth=0.8, relheight=0.07, anchor=NW)
+        relx=0.1, rely=0.26, relwidth=0.8, relheight=0.07, anchor=NW)
     # ------------------------------------------------
-
+    # tạm vắng
     buttonTamVang = tkinter.Button(
         requestFrame_bottom_home, cursor="hand2", image=tamVangImage, borderwidth=0, bg=win_bg, command=lambda: switch(f_tam_vang))
     buttonTamVang.place(
-        relx=0.1, rely=0.42, relwidth=0.8, relheight=0.07, anchor=NW)
+        relx=0.1, rely=0.34, relwidth=0.8, relheight=0.07, anchor=NW)
 
     # ------------------------------------------------
 
