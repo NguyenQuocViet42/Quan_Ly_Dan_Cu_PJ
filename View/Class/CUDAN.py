@@ -1,10 +1,10 @@
 import datetime
 class CUDAN:
-    def __init__(self, ID, CCCD ,Ten, GioiTinh, NgaySinh: datetime.datetime, DanToc, QuocTich, NgheNghiep, 
+    def __init__(self, ID, CCCD ,HoTen, GioiTinh, NgaySinh: datetime.datetime, DanToc, QuocTich, NgheNghiep, 
                 QueQuan, BiDanh, MaSo, QuanHe, NgayDangKyThuongtru, DiaChiCu, NgayChuyenDi, NoiChuyenDi, GhiChu):
         self.ID = ID
         self.CCCD = CCCD
-        self.Ten = Ten
+        self.HoTen = HoTen
         self.GioiTinh = GioiTinh
         self.NgaySinh = NgaySinh
         self.DanToc = DanToc
@@ -19,21 +19,6 @@ class CUDAN:
         self.NgayChuyenDi = NgayChuyenDi
         self.NoiChuyenDi = NoiChuyenDi
         self.GhiChu = GhiChu
-    def __init__(self, values):
-        self.ID = values[0]
-        self.CCCD = values[1]
-        self.Ten = values[2]
-        self.GioiTinh = values[3]
-        self.NgaySinh = values[4]
-        self.DanToc = values[5]
-        self.QuocTich = values[6]
-        self.NgheNghiep = values[7]
-        self.QueQuan = values[8]
-        self.BiDanh = values[9]
-        self.MaSo = values[10]
-        self.QuanHe = values[11]
-        self.NgayDangKyThuongtru = values[12]
-        self.DiaChiCu = values[13]
-        self.NgayChuyenDi = values[14]
-        self.NoiChuyenDi = values[15]
-        self.GhiChu = values[16]
+    def init_values(values):
+        CuDan = CUDAN(values[0],values[1],values[2],values[3],values[4],values[5],values[6],values[7],values[8],values[9],values[10],values[11],values[12],values[13],values[14],values[15],values[16])
+        return CuDan
