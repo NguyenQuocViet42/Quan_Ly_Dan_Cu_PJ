@@ -7,7 +7,7 @@ from Class.CUDAN import CUDAN as TaoCuDan
 
 # create connection object
 mydb = pyodbc.connect('Driver={SQL Server};'
-                      'Server=DESKTOP-EP0NASK;'  # DESKTOP-EP0NASK
+                      'Server=LAPTOP-H9AI1NN1;'  # DESKTOP-EP0NASK
                       'Database=QLCUDAN;'
                       'Trusted_Connection=yes;')
 
@@ -57,13 +57,7 @@ def LayMaHoKhauTuTenCCCD(HoTen, CCCD):
     cursor.execute(query, values)
     return cursor.fetchall()[0][0]
 
-<<<<<<< Updated upstream
 # Lấy thông tin hộ khẩu
-
-
-=======
-#Lấy thông tin hộ khẩu, Trả về hộ khẩu
->>>>>>> Stashed changes
 def getHoKhau(hostId):
     query = "SELECT * FROM SOHOKHAU WHERE  MaSo = ?"
     val = (hostId,)
@@ -81,17 +75,11 @@ def getListCuDanFromHoKhau(MaSo):
     cursor.execute(query, val)
     return cursor.fetchall()
 # Thêm vào bảng Biến Đổi
-<<<<<<< Updated upstream
 
 
 def insertBienDoi(KieuBienDoi, NoiDungBienDoi, MaSo):
     query = "insert into BIENDOI values (getdate(), ?, ?, ?)"
     val = (KieuBienDoi, NoiDungBienDoi, MaSo)
-=======
-def insertBienDoi(biendoi):
-    query = "insert into BIENDOI values (getdate(), ?, ?, ?,?)"
-    val = tuple(biendoi.__dict__.values())[2:]
->>>>>>> Stashed changes
     cursor.execute(query, val)
     mydb.commit()
 
