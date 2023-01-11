@@ -1,5 +1,9 @@
 # import required modules
 import pyodbc
+from Class.SOHOKHAU import SOHOKHAU as TaoHoKhau
+from Class.DangNhap import DangNhap as QL
+from Class.BIENDOI import BIENDOI as TaoBienDoi
+from Class.CUDAN import CUDAN as TaoCuDan
 
 # create connection object
 mydb = pyodbc.connect('Driver={SQL Server};'
@@ -9,7 +13,17 @@ mydb = pyodbc.connect('Driver={SQL Server};'
 
 # create cursor object
 cursor = mydb.cursor()
+QuanLy = QL('captren08','vietdeptrai','Nguyễn Quốc Việt')
 
+# Check thông tin đăng nhập
+def CheckThongTinDangNhap(IDQuanLy, MatKhau):
+    query = " select * from DANGNHAP where IDQuanLy = ? and MatKhau = ?"
+    values = (IDQuanLy, MatKhau)
+    cursor.execute(query, values)
+    return cursor.fetchall()[0]
+def SetQuanLy(quanly):
+    global QuanLy
+    QuanLy = quanly
 
 def getAllHoKhau():
     query = "SELECT * FROM SOHOKHAU"
@@ -43,14 +57,20 @@ def LayMaHoKhauTuTenCCCD(HoTen, CCCD):
     cursor.execute(query, values)
     return cursor.fetchall()[0][0]
 
+<<<<<<< Updated upstream
 # Lấy thông tin hộ khẩu
 
 
+=======
+#Lấy thông tin hộ khẩu, Trả về hộ khẩu
+>>>>>>> Stashed changes
 def getHoKhau(hostId):
     query = "SELECT * FROM SOHOKHAU WHERE  MaSo = ?"
     val = (hostId,)
     cursor.execute(query, val)
-    return cursor.fetchall()
+    MaSo, SoThanhVien, SoNha, Phuong, Huyen, Tinh, IDChuHo = cursor.fetchall()[0]
+    hokhau = TaoHoKhau(MaSo, SoThanhVien, SoNha, Phuong, Huyen, Tinh, IDChuHo)
+    return hokhau
 
 # Lấy danh sách ID cư dân thuộc hộ khẩu
 
@@ -61,11 +81,17 @@ def getListCuDanFromHoKhau(MaSo):
     cursor.execute(query, val)
     return cursor.fetchall()
 # Thêm vào bảng Biến Đổi
+<<<<<<< Updated upstream
 
 
 def insertBienDoi(KieuBienDoi, NoiDungBienDoi, MaSo):
     query = "insert into BIENDOI values (getdate(), ?, ?, ?)"
     val = (KieuBienDoi, NoiDungBienDoi, MaSo)
+=======
+def insertBienDoi(biendoi):
+    query = "insert into BIENDOI values (getdate(), ?, ?, ?,?)"
+    val = tuple(biendoi.__dict__.values())[2:]
+>>>>>>> Stashed changes
     cursor.execute(query, val)
     mydb.commit()
 

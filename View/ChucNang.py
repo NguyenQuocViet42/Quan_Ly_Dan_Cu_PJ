@@ -1,20 +1,33 @@
 import connectDB
 import random
 import datetime
+from Class.DangNhap import DangNhap as QL
+from Class.CUDAN import CUDAN as TaoCuDan
+from Class.BIENDOI import BIENDOI as TaoBienDoi
+from Class.SOHOKHAU import SOHOKHAU as TaoHoKhau
+
+QuanLy = QL('captren08','vietdeptrai','Nguyễn Quốc Việt')
+""" Đăng nhập """
+# Nếu đăng nhập thành công, trả về đối tượng đăng nhập
+def DangNhap(IDQuanLy, MatKhau):
+    ThongTin = connectDB.CheckThongTinDangNhap(IDQuanLy, MatKhau)
+    quanly = QL(ThongTin[0], ThongTin[1], ThongTin[2])
+    global QuanLy
+    QuanLy = quanly
+    connectDB.SetQuanLy(quanly)
+    return quanly
 
 """ Xem thông tin hộ khẩu | Trả về 2 list, list đầu tiên là thông tin hộ khẩu, list tiếp theo là thông tin các cư dân """
-
-
 def XemSoHoKhau(MaSo):
     error_code = 0
     # Thông tin hộ khẩu:
     # MaSo, CCCDChuHo, SoThanhVien, SoNha/TenDuong, Phuong/Xa, Quan/Huyen,Tinh
     try:
-        HoKhau = connectDB.getHoKhau(MaSo)[0]
+        HoKhau = connectDB.getHoKhau(MaSo)
     except:
         error_code = 1
         return error_code, 1, 1
-    ListCCCD = connectDB.getListCuDanFromHoKhau(HoKhau[0])
+    ListCCCD = connectDB.getListCuDanFromHoKhau(HoKhau.MaSo)
     ListCuDan = []
     # Thông tin nhân khẩu:
     # ID ,CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, Mã sổ , QuanHe, Ngày đăng kí thường trú, dịa chỉ cũ, Ngày chuyển đi, nơi chuyển đi, ghi chú
@@ -33,20 +46,17 @@ def XemSoHoKhau(MaSo):
 """ Thêm nhân khẩu mới gia đình sinh thêm con thì sẽ thêm mới thông tin nhân khẩu như trên, bỏ trống các chi tiết về nghề nghiệp, CMND và nơi
  thường trú chuyển đến sẽ ghi là “mới sinh” """
 # Thông tin nhân khẩu:
-# CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, Mã sổ , QuanHe, Ngày đăng kí thường trú, dịa chỉ cũ
+# CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, Mã sổ , QuanHe, Ngày đăng kí thường trú, dịa chỉ cũ, Ngày chuyển đi, nơi chuyển đi, ghi chú
 
 
 def ThemNhanKhauMoi(CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu):
-    CCCD = 'Mới Sinh'
-    DiaChiCu = 'Mới Sinh'
-    NgheNghiep = None
     val = (CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan,
            BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu, None, None, None)
     # Thêm vào data base
     connectDB.insertCUDAN(val)
-    NoiDung = 'Thêm nhân khẩu ' + Hoten + ' ' + CCCD + ' vào hộ khẩu ' + MaSo
-    connectDB.insertBienDoi(KieuBienDoi='Thêm nhân khẩu mới',
-                            NoiDungBienDoi=NoiDung, MaSo=MaSo)
+    NoiDung = 'Thêm nhân khẩu ' + Hoten + ' ' + CCCD + ' vào hộ khẩu ' + str(MaSo)
+    biendoi = TaoBienDoi(1, 1,KieuBienDoi='Thêm nhân khẩu mới', NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy = QuanLy.IDQuanLy)
+    connectDB.insertBienDoi(biendoi)
 
 
 """ Thay đổi nhân khẩu: nếu có một nhân khẩu chuyển đi nơi khác thì sẽ thêm các chi tiết như sau: ngày chuyển đi, nơi chuyển, ghi chú. Trường hợp 
@@ -71,8 +81,8 @@ def ThayDoiNhanKhau(NgayChuyenDi, NoiChuyenDi, GhiChu, HoTen, CCCD, MaSo):
             return errorCode
         NoiDung = 'Thành viên ' + HoTen + ' ' + CCCD + ' của Hộ Khẩu ' + MaSo + \
             ' chuyển đi ' + NoiChuyenDi + ' vào ngày ' + NgayChuyenDi
-    connectDB.insertBienDoi(KieuBienDoi='Thay đổi nhân khẩu',
-                            NoiDungBienDoi=NoiDung, MaSo=MaSo)
+    biendoi = TaoBienDoi(1, 1,KieuBienDoi='Thay đổi nhân khẩu', NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy = QuanLy.IDQuanLy)
+    connectDB.insertBienDoi(biendoi)
     return errorCode
 
 
@@ -80,12 +90,13 @@ def ThayDoiNhanKhau(NgayChuyenDi, NoiChuyenDi, GhiChu, HoTen, CCCD, MaSo):
 
 
 def ThayDoiChuHo(DanhSachIDThanhVien, DanhSachQuanHe, MaSo):
+    global QuanLy
     for i in range(len(DanhSachIDThanhVien)):
         connectDB.ThayDoiQuanHe(
             ID=DanhSachIDThanhVien[i], QuanHeMoi=DanhSachQuanHe[i])
     NoiDung = 'Hộ khẩu ' + MaSo + 'thay đổi chủ hộ'
-    connectDB.insertBienDoi(KieuBienDoi='Thay đổi chủ hộ',
-                            NoiDungBienDoi=NoiDung, MaSo=MaSo)
+    biendoi = TaoBienDoi(1, 1,KieuBienDoi='Thay đổi chủ hộ', NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy = QuanLy.IDQuanLy)
+    connectDB.insertBienDoi(biendoi)
 
 
 """ Khi tách hộ từ một hộ khẩu đã có thì một sổ hộ khẩu mới sẽ được tạo ra với các nhân khẩu được chọn """
@@ -109,8 +120,8 @@ def TachHoKhau(HoKhau_1, HoKhau_2):
     NoiDung = 'Sổ hộ khẩu ' + \
         str(MaSo_1) + ' được tách thành 2 sổ hộ khẩu mới là: ' + \
         str(MaSo_1) + ' và ' + str(MaSo_2)
-    connectDB.insertBienDoi(KieuBienDoi='Tách hộ khẩu',
-                            NoiDungBienDoi=NoiDung, MaSo=MaSo_1)
+    biendoi = TaoBienDoi(1, 1,KieuBienDoi='Tách hộ khẩu', NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy = QuanLy.IDQuanLy)
+    connectDB.insertBienDoi(biendoi)
 
 
 """ Khi hộ gia đình có ai đó đi xa dài ngày thì phải đến gặp tổ trưởng thông báo và xin cấp giấy tạm vắng có thời hạn. Ngược lại nếu có nhân khẩu từ địa
@@ -131,8 +142,8 @@ def CapGiayTamVang(HoTen, CCCD, NoiTamVang, NgayBatDau: datetime.datetime, NgayK
         ' từ ngày ' + \
         str(NgayBatDau).split(' ')[0] + \
         ' đến ngày ' + str(NgayKetThuc).split(' ')[0]
-    connectDB.insertBienDoi(KieuBienDoi='Cấp giấy tạm vắng',
-                            NoiDungBienDoi=NoiDung, MaSo=MaSo)
+    biendoi = TaoBienDoi(1, 1,KieuBienDoi='Cấp giấy tạm vắng', NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy = QuanLy.IDQuanLy)
+    connectDB.insertBienDoi(biendoi)
     return error_code
 
 # Thông tin giấy tạm vắng bao gồm:
@@ -164,8 +175,8 @@ def CapGiayTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.da
     NoiDung = 'Cấp giấy tạm trú cho cư dân ' + HoTen + ', số căn cước ' + CCCD + ' từ ngày ' + \
         str(NgayBatDau).split(' ')[
             0] + ' đến ngày ' + str(NgayKetThuc).split(' ')[0] + ' tại ' + DiaChiThuongTru
-    connectDB.insertBienDoi(KieuBienDoi='Cấp giấy tạm trú',
-                            NoiDungBienDoi=NoiDung, MaSo=MaSo)
+    biendoi = TaoBienDoi(1, 1,KieuBienDoi='Cấp giấy tạm trú', NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy = QuanLy.IDQuanLy)
+    connectDB.insertBienDoi(biendoi)
     return error_code
 
 # Thông tin giấy tạm vắng bao gồm:
