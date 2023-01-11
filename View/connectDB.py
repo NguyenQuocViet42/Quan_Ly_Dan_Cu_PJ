@@ -17,10 +17,13 @@ QuanLy = QL('captren08','vietdeptrai','Nguyễn Quốc Việt')
 
 # Check thông tin đăng nhập
 def CheckThongTinDangNhap(IDQuanLy, MatKhau):
-    query = " select * from DANGNHAP where IDQuanLy = ? and MatKhau = ?"
-    values = (IDQuanLy, MatKhau)
-    cursor.execute(query, values)
-    return cursor.fetchall()[0]
+    try:
+        query = " select * from DANGNHAP where IDQuanLy = ? and MatKhau = ?"
+        values = (IDQuanLy, MatKhau)
+        cursor.execute(query, values)
+        return 0, cursor.fetchall()[0]
+    except:
+        return 1,1
 def SetQuanLy(quanly):
     global QuanLy
     QuanLy = quanly
