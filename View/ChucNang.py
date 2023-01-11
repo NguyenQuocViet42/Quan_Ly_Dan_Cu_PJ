@@ -10,12 +10,15 @@ QuanLy = QL('captren08','vietdeptrai','Nguyễn Quốc Việt')
 """ Đăng nhập """
 # Nếu đăng nhập thành công, trả về đối tượng đăng nhập
 def DangNhap(IDQuanLy, MatKhau):
-    ThongTin = connectDB.CheckThongTinDangNhap(IDQuanLy, MatKhau)
-    quanly = QL(ThongTin[0], ThongTin[1], ThongTin[2])
-    global QuanLy
-    QuanLy = quanly
-    connectDB.SetQuanLy(quanly)
-    return quanly
+    try:
+        ThongTin = connectDB.CheckThongTinDangNhap(IDQuanLy, MatKhau)
+        quanly = QL(ThongTin[0], ThongTin[1], ThongTin[2])
+        global QuanLy
+        QuanLy = quanly
+        connectDB.SetQuanLy(quanly)
+        return 0, quanly
+    except:
+        return 1,1
 
 """ Xem thông tin hộ khẩu | Trả về 2 list, list đầu tiên là thông tin hộ khẩu, list tiếp theo là thông tin các cư dân """
 def XemSoHoKhau(MaSo):
