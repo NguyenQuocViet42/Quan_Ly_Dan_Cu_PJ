@@ -4,6 +4,7 @@ from Class.SOHOKHAU import SOHOKHAU as TaoHoKhau
 from Class.DangNhap import DangNhap as QL
 from Class.BIENDOI import BIENDOI as TaoBienDoi
 from Class.CUDAN import CUDAN as TaoCuDan
+from Class.KIENNGHI import KIENNGHI as TaoKienNghi
 
 # create connection object
 mydb = pyodbc.connect('Driver={SQL Server};'
@@ -245,3 +246,32 @@ def LaySoLuongTamTru():
         return cursor.fetchall()[0][0]
     except:
         return 0
+
+# Thêm đơn kiến nghị vào DB
+def InsertDonKienNghi(DonKienNghi: TaoKienNghi):
+    # Check CCCD
+    query = " select ID from CUDAN where CCCD = ? "
+    val = (DonKienNghi.CCCD,)
+    cursor.execute(query,val)
+    i = cursor.fetchall()
+    if len(i) == 0:
+        return 1
+    query = " insert into KIENNGHI values(?,?,?,?,?,?) "
+    values = tuple(DonKienNghi.__dict__.values())[1:]
+    cursor.execute(query, values)
+    mydb.commit()
+    return 0
+
+def TimCUDANTuHoTenCCCD(HoTen, CCCD):
+    query = " select * from CUDAN where upper(HoTen) = ? and CCCD = ? "
+    val = (HoTen.upper(), CCCD)
+    cursor.execute(query,val)
+    cudan = cursor.fetchall()[0]
+    cudan = TaoCuDan(cudan)
+    return cudan
+def TimDonKienNghi(CuDan: TaoCuDan):
+    query = " select * from CUDAN where ID = ? "
+    val = (CuDan.ID,)
+    cursor.execute(query,val)
+    list = cursor.fetchall()
+    return list

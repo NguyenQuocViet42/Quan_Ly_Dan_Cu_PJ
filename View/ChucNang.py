@@ -5,10 +5,12 @@ from Class.DangNhap import DangNhap as QL
 from Class.CUDAN import CUDAN as TaoCuDan
 from Class.BIENDOI import BIENDOI as TaoBienDoi
 from Class.SOHOKHAU import SOHOKHAU as TaoHoKhau
+from Class.KIENNGHI import KIENNGHI as TaoKienNghi
 
 QuanLy = QL('captren08','vietdeptrai','Nguyễn Quốc Việt')
 """ Đăng nhập """
 # Nếu đăng nhập thành công, trả về đối tượng đăng nhập
+# Trả về 0 là lỗi đăng nhập, trả về 1 là Tổ trưởng hoặc Cấp dưới, trả về 2 là Cấp trên
 def DangNhap(IDQuanLy, MatKhau):
     try:
         ThongTin = connectDB.CheckThongTinDangNhap(IDQuanLy, MatKhau)
@@ -16,9 +18,12 @@ def DangNhap(IDQuanLy, MatKhau):
         global QuanLy
         QuanLy = quanly
         connectDB.SetQuanLy(quanly)
-        return 0, quanly
+        if quanly.IDQuanLy[0:7] == "captren":
+            return 2
+        else:
+            return 1
     except:
-        return 1,1
+        return 0
 
 """ Xem thông tin hộ khẩu | Trả về 2 list, list đầu tiên là thông tin hộ khẩu, list tiếp theo là thông tin các cư dân """
 def XemSoHoKhau(MaSo):
@@ -244,3 +249,18 @@ def ThongKeTamtruTamVang():
     SoLuongTamTru = connectDB.LaySoLuongTamTru()
     SoLuongTamVang = connectDB.LaySoLuongTamVang()
     return SoLuongTamTru, SoLuongTamVang
+
+""" Các thông tin phản ánh, kiến nghị của nhân dân trong tổ sẽ được tổ trưởng ghi nhận để tổng hợp gửi lên cấp trên. Mỗi
+phản ảnh, kiến nghị cần ghi nhận: người phản ánh, nội dung, ngày phản ánh, phân loại và trạng thái. """
+def TaoDonKienNghi(ID, CCCD, NoiDung, NgayKN: datetime.datetime, PhanLoai ,TrangThai):
+    DonKienNghi = TaoKienNghi(1, ID, CCCD, NoiDung, NgayKN, PhanLoai ,TrangThai)
+    return connectDB.InsertDonKienNghi(DonKienNghi)
+
+# Trả về Cư Dân và danh sách kiến nghị của cư dân đó
+def XemDonKienNghi(HoTen, CCCD):
+    cudan = connectDB.TimCUDANTuHoTenCCCD(HoTen, CCCD)
+    list = connectDB.TimDonKienNghi(cudan)
+    DanhSachKienNghi = []
+    for i in list:
+        DanhSachKienNghi.append(TaoKienNghi(i))
+    return cudan, DanhSachKienNghi
