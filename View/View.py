@@ -35,13 +35,20 @@ y = (hs/2) - (config.win_h/2)
 root.geometry(f"{config.win_w}x{config.win_h}+{int(x)}+0")
 
 '''Load IMAGE'''
+# Đăng nhập
+pathLogoLogin = os.path.join(
+    dirname, 'config\\image\\icon_homepage.png')
+logoIconLogin = Image.open(pathLogoLogin)
+logoLogin = logoIconLogin.resize(
+    (100, 100), Image.ANTIALIAS)
+logoLogin = ImageTk.PhotoImage(logoLogin)
 # Nav Bar
 pathLogo = os.path.join(
     dirname, 'config\\image\\icon_homepage.png')
 logoIcon = Image.open(pathLogo)
-logoIcon = logoIcon.resize(
+logo = logoIcon.resize(
     (60, 60), Image.ANTIALIAS)
-logoIcon = ImageTk.PhotoImage(logoIcon)
+logo = ImageTk.PhotoImage(logo)
 # ---------------
 pathNavHomePageIcon = os.path.join(
     dirname, 'config\\image\\icon_nav_home.png')
@@ -219,6 +226,7 @@ def switch(frame, maHoKhau="", HoKhau=(), ListCuDan=[]):
 
 
 # Tạo các frame sẵn để nâng lên khi cần xuất hiện
+
 f_home = tkinter.Frame(root)
 
 f_authen_family = tkinter.Frame(root)
@@ -257,7 +265,7 @@ def Nav():
     topFrameNav = tkinter.Frame(nav_bar, padx=10, pady=5, bg=win_bg)
     topFrameNav.place(relx=0, rely=0, relwidth=1, relheight=0.15, anchor=NW)
     # 1.1 In top nav
-    labelLogoApp = tkinter.Label(topFrameNav, image=logoIcon,
+    labelLogoApp = tkinter.Label(topFrameNav, image=logo,
                                  anchor=CENTER, bg=win_bg, padx=5)
     labelLogoApp.place(relx=0, rely=0, relheight=1, relwidth=0.3, anchor=NW)
     # 1.2 App name
@@ -343,7 +351,7 @@ def Nav():
     labelIcon_setting.place(
         relx=0, rely=0, relheight=1, relwidth=0.3, anchor=NW)
     labelText_setting = tkinter.Button(
-        settingFrame_bottom_nav, text="Setting", font=font_header3, anchor=W, bg=win_bg, borderwidth=0, cursor="hand2", command="")
+        settingFrame_bottom_nav, text="Đăng xuất", font=font_header3, anchor=W, bg=win_bg, borderwidth=0, cursor="hand2", command=lambda: LogIn())
     labelText_setting.place(
         relx=1, rely=0, relheight=1, relwidth=0.7, anchor=NE)
 
@@ -1008,5 +1016,58 @@ def ViewFamily(HoKhau, ListCuDan):
 
 
 """----------------------------------------------------------------------------------------------"""
-switch(f_home)
+
+
+def LogIn():
+    f_log_in = tkinter.Frame(root, bg="white", padx=150, pady=30)
+    f_log_in.place(relx=0, rely=0, relheight=1, relwidth=1,
+                   anchor=NW)
+    f_log_in.tkraise()
+    f_log_in.grid_columnconfigure(0, weight=1)
+    f_log_in.grid_columnconfigure(1, weight=1)
+
+    f_log_in.grid_rowconfigure(0, weight=30)
+    f_log_in.grid_rowconfigure(1, weight=1)
+    f_log_in.grid_rowconfigure(2, weight=20)
+    f_log_in.grid_rowconfigure(3, weight=10)
+    f_log_in.grid_rowconfigure(4, weight=10)
+    f_log_in.grid_rowconfigure(5, weight=20)
+    f_log_in.grid_rowconfigure(6, weight=1)
+    f_log_in.grid_rowconfigure(7, weight=50)
+
+    tkinter.Label(f_log_in, text="", bg="white", image=logoLogin, anchor=E).grid(
+        column=0, row=0, columnspan=1, padx=15, pady=5, sticky=SE)
+    tkinter.Label(f_log_in, text="Quản lý", font="Quicksand 25 bold",
+                  fg='red', bg="white", justify=LEFT, anchor=W).grid(column=1, row=0, columnspan=1, padx=15, pady=25, sticky=SW)
+
+    # horizontal separator
+    ttk.Separator(f_log_in, orient=HORIZONTAL).grid(
+        column=0, row=1, columnspan=2, sticky=EW)
+
+    tkinter.Label(f_log_in, text="Nhập thông tin tài khoản", font=font_header2, bg="white", anchor=W, justify=LEFT).grid(
+        column=0, row=2, columnspan=2, padx=180, pady=5, sticky=SW)
+    userName = tkinter.Entry(f_log_in, font=font_content, bg="white", width=60)
+    userName.insert(0, 'username')
+    userName.bind("<FocusIn>", lambda args: userName.delete('0', 'end'))
+    userName.grid(
+        column=0, row=3, columnspan=2, padx=180, pady=5, sticky=NW)
+
+    password = tkinter.Entry(f_log_in, font=font_content, bg="white", width=60)
+    password.insert(0, 'password')
+    password.bind("<FocusIn>", lambda args: password.delete('0', 'end'))
+    password.grid(
+        column=0, row=4, columnspan=2, padx=180, pady=5, sticky=NW)
+    tkinter.Button(f_log_in, text="Đăng nhập", font=font_header2, bg="blue", fg="white",
+                   command=lambda: Check(userName.get(), password.get())).grid(row=5, column=0, columnspan=2, padx=180, sticky=NW)
+    ttk.Separator(f_log_in, orient=HORIZONTAL).grid(
+        column=0, row=6, columnspan=2, sticky=EW)
+
+    def Check(tendangnhap, matkhau):
+        print(tendangnhap)
+        print(matkhau)
+        switch(f_home)
+        f_log_in.destroy()
+
+
+LogIn()
 root.mainloop()
