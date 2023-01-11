@@ -121,10 +121,11 @@ def CapGiayTamVang(HoTen, CCCD, NoiTamVang, NgayBatDau: datetime.datetime, NgayK
     error_code = 0
     try:
         MaSo = connectDB.LayMaHoKhauTuTenCCCD(HoTen, CCCD)
+        id = connectDB.TimIDTuMaSoCCCDHoTen(MaSo,CCCD, HoTen)
     except:
         error_code = 1
         return error_code
-    connectDB.InsertTamVang(HoTen, CCCD, NoiTamVang,
+    connectDB.InsertTamVang(id, HoTen, CCCD, NoiTamVang,
                             NgayBatDau, NgayKetThuc, LyDo, NgayLamDon)
     NoiDung = 'Cấp giấy tạm vắng cho cư dân ' + HoTen + ', số căn cước ' + CCCD + \
         ' từ ngày ' + \
@@ -154,10 +155,11 @@ def CapGiayTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.da
     error_code = 0
     try:
         MaSo = connectDB.LayMaHoKhauTuTenCCCD(HoTen, CCCD)
+        id = connectDB.TimIDTuMaSoCCCDHoTen(MaSo,CCCD, HoTen)
     except:
         error_code = 1
         return error_code
-    connectDB.InsertTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru,
+    connectDB.InsertTamTru(id ,HoTen, CCCD, QueQuan, DiaChiThuongTru,
                            NgayBatDau, NgayKetThuc, LyDo, NgayLamDon)
     NoiDung = 'Cấp giấy tạm trú cho cư dân ' + HoTen + ', số căn cước ' + CCCD + ' từ ngày ' + \
         str(NgayBatDau).split(' ')[
