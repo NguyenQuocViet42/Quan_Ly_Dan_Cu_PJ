@@ -888,6 +888,9 @@ def TachKhau(maHoKhau, hoKhau, listCuDan):
     f_all_tach_khau.grid_columnconfigure(1, weight=1)
     f_all_tach_khau.grid_columnconfigure(2, weight=1)
     f_all_tach_khau.grid_columnconfigure(3, weight=1)
+
+    for i in range(n+7):
+        f_all_tach_khau.grid_rowconfigure(i, weight=1)
     tkinter.Label(
         f_all_tach_khau, text="Tách khẩu", font=font_header1, justify=CENTER).grid(column=0, row=0, columnspan=3)
 
@@ -914,59 +917,79 @@ def TachKhau(maHoKhau, hoKhau, listCuDan):
         listEntry[i].grid(column=3, row=i+2, columnspan=1,
                           sticky=W, padx=10, pady=5)
 
+    tkinter.Label(f_all_tach_khau, text="Nhập địa chỉ hộ khẩu mới: ",
+                  font=font_content, anchor=W, justify=LEFT).grid(column=0, row=2+n, sticky=W, columnspan=4)
+    tkinter.Label(f_all_tach_khau, text="Số nhà:", font=font_content, anchor=W,
+                  justify=LEFT).grid(column=0, row=3+n, columnspan=1, sticky=W)
+    soNha = tkinter.Entry(f_all_tach_khau, font=font_content, width=20)
+    soNha.grid(column=1, row=3+n, columnspan=1, sticky=W)
+
+    tkinter.Label(f_all_tach_khau, text="Phường/Xã:", font=font_content,
+                  anchor=W, justify=LEFT).grid(column=2, row=3+n, columnspan=1, sticky=W)
+    phuong = tkinter.Entry(f_all_tach_khau, font=font_content, width=20)
+    phuong.grid(column=3, row=3+n, columnspan=1, sticky=W)
+
+    tkinter.Label(f_all_tach_khau, text="Quận/Huyện:", font=font_content, anchor=W,
+                  justify=LEFT).grid(column=0, row=4+n, columnspan=1, sticky=W)
+    huyen = tkinter.Entry(f_all_tach_khau, font=font_content, width=20)
+    huyen.grid(column=1, row=4+n, columnspan=1, sticky=W)
+
+    tkinter.Label(f_all_tach_khau, text="Tỉnh/Thành phố:", font=font_content,
+                  anchor=W, justify=LEFT).grid(column=2, row=4+n, columnspan=1, sticky=W)
+    tinh = tkinter.Entry(f_all_tach_khau, font=font_content, width=20)
+    tinh.grid(column=3, row=4+n, columnspan=1, sticky=W)
+
     tkinter.Button(f_all_tach_khau, text="Gửi",  font=font_header3, fg="white", bg="blue",
-                   command=lambda: submit()).grid(column=0, row=2+n, columnspan=3)
+                   command=lambda: submit()).grid(column=0, row=5+n, columnspan=3)
     errorMessage = tkinter.Label(f_all_tach_khau, text="", font=font_content,
                                  fg="red", justify=CENTER)
-    errorMessage.grid(column=0, row=3+n, columnspan=3)
+    errorMessage.grid(column=0, row=6+n, columnspan=3)
 
     # HoKhau_1 và HoKhau_2 có dạng: [ MaSo, [ [ID, QuanHe], [ID, QuanHe],... ], SoNha, Phuong, Huyen, Tinh]
     def submit():
         hoKhauOld = [maHoKhau]
         hoKhauNew = [1]
-
+        listCuDanOld = []
+        listCuDanNew = []
+        countChuHoOld = 0
+        countChuHoNew = 0
+        check = True
         for i in range(n):
-            print(listVar[i].get())
-            countChuHoOld = 0
-            countChuHoNew = 0
-            check = True
-            for i in range(n):
-                if (listEntry[i].get() == ""):
-                    check = False
-                    errorMessage['text'] = "Vui lòng điền đủ tất cả các trường quan hệ mới"
-                    break
-                # Hộ khẩu mới
-                if (listVar[i].get() == 1):
-                    hoKhauNew.append([listCuDan[i][0], listEntry[i]])
-                    if (listEntry[i].get().lower() == "chủ hộ"):
-                        countChuHoNew = countChuHoNew+1
-                else:
-                    hoKhauOld.append([listCuDan[i][0], listEntry[i]])
-                    if (listEntry[i].get().lower() == "chủ hộ"):
-                        countChuHoOld = countChuHoOld+1
+            if (listEntry[i].get() == ""):
+                check = False
+                errorMessage['text'] = "Vui lòng điền đủ tất cả các trường quan hệ mới"
+                break
+            # Hộ khẩu mới
+            if (listVar[i].get() == 1):
+                listCuDanNew.append([listCuDan[i][0], listEntry[i]])
+                if (listEntry[i].get().lower() == "chủ hộ"):
+                    countChuHoNew = countChuHoNew+1
+            else:
+                listCuDanOld.append([listCuDan[i][0], listEntry[i]])
+                if (listEntry[i].get().lower() == "chủ hộ"):
+                    countChuHoOld = countChuHoOld+1
+        hoKhauOld = hoKhauOld + [listCuDanOld, hoKhau.SoNha,
+                                 hoKhau.Phuong, hoKhau.Huyen, hoKhau.Tinh]
+        hoKhauNew = hoKhauNew + [listCuDanNew, soNha.get(),
+                                 phuong.get(), huyen.get(), tinh.get()]
 
-            hoKhauOld = hoKhauOld + [hoKhau.SoNha,
-                                     hoKhau.Phuong, hoKhau.Huyen, hoKhau.Tinh]
-            hoKhauNew = hoKhauNew + [hoKhau.SoNha,
-                                     hoKhau.Phuong, hoKhau.Huyen, hoKhau.Tinh]
+        if (countChuHoOld <= 0):
+            check = False
+            errorMessage['text'] = "Cần tồn tại ít nhất 1 chủ hộ trong hộ khẩu CŨ"
+        elif (countChuHoNew <= 0):
+            check = False
+            errorMessage['text'] = "Cần tồn tại ít nhất 1 chủ hộ trong hộ khẩu MỚI"
+        elif (countChuHoOld > 1):
+            check = False
+            errorMessage['text'] = "Có không quá 1 chủ hộ trong hộ khẩu CŨ"
+        elif (countChuHoNew > 1):
+            check = False
+            errorMessage['text'] = "Có không quá 1 chủ hộ trong hộ khẩu MỚI"
 
-            if (countChuHoOld <= 0):
-                check = False
-                errorMessage['text'] = "Cần tồn tại ít nhất 1 chủ hộ trong hộ khẩu CŨ"
-            elif (countChuHoNew <= 0):
-                check = False
-                errorMessage['text'] = "Cần tồn tại ít nhất 1 chủ hộ trong hộ khẩu MỚI"
-            elif (countChuHoOld > 1):
-                check = False
-                errorMessage['text'] = "Có không quá 1 chủ hộ trong hộ khẩu CŨ"
-            elif (countChuHoNew > 1):
-                check = False
-                errorMessage['text'] = "Có không quá 1 chủ hộ trong hộ khẩu MỚI"
-
-            if (check):
-                ChucNang.TachHoKhau(hoKhauOld, hoKhauNew)
-                messagebox.showinfo("", "Tách khẩu thành công"),
-                switch(f_home)
+        if (check):
+            ChucNang.TachHoKhau(hoKhauOld, hoKhauNew)
+            messagebox.showinfo("", "Tách khẩu thành công"),
+            switch(f_home)
 
 
 # HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.datetime, NgayKetThuc: datetime.datetime, LyDo, NgayLamDon: datetime.datetime
