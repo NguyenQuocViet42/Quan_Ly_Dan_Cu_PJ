@@ -6,6 +6,7 @@ from Class.CUDAN import CUDAN as TaoCuDan
 from Class.BIENDOI import BIENDOI as TaoBienDoi
 from Class.SOHOKHAU import SOHOKHAU as TaoHoKhau
 from Class.KIENNGHI import KIENNGHI as TaoKienNghi
+from Class.TraLoiKienNghi import TraLoiKienNghi as TaoTraLoiKienNghi
 
 QuanLy = QL('captren08','vietdeptrai','Nguyễn Quốc Việt')
 """ Đăng nhập """
@@ -114,9 +115,7 @@ def ThayDoiChuHo(DanhSachIDThanhVien, DanhSachQuanHe, MaSo):
 def TachHoKhau(HoKhau_1, HoKhau_2):
     MaSo_1, DanhSachNhanKhau, SoNha, Phuong, Quan, Tinh = HoKhau_1[
         0], HoKhau_1[1], HoKhau_1[2], HoKhau_1[3], HoKhau_1[4], HoKhau_1[5]
-    connectDB.DeleteSoHoKhau(MaSo_1)
-    connectDB.InsertSoHoKhau(MaSo_1, DanhSachNhanKhau,
-                             SoNha, Phuong, Quan, Tinh)
+    connectDB.UpdateThanhVien(MaSo_1, DanhSachNhanKhau)
     MaSo_2, DanhSachNhanKhau, SoNha, Phuong, Quan, Tinh = HoKhau_2[
         0], HoKhau_2[1], HoKhau_2[2], HoKhau_2[3], HoKhau_2[4], HoKhau_2[5]
     MaSo_2 = random.randint(240000002, 259999999)
@@ -128,7 +127,7 @@ def TachHoKhau(HoKhau_1, HoKhau_2):
     NoiDung = 'Sổ hộ khẩu ' + \
         str(MaSo_1) + ' được tách thành 2 sổ hộ khẩu mới là: ' + \
         str(MaSo_1) + ' và ' + str(MaSo_2)
-    biendoi = TaoBienDoi(1, 1,KieuBienDoi='Tách hộ khẩu', NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy = QuanLy.IDQuanLy)
+    biendoi = TaoBienDoi(1, 1,KieuBienDoi='Tách hộ khẩu', NoiDungBienDoi=NoiDung, MaSo=MaSo_1, IDQuanLy = QuanLy.IDQuanLy)
     connectDB.insertBienDoi(biendoi)
 
 
@@ -257,7 +256,7 @@ def TaoDonKienNghi( HoTen, CCCD, NoiDung, NgayKN: datetime.datetime, PhanLoai):
         CuDan = connectDB.TimCUDANTuHoTenCCCD(HoTen, CCCD)
     except:
         return 1, 'Họ tên và căn cước không hợp lệ', 1
-    DonKienNghi = TaoKienNghi(1, CuDan.ID, CCCD, NoiDung, NgayKN, PhanLoai , 'Chưa xử lý')
+    DonKienNghi = TaoKienNghi(1, CuDan.ID, CCCD, NoiDung, NgayKN, PhanLoai ,'Mới ghi nhận')
     return 0, connectDB.InsertDonKienNghi(DonKienNghi)
 
 # Trả về Cư Dân và danh sách kiến nghị của cư dân đó
@@ -275,3 +274,13 @@ def XemDonKienNghi(HoTen, CCCD):
     for i in list:
         DanhSachKienNghi.append(TaoKienNghi.init_values(i))
     return 0, CuDan, DanhSachKienNghi
+
+""" Cấp trên trả lời kiến nghị """
+def TraLoiKienNghi(MaKienNghi, NoiDung):
+    ThuTraLoi = TaoTraLoiKienNghi(1, MaKienNghi, NoiDung, 1, 1, QuanLy.TenQuanLy, QuanLy.IDQuanLy)
+    connectDB.InsertTraLoiKienNghi(ThuTraLoi)
+    
+    
+
+""" Khi có phản hồi từ các cơ quan có liên quan, tổ trưởng sẽ ghi nhận lại với phản ánh / kiến nghị tương ứng và thông báo cho
+cá nhân có liên quan. Các kiến nghị trùng nhau có thể được gộp lại thành một nhưng phải ghi nhận những người phản ánh và số lần phản ánh """

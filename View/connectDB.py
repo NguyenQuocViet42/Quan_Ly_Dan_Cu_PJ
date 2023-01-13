@@ -5,6 +5,7 @@ from Class.DangNhap import DangNhap as QL
 from Class.BIENDOI import BIENDOI as TaoBienDoi
 from Class.CUDAN import CUDAN as TaoCuDan
 from Class.KIENNGHI import KIENNGHI as TaoKienNghi
+from Class.TraLoiKienNghi import TraLoiKienNghi as TaoTraLoiKienNghi
 
 # create connection object
 mydb = pyodbc.connect('Driver={SQL Server};'
@@ -112,8 +113,6 @@ def DeleteSoHoKhau(MaSo):
     mydb.commit()
 
 # Thêm một hộ khẩu
-
-
 def InsertSoHoKhau(MaSo, DanhSachNhanKhau, SoNha, Phuong, Quan, Tinh):
     IDChuHo = None
     SoThanhVien = len(DanhSachNhanKhau)
@@ -129,6 +128,16 @@ def InsertSoHoKhau(MaSo, DanhSachNhanKhau, SoNha, Phuong, Quan, Tinh):
     values = (MaSo, SoThanhVien, SoNha, Phuong, Quan, Tinh, IDChuHo)
     cursor.execute(query, values)
     mydb.commit()
+
+def UpdateThanhVien(MaSo ,DanhSachNhanKhau):
+    for i in DanhSachNhanKhau:
+        id, quanhe = i[0], i[1]
+        if quanhe.upper() == 'Chủ hộ'.upper():
+            IDChuHo = id
+        query = "update CUDAN set QuanHe = ?, MaSo = ?  where ID = ? "
+        values = (quanhe, MaSo, id)
+        cursor.execute(query, values)
+        mydb.commit()
 
 # Lấy danh sách Mã hộ khẩu
 
@@ -275,3 +284,13 @@ def TimDonKienNghi(CuDan: TaoCuDan):
     cursor.execute(query,val)
     list = cursor.fetchall()
     return list
+
+def InsertTraLoiKienNghi(ThuTraLoi: TaoTraLoiKienNghi):
+    query = " insert into TraLoiKienNghi values(?,?, getdate(), N'Đã xử lý', ?, ?) "
+    values =(ThuTraLoi.MaKienNghi, ThuTraLoi.NoiDung, ThuTraLoi.TenNguoiTraLoi, ThuTraLoi.IDQuanLy)
+    cursor.execute(query, values)
+    mydb.commit()
+    query = " update KIENNGHI set TrangThai = N'Đã xử lý' where MaKienNghi = ?"
+    val = (ThuTraLoi.MaKienNghi,)
+    cursor.execute(query, val)
+    mydb.commit()
