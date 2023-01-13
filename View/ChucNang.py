@@ -121,7 +121,7 @@ def TachHoKhau(HoKhau_1, HoKhau_2):
     MaSo_2 = random.randint(240000002, 259999999)
     DanhSachMaHoKhau = connectDB.LayDanhSachMaHoKhau()
     while MaSo_2 in DanhSachMaHoKhau:
-        MaSo_2 = random.randint(100000002, 999999999)
+        MaSo_2 = random.randint(240000002, 259999999)
     connectDB.InsertSoHoKhau(MaSo_2, DanhSachNhanKhau,
                              SoNha, Phuong, Quan, Tinh)
     NoiDung = 'Sổ hộ khẩu ' + \

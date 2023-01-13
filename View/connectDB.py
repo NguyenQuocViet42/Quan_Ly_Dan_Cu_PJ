@@ -79,9 +79,9 @@ def getListCuDanFromHoKhau(MaSo):
 # Thêm vào bảng Biến Đổi
 
 
-def insertBienDoi(KieuBienDoi, NoiDungBienDoi, MaSo):
-    query = "insert into BIENDOI values (getdate(), ?, ?, ?)"
-    val = (KieuBienDoi, NoiDungBienDoi, MaSo)
+def insertBienDoi(BienDoi : TaoBienDoi):
+    query = "insert into BIENDOI values (getdate(), ?, ?, ?,?)"
+    val = (BienDoi.KieuBienDoi, BienDoi.NoiDungBienDoi, BienDoi.MaSo, BienDoi.IDQuanLy)
     cursor.execute(query, val)
     mydb.commit()
 
@@ -120,14 +120,16 @@ def InsertSoHoKhau(MaSo, DanhSachNhanKhau, SoNha, Phuong, Quan, Tinh):
         id, quanhe = i[0], i[1]
         if quanhe.upper() == 'Chủ hộ'.upper():
             IDChuHo = id
+            query = " insert into SOHOKHAU values (?,?,?,?,?,?,?) "
+            values = (MaSo, SoThanhVien, SoNha, Phuong, Quan, Tinh, IDChuHo)
+            cursor.execute(query, values)
+            mydb.commit()
+    for i in DanhSachNhanKhau:
+        id, quanhe = i[0], i[1]
         query = "update CUDAN set QuanHe = ?, MaSo = ?  where ID = ? "
         values = (quanhe, MaSo, id)
         cursor.execute(query, values)
         mydb.commit()
-    query = " insert into SOHOKHAU values (?,?,?,?,?,?,?) "
-    values = (MaSo, SoThanhVien, SoNha, Phuong, Quan, Tinh, IDChuHo)
-    cursor.execute(query, values)
-    mydb.commit()
 
 def UpdateThanhVien(MaSo ,DanhSachNhanKhau):
     for i in DanhSachNhanKhau:
@@ -138,6 +140,10 @@ def UpdateThanhVien(MaSo ,DanhSachNhanKhau):
         values = (quanhe, MaSo, id)
         cursor.execute(query, values)
         mydb.commit()
+    query = "update SOHOKHAU set SoThanhVien = ?, IDChuHo = ?"
+    values = (len(DanhSachNhanKhau), IDChuHo)
+    cursor.execute(query, values)
+    mydb.commit()
 
 # Lấy danh sách Mã hộ khẩu
 

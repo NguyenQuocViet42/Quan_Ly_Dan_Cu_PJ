@@ -961,11 +961,11 @@ def TachKhau(maHoKhau, hoKhau, listCuDan):
                 break
             # Hộ khẩu mới
             if (listVar[i].get() == 1):
-                listCuDanNew.append([listCuDan[i][0], listEntry[i]])
+                listCuDanNew.append([listCuDan[i][0], listEntry[i].get()])
                 if (listEntry[i].get().lower() == "chủ hộ"):
                     countChuHoNew = countChuHoNew+1
             else:
-                listCuDanOld.append([listCuDan[i][0], listEntry[i]])
+                listCuDanOld.append([listCuDan[i][0], listEntry[i].get()])
                 if (listEntry[i].get().lower() == "chủ hộ"):
                     countChuHoOld = countChuHoOld+1
         hoKhauOld = hoKhauOld + [listCuDanOld, hoKhau.SoNha,
