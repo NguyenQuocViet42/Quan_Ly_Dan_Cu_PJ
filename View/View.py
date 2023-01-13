@@ -891,6 +891,7 @@ def TachKhau(maHoKhau, hoKhau, listCuDan):
 
     for i in range(n+7):
         f_all_tach_khau.grid_rowconfigure(i, weight=1)
+
     tkinter.Label(
         f_all_tach_khau, text="Tách khẩu", font=font_header1, justify=CENTER).grid(column=0, row=0, columnspan=3)
 
@@ -961,11 +962,11 @@ def TachKhau(maHoKhau, hoKhau, listCuDan):
                 break
             # Hộ khẩu mới
             if (listVar[i].get() == 1):
-                listCuDanNew.append([listCuDan[i][0], listEntry[i]])
+                listCuDanNew.append([listCuDan[i][0], listEntry[i].get()])
                 if (listEntry[i].get().lower() == "chủ hộ"):
                     countChuHoNew = countChuHoNew+1
             else:
-                listCuDanOld.append([listCuDan[i][0], listEntry[i]])
+                listCuDanOld.append([listCuDan[i][0], listEntry[i].get()])
                 if (listEntry[i].get().lower() == "chủ hộ"):
                     countChuHoOld = countChuHoOld+1
         hoKhauOld = hoKhauOld + [listCuDanOld, hoKhau.SoNha,
@@ -1029,27 +1030,27 @@ def TamTru():
     tkinter.Label(f_all_tam_tru, text="Tên tôi là:", font=font_content, anchor=W).grid(
         column=0, row=1, sticky=W, padx=padx, pady=pady, columnspan=1)
     hoVaTen = tkinter.Entry(f_all_tam_tru, font=font_content, width=60)
-    hoVaTen.grid(column=1, row=1, sticky=W,
+    hoVaTen.grid(column=1, row=1, sticky=E,
                  padx=padx, pady=pady, columnspan=3)
     # row 2
     tkinter.Label(f_all_tam_tru, text="CCCD:", font=font_content, anchor=W).grid(
         column=0, row=2, sticky=W, padx=padx, pady=pady, columnspan=1)
-    CCCD = tkinter.Entry(f_all_tam_tru, font=font_content, width=20)
-    CCCD.grid(column=1, row=2, sticky=W,
+    CCCD = tkinter.Entry(f_all_tam_tru, font=font_content, width=18)
+    CCCD.grid(column=1, row=2, sticky=E,
               padx=padx, pady=pady, columnspan=1)
 
     # row 3
     tkinter.Label(f_all_tam_tru, text="Quê quán:", font=font_content, anchor=W).grid(
         column=0, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
     queQuan = tkinter.Entry(f_all_tam_tru, font=font_content, width=60)
-    queQuan.grid(column=1, row=3, sticky=W,
+    queQuan.grid(column=1, row=3, sticky=E,
                  padx=padx, pady=pady, columnspan=3)
 
     # row 4
     tkinter.Label(f_all_tam_tru, text="Địa chỉ thường trú:", font=font_content, anchor=W).grid(
         column=0, row=4, sticky=W, padx=padx, pady=pady, columnspan=1)
     thuongTru = tkinter.Entry(f_all_tam_tru, font=font_content, width=60)
-    thuongTru.grid(column=1, row=4, sticky=W,
+    thuongTru.grid(column=1, row=4, sticky=E,
                    padx=padx, pady=pady, columnspan=3)
 
     # row 5
@@ -1057,14 +1058,14 @@ def TamTru():
         column=0, row=5, sticky=W, padx=padx, pady=pady, columnspan=1)
 
     tuNgay = DateEntry(f_all_tam_tru, font=font_content)
-    tuNgay.grid(column=1, row=5, sticky=W,
+    tuNgay.grid(column=1, row=5, sticky=E,
                 padx=padx, pady=pady, columnspan=1)
 
     tkinter.Label(f_all_tam_tru, text="Đến ngày: ", font=font_content, anchor=W).grid(
         column=2, row=5, sticky=W, padx=padx, pady=pady, columnspan=1)
 
     denNgay = DateEntry(f_all_tam_tru, font=font_content)
-    denNgay.grid(column=3, row=5, sticky=W,
+    denNgay.grid(column=3, row=5, sticky=E,
                  padx=padx, pady=pady, columnspan=1)
 
     # row 6
@@ -1072,7 +1073,7 @@ def TamTru():
         column=0, row=6, sticky=W, padx=padx, pady=pady, columnspan=1)
     lyDo = tkinter.Text(
         f_all_tam_tru, font=font_content, height=10, wrap=WORD)
-    lyDo.grid(column=1, row=6, sticky=W,
+    lyDo.grid(column=1, row=6, sticky=E,
               padx=padx, pady=pady, columnspan=3)
 
     # row 7
@@ -1081,15 +1082,29 @@ def TamTru():
         column=0, row=7, sticky=W, padx=padx, pady=pady, columnspan=1)
 
     ngayLamDon = DateEntry(f_all_tam_tru, font=font_content)
-    ngayLamDon.grid(column=1, row=7, sticky=W,
+    ngayLamDon.grid(column=1, row=7, sticky=E,
                     padx=padx, pady=pady, columnspan=1)
 
     # row 8
     tkinter.Button(f_all_tam_tru, text="Xác nhận",  font=font_header3, fg="white", bg="blue", cursor='hand2', command=lambda: submit()).grid(
         column=0, row=8, padx=padx, pady=pady, columnspan=4)
 
+    errorMessage = tkinter.Label(
+        f_all_tam_tru, text="", font=font_content, fg="red", justify=CENTER)
+    errorMessage.grid(column=0, row=9, columnspan=4)
+
     def submit():
-        pass
+        if (hoVaTen.get() == "" or CCCD.get() == "" or queQuan.get() == "" or thuongTru.get() == "" or lyDo.get("1.0", 'end-1c') == ""):
+            errorMessage['text'] = "Vui lòng điền đầy đủ các trường!"
+            return
+        errorCode = ChucNang.CapGiayTamTru(hoVaTen.get(), CCCD.get(), queQuan.get(), thuongTru.get(), tuNgay.get_date().strftime(
+            "%m/%d/%y"), denNgay.get_date().strftime("%m/%d/%y"), lyDo.get("1.0", 'end-1c'), ngayLamDon.get_date().strftime("%m/%d/%y"))
+        if (errorCode == 0):
+            messagebox.showinfo("", "Đã hoàn thành đơn tạm trú")
+            switch(f_home)
+        elif (errorCode == 1):
+            errorMessage['text'] = "Vui lòng kiểm tra lại thông tin!"
+            return
 
 
 """END HOME"""
