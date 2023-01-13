@@ -221,11 +221,11 @@ def switch(frame, maHoKhau="", hoKhau=(), listCuDan=[], maQuanLy=""):
         btn_family_bg = win_bg
         btn_demand_bg = win_bg
         TachKhau(maHoKhau=maHoKhau, hoKhau=hoKhau, listCuDan=listCuDan)
-    # elif (frame == f_tam_tru):
-    #     btn_home_bg = win_bg
-    #     btn_family_bg = win_bg
-    #     btn_demand_bg = win_bg
-    #     TamTru()
+    elif (frame == f_tam_tru):
+        btn_home_bg = win_bg
+        btn_family_bg = win_bg
+        btn_demand_bg = win_bg
+        TamTru()
     # elif (frame == f_tam_vang):
     #     btn_home_bg = win_bg
     #     btn_family_bg = win_bg
@@ -482,7 +482,7 @@ def ViewAuthenChange():
     dropDownGender.grid(column=1, row=0, sticky=W,
                         padx=padx, pady=pady, columnspan=1)
     tkinter.Button(
-        f_all_authen_change, text="Gửi", font=font_content, relief='groove', cursor='hand2', command=lambda: Authen(chosed.get())).grid(column=0, row=2, padx=padx, pady=pady, columnspan=2)
+        f_all_authen_change, text="Gửi",  font=font_header3, fg="white", bg="blue", relief='groove', cursor='hand2', command=lambda: Authen(chosed.get())).grid(column=0, row=2, padx=padx, pady=pady, columnspan=2)
 
     def Authen(chose):
         if (chose == "Thêm nhân khẩu mới"):
@@ -617,7 +617,7 @@ def AddPerson():
 
     # row 10
     buttonSubmit = tkinter.Button(
-        f_all_add_person, text="Gửi", font=font_content, relief="groove", cursor='hand2', command=lambda: submit())
+        f_all_add_person, text="Gửi",  font=font_header3, fg="white", bg="blue", relief="groove", cursor='hand2', command=lambda: submit())
     buttonSubmit.grid(column=0, row=10, padx=padx, pady=pady, columnspan=4)
 
     def submit():
@@ -704,7 +704,7 @@ def ChangePerson():
     ghiChu.grid(column=1, row=5, padx=padx, pady=pady, columnspan=3)
     # row 6
     tkinter.Button(
-        f_all_change_person, text="Gửi", font=font_content, relief="groove", cursor='hand2', command=lambda: submit()).grid(column=0, row=6, padx=padx, pady=pady, columnspan=4)
+        f_all_change_person, text="Gửi",  font=font_header3, fg="white", bg="blue", relief="groove", cursor='hand2', command=lambda: submit()).grid(column=0, row=6, padx=padx, pady=pady, columnspan=4)
 
     # row 7
     errorMessage = tkinter.Label(
@@ -747,7 +747,7 @@ def ViewAuthenChangeHostPerson():
                      padx=padx, pady=pady, columnspan=1)
 
     tkinter.Button(
-        f_all_authen_change_host_person, text="Gửi", font=font_content, relief='groove', cursor='hand2', command=lambda: Authen(entryHostId.get(), errorMessage)).grid(column=0, row=1, padx=padx, pady=pady, columnspan=2)
+        f_all_authen_change_host_person, text="Gửi",  font=font_header3, fg="white", bg="blue", relief='groove', cursor='hand2', command=lambda: Authen(entryHostId.get(), errorMessage)).grid(column=0, row=1, padx=padx, pady=pady, columnspan=2)
 
     errorMessage = tkinter.Label(
         f_all_authen_change_host_person, text="", font=font_content, fg="red", anchor=W)
@@ -800,7 +800,7 @@ def ChangeHostPerson(maHoKhau, hoKhau, listCuDan):
         listEntry[i].grid(column=2, row=i+2, columnspan=1,
                           sticky=W, padx=10, pady=5)
 
-    tkinter.Button(f_all_change_host_person, text="Gửi", font=font_content,
+    tkinter.Button(f_all_change_host_person, text="Gửi",  font=font_header3, fg="white", bg="blue",
                    command=lambda: submit()).grid(column=0, row=2+n, columnspan=3)
     errorMessage = tkinter.Label(f_all_change_host_person, text="", font=font_content,
                                  fg="red", justify=CENTER)
@@ -854,7 +854,7 @@ def ViewAuthenTachKhau():
                      padx=padx, pady=pady, columnspan=1)
 
     tkinter.Button(
-        f_all_authen_tach_khau, text="Gửi", font=font_content, relief='groove', cursor='hand2', command=lambda: Authen(entryHostId.get(), errorMessage)).grid(column=0, row=1, padx=padx, pady=pady, columnspan=2)
+        f_all_authen_tach_khau, text="Gửi",  font=font_header3, fg="white", bg="blue", relief='groove', cursor='hand2', command=lambda: Authen(entryHostId.get(), errorMessage)).grid(column=0, row=1, padx=padx, pady=pady, columnspan=2)
 
     errorMessage = tkinter.Label(
         f_all_authen_tach_khau, text="", font=font_content, fg="red", anchor=W)
@@ -887,6 +887,7 @@ def TachKhau(maHoKhau, hoKhau, listCuDan):
     f_all_tach_khau.grid_columnconfigure(0, weight=1)
     f_all_tach_khau.grid_columnconfigure(1, weight=1)
     f_all_tach_khau.grid_columnconfigure(2, weight=1)
+    f_all_tach_khau.grid_columnconfigure(3, weight=1)
     tkinter.Label(
         f_all_tach_khau, text="Tách khẩu", font=font_header1, justify=CENTER).grid(column=0, row=0, columnspan=3)
 
@@ -894,54 +895,178 @@ def TachKhau(maHoKhau, hoKhau, listCuDan):
                   anchor=W, justify=LEFT).grid(column=0, row=1, columnspan=1, padx=10, pady=5, sticky=W)
     tkinter.Label(f_all_tach_khau, text="CCCD", font=font_header2,
                   anchor=W, justify=LEFT).grid(column=1, row=1, columnspan=1, padx=10, pady=5, sticky=W)
-    tkinter.Label(f_all_tach_khau, text="Chọn thành viên để tách",
+    tkinter.Label(f_all_tach_khau, text="Chọn để tách",
                   font=font_header2, anchor=W, justify=LEFT).grid(column=2, row=1, columnspan=1, padx=10, pady=5, sticky=W)
+    tkinter.Label(f_all_tach_khau, text="Quan hệ với chủ hộ",
+                  font=font_header2, anchor=W, justify=LEFT).grid(column=3, row=1, columnspan=1, padx=10, pady=5, sticky=W)
+    listVar = []
     listEntry = []
     for i in range(n):
         tkinter.Label(f_all_tach_khau, text=listCuDan[i][2], font=font_content, anchor=W, justify=LEFT).grid(
             column=0, row=i+2, columnspan=1, sticky=W, padx=10, pady=5)
         tkinter.Label(f_all_tach_khau, text=listCuDan[i][1], font=font_content, anchor=W, justify=LEFT).grid(
             column=1, row=i+2, columnspan=1, sticky=W, padx=10, pady=5)
-        listEntry.append(tkinter.Checkbutton(f_all_tach_khau, text="",
-                                             font=font_content, cursor='hand2', onvalue=1, offvalue=0))
-        listEntry[i].grid(column=2, row=i+2, columnspan=1,
+        listVar.append(IntVar())
+        tkinter.Checkbutton(f_all_tach_khau, text="",
+                            font=font_content, cursor='hand2', variable=listVar[i], onvalue=1, offvalue=0).grid(column=2, row=i+2, columnspan=1, padx=10, pady=5)
+        listEntry.append(tkinter.Entry(
+            f_all_tach_khau, font=font_content, width=20))
+        listEntry[i].grid(column=3, row=i+2, columnspan=1,
                           sticky=W, padx=10, pady=5)
 
-    tkinter.Button(f_all_tach_khau, text="Gửi", font=font_content,
+    tkinter.Button(f_all_tach_khau, text="Gửi",  font=font_header3, fg="white", bg="blue",
                    command=lambda: submit()).grid(column=0, row=2+n, columnspan=3)
     errorMessage = tkinter.Label(f_all_tach_khau, text="", font=font_content,
                                  fg="red", justify=CENTER)
     errorMessage.grid(column=0, row=3+n, columnspan=3)
 
+    # HoKhau_1 và HoKhau_2 có dạng: [ MaSo, [ [ID, QuanHe], [ID, QuanHe],... ], SoNha, Phuong, Huyen, Tinh]
     def submit():
+        hoKhauOld = [maHoKhau]
+        hoKhauNew = [1]
+
         for i in range(n):
-            print(listEntry[i].state())
-    #     listId = []
-    #     listQuanHeMoi = []
-    #     countChuHo = 0
-    #     check = True
-    #     for i in range(n):
-    #         if (listEntry[i].get() == ""):
-    #             check = False
-    #             errorMessage['text'] = "Vui lòng điền đủ tất cả các trường quan hệ mới"
-    #             break
-    #         if (listEntry[i].get() == "Chủ hộ"):
-    #             countChuHo = countChuHo+1
+            print(listVar[i].get())
+            countChuHoOld = 0
+            countChuHoNew = 0
+            check = True
+            for i in range(n):
+                if (listEntry[i].get() == ""):
+                    check = False
+                    errorMessage['text'] = "Vui lòng điền đủ tất cả các trường quan hệ mới"
+                    break
+                # Hộ khẩu mới
+                if (listVar[i].get() == 1):
+                    hoKhauNew.append([listCuDan[i][0], listEntry[i]])
+                    if (listEntry[i].get().lower() == "chủ hộ"):
+                        countChuHoNew = countChuHoNew+1
+                else:
+                    hoKhauOld.append([listCuDan[i][0], listEntry[i]])
+                    if (listEntry[i].get().lower() == "chủ hộ"):
+                        countChuHoOld = countChuHoOld+1
 
-    #         listId.append(listCuDan[i][0])
-    #         listQuanHeMoi.append(listEntry[i].get())
-    #     if (countChuHo <= 0):
-    #         check = False
-    #         errorMessage['text'] = "Cần tồn tại ít nhất 1 chủ hộ"
+            hoKhauOld = hoKhauOld + [hoKhau.SoNha,
+                                     hoKhau.Phuong, hoKhau.Huyen, hoKhau.Tinh]
+            hoKhauNew = hoKhauNew + [hoKhau.SoNha,
+                                     hoKhau.Phuong, hoKhau.Huyen, hoKhau.Tinh]
 
-    #     elif (countChuHo > 1):
-    #         check = False
-    #         errorMessage['text'] = "Có không quá 1 chủ hộ"
+            if (countChuHoOld <= 0):
+                check = False
+                errorMessage['text'] = "Cần tồn tại ít nhất 1 chủ hộ trong hộ khẩu CŨ"
+            elif (countChuHoNew <= 0):
+                check = False
+                errorMessage['text'] = "Cần tồn tại ít nhất 1 chủ hộ trong hộ khẩu MỚI"
+            elif (countChuHoOld > 1):
+                check = False
+                errorMessage['text'] = "Có không quá 1 chủ hộ trong hộ khẩu CŨ"
+            elif (countChuHoNew > 1):
+                check = False
+                errorMessage['text'] = "Có không quá 1 chủ hộ trong hộ khẩu MỚI"
 
-    #     if (check):
-    #         ChucNang.ThayDoiChuHo(listId, listQuanHeMoi, maHoKhau)
-    #         messagebox.showinfo("", "Đã thay đổi chủ hộ thành công"),
-    #         switch(f_home)
+            if (check):
+                ChucNang.TachHoKhau(hoKhauOld, hoKhauNew)
+                messagebox.showinfo("", "Tách khẩu thành công"),
+                switch(f_home)
+
+
+# HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.datetime, NgayKetThuc: datetime.datetime, LyDo, NgayLamDon: datetime.datetime
+
+def TamTru():
+    # Create a child frame to destroy when no use parent frame
+    f_all_tam_tru = tkinter.Frame(
+        f_tam_tru, highlightbackground="black", highlightthickness=2)
+    f_tam_tru.grid_columnconfigure(0, weight=1)
+    f_tam_tru.grid_rowconfigure(0, weight=1)
+    f_all_tam_tru.grid(column=0, row=0, sticky='news', padx=20, pady=10)
+
+    f_all_tam_tru.grid_columnconfigure(0, weight=1)
+    f_all_tam_tru.grid_columnconfigure(1, weight=1)
+    f_all_tam_tru.grid_columnconfigure(2, weight=1)
+    f_all_tam_tru.grid_columnconfigure(3, weight=1)
+    # row 0
+    tkinter.Label(f_all_tam_tru, text="Đơn xin tạm trú", font=font_header1).grid(
+        column=0, row=0, padx=padx, pady=0, columnspan=4)
+    # # row 1
+    # tkinter.Label(f_all_tam_tru, text="Kính gửi: ", font=font_content, anchor=W).grid(
+    #     column=0, row=1, sticky=W, padx=padx, pady=pady, columnspan=1)
+    # # row 2
+    # tkinter.Label(f_all_tam_tru, text="Công an quận:", font=font_content, anchor=W).grid(
+    #     column=0, row=2, sticky=W, padx=padx, pady=pady, columnspan=1)
+    # entryPoliceQuan = tkinter.Entry(f_all_tam_tru, font=font_content, width=60)
+    # entryPoliceQuan.grid(column=1, row=2, sticky=W,
+    #                      padx=padx, pady=pady, columnspan=3)
+    # # row 3
+    # tkinter.Label(f_all_tam_tru, text="Công an phường:", font=font_content, anchor=W).grid(
+    #     column=0, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
+    # entryPolicePhuong = tkinter.Entry(
+    #     f_all_tam_tru, font=font_content, width=60)
+    # entryPolicePhuong.grid(column=1, row=3, sticky=W,
+    #                        padx=padx, pady=pady, columnspan=3)
+    # row 1
+    tkinter.Label(f_all_tam_tru, text="Tên tôi là:", font=font_content, anchor=W).grid(
+        column=0, row=1, sticky=W, padx=padx, pady=pady, columnspan=1)
+    hoVaTen = tkinter.Entry(f_all_tam_tru, font=font_content, width=60)
+    hoVaTen.grid(column=1, row=1, sticky=W,
+                 padx=padx, pady=pady, columnspan=3)
+    # row 2
+    tkinter.Label(f_all_tam_tru, text="CCCD:", font=font_content, anchor=W).grid(
+        column=0, row=2, sticky=W, padx=padx, pady=pady, columnspan=1)
+    CCCD = tkinter.Entry(f_all_tam_tru, font=font_content, width=20)
+    CCCD.grid(column=1, row=2, sticky=W,
+              padx=padx, pady=pady, columnspan=1)
+
+    # row 3
+    tkinter.Label(f_all_tam_tru, text="Quê quán:", font=font_content, anchor=W).grid(
+        column=0, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
+    queQuan = tkinter.Entry(f_all_tam_tru, font=font_content, width=60)
+    queQuan.grid(column=1, row=3, sticky=W,
+                 padx=padx, pady=pady, columnspan=3)
+
+    # row 4
+    tkinter.Label(f_all_tam_tru, text="Địa chỉ thường trú:", font=font_content, anchor=W).grid(
+        column=0, row=4, sticky=W, padx=padx, pady=pady, columnspan=1)
+    thuongTru = tkinter.Entry(f_all_tam_tru, font=font_content, width=60)
+    thuongTru.grid(column=1, row=4, sticky=W,
+                   padx=padx, pady=pady, columnspan=3)
+
+    # row 5
+    tkinter.Label(f_all_tam_tru, text="Từ ngày: ", font=font_content, anchor=W).grid(
+        column=0, row=5, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+    tuNgay = DateEntry(f_all_tam_tru, font=font_content)
+    tuNgay.grid(column=1, row=5, sticky=W,
+                padx=padx, pady=pady, columnspan=1)
+
+    tkinter.Label(f_all_tam_tru, text="Đến ngày: ", font=font_content, anchor=W).grid(
+        column=2, row=5, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+    denNgay = DateEntry(f_all_tam_tru, font=font_content)
+    denNgay.grid(column=3, row=5, sticky=W,
+                 padx=padx, pady=pady, columnspan=1)
+
+    # row 6
+    tkinter.Label(f_all_tam_tru, text="Lý do:", font=font_content, anchor=W).grid(
+        column=0, row=6, sticky=W, padx=padx, pady=pady, columnspan=1)
+    lyDo = tkinter.Text(
+        f_all_tam_tru, font=font_content, height=10, wrap=WORD)
+    lyDo.grid(column=1, row=6, sticky=W,
+              padx=padx, pady=pady, columnspan=3)
+
+    # row 7
+
+    tkinter.Label(f_all_tam_tru, text="Ngày làm đơn: ", font=font_content, anchor=W).grid(
+        column=0, row=7, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+    ngayLamDon = DateEntry(f_all_tam_tru, font=font_content)
+    ngayLamDon.grid(column=1, row=7, sticky=W,
+                    padx=padx, pady=pady, columnspan=1)
+
+    # row 8
+    tkinter.Button(f_all_tam_tru, text="Xác nhận",  font=font_header3, fg="white", bg="blue", cursor='hand2', command=lambda: submit()).grid(
+        column=0, row=8, padx=padx, pady=pady, columnspan=4)
+
+    def submit():
+        pass
 
 
 """END HOME"""
@@ -968,7 +1093,7 @@ def ViewAuthenFamily():
                      padx=padx, pady=pady, columnspan=1)
 
     tkinter.Button(
-        f_all_authen_family, text="Gửi", font=font_content, relief='groove', cursor='hand2', command=lambda: Authen(entryHostId.get(), errorMessage)).grid(column=0, row=1, padx=padx, pady=pady, columnspan=2)
+        f_all_authen_family, text="Gửi", font=font_header3, fg="white", bg="blue", relief='groove', cursor='hand2', command=lambda: Authen(entryHostId.get(), errorMessage)).grid(column=0, row=1, padx=padx, pady=pady, columnspan=2)
 
     errorMessage = tkinter.Label(
         f_all_authen_family, text="", font=font_content, fg="red", anchor=W)
@@ -1125,10 +1250,10 @@ def ViewFamily(hoKhau, listCuDan):
         # row 12
         if (i != 0):
             tkinter.Button(
-                f_all_view_family, text="Trang trước", font=font_content, relief="groove", cursor='hand2', command=lambda: showPerson(i-1)).grid(column=0, row=12, sticky=W, padx=padx, pady=pady, columnspan=1)
+                f_all_view_family, text="Trang trước",  font=font_header3, fg="white", bg="blue", relief="groove", cursor='hand2', command=lambda: showPerson(i-1)).grid(column=0, row=12, sticky=W, padx=padx, pady=pady, columnspan=1)
         if (i != n-1):
             tkinter.Button(
-                f_all_view_family, text="Trang sau", font=font_content, relief="groove", cursor='hand2', command=lambda: showPerson(i+1)).grid(column=3, row=12, sticky=E, padx=padx, pady=pady, columnspan=1)
+                f_all_view_family, text="Trang sau",  font=font_header3, fg="white", bg="blue", relief="groove", cursor='hand2', command=lambda: showPerson(i+1)).grid(column=3, row=12, sticky=E, padx=padx, pady=pady, columnspan=1)
 
     showPerson(0)
 
