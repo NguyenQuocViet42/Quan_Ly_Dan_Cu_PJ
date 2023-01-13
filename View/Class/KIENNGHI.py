@@ -8,11 +8,6 @@ class KIENNGHI:
         self.NgayKN = NgayKN
         self.PhanLoai = PhanLoai
         self.TrangThai = TrangThai
-    def __init__(self, values):
-        self.MaKienNghi = values[0]
-        self.ID = values[1]
-        self.CCCD = values[2]
-        self.NoiDung = values[3]
-        self.NgayKN = values[4]
-        self.PhanLoai = values[5]
-        self.TrangThai = values[6]
+    def init_values(values):
+        kiennghi = KIENNGHI(values[0], values[1], values[2], values[3], values[4], values[5], values[6])
+        return kiennghi

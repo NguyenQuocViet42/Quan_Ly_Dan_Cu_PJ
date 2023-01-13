@@ -266,11 +266,11 @@ def TimCUDANTuHoTenCCCD(HoTen, CCCD):
     query = " select * from CUDAN where upper(HoTen) = ? and CCCD = ? "
     val = (HoTen.upper(), CCCD)
     cursor.execute(query,val)
-    cudan = cursor.fetchall()[0]
-    cudan = TaoCuDan(cudan)
+    thongtincudan = cursor.fetchall()[0]
+    cudan = TaoCuDan.init_values(values = thongtincudan)
     return cudan
 def TimDonKienNghi(CuDan: TaoCuDan):
-    query = " select * from CUDAN where ID = ? "
+    query = " select * from KIENNGHI where ID = ? "
     val = (CuDan.ID,)
     cursor.execute(query,val)
     list = cursor.fetchall()

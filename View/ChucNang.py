@@ -252,15 +252,26 @@ def ThongKeTamtruTamVang():
 
 """ Các thông tin phản ánh, kiến nghị của nhân dân trong tổ sẽ được tổ trưởng ghi nhận để tổng hợp gửi lên cấp trên. Mỗi
 phản ảnh, kiến nghị cần ghi nhận: người phản ánh, nội dung, ngày phản ánh, phân loại và trạng thái. """
-def TaoDonKienNghi(ID, CCCD, NoiDung, NgayKN: datetime.datetime, PhanLoai ,TrangThai):
-    DonKienNghi = TaoKienNghi(1, ID, CCCD, NoiDung, NgayKN, PhanLoai ,TrangThai)
-    return connectDB.InsertDonKienNghi(DonKienNghi)
+def TaoDonKienNghi( HoTen, CCCD, NoiDung, NgayKN: datetime.datetime, PhanLoai):
+    try:
+        CuDan = connectDB.TimCUDANTuHoTenCCCD(HoTen, CCCD)
+    except:
+        return 1, 'Họ tên và căn cước không hợp lệ', 1
+    DonKienNghi = TaoKienNghi(1, CuDan.ID, CCCD, NoiDung, NgayKN, PhanLoai , 'Chưa xử lý')
+    return 0, connectDB.InsertDonKienNghi(DonKienNghi)
 
 # Trả về Cư Dân và danh sách kiến nghị của cư dân đó
+# Trả về 3 giá trị: error code, CuDan, DanhSachKienNghi
+# error code = 0 --> không lỗi, error code = 1 --> Lỗi Họ tên và CCCD, error code =2 --> Cư dân đó không có đơn kiến nghị
 def XemDonKienNghi(HoTen, CCCD):
-    cudan = connectDB.TimCUDANTuHoTenCCCD(HoTen, CCCD)
-    list = connectDB.TimDonKienNghi(cudan)
+    try:
+        CuDan = connectDB.TimCUDANTuHoTenCCCD(HoTen, CCCD)
+    except:
+        return 1, 'Họ tên và căn cước không hợp lệ', 1
+    list = connectDB.TimDonKienNghi(CuDan)
+    if len(list) == 0:
+        return 2, CuDan, ('Cư dân ' + CuDan.HoTen + ' không có đơn kiến nghị nào.')
     DanhSachKienNghi = []
     for i in list:
-        DanhSachKienNghi.append(TaoKienNghi(i))
-    return cudan, DanhSachKienNghi
+        DanhSachKienNghi.append(TaoKienNghi.init_values(i))
+    return 0, CuDan, DanhSachKienNghi
