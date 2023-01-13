@@ -160,9 +160,9 @@ def LayDanhSachMaHoKhau():
 # Thêm giấy tạm vắng
 
 
-def InsertTamVang(HoTen, CCCD, NoiTamVang, Tu, Den, LyDo, NgayLamDon):
-    values = (HoTen, CCCD, NoiTamVang, Tu, Den, LyDo, NgayLamDon)
-    query = "insert into TAMVANG values(?,?,?,?,?,?,?)"
+def InsertTamVang(ID ,HoTen, CCCD, NoiTamVang, Tu, Den, LyDo, NgayLamDon):
+    values = (ID,HoTen, CCCD, NoiTamVang, Tu, Den, LyDo, NgayLamDon)
+    query = "insert into TAMVANG values(?,?,?,?,?,?,?,?)"
     cursor.execute(query, values)
     mydb.commit()
 # Xem giấy tạm vắng
@@ -177,9 +177,9 @@ def getTamVang(HoTen, CCCD):
 # Thêm giấy tạm trú
 
 
-def InsertTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, Tu, Den, LyDo, NgayLamDon):
-    values = (HoTen, CCCD, QueQuan, DiaChiThuongTru, Tu, Den, LyDo, NgayLamDon)
-    query = "insert into TAMTRU values(?,?,?,?,?,?,?,?)"
+def InsertTamTru(ID,HoTen, CCCD, QueQuan, DiaChiThuongTru, Tu, Den, LyDo, NgayLamDon):
+    values = (ID,HoTen, CCCD, QueQuan, DiaChiThuongTru, Tu, Den, LyDo, NgayLamDon)
+    query = "insert into TAMTRU values(?,?,?,?,?,?,?,?,?)"
     cursor.execute(query, values)
     mydb.commit()
 # Xem giấy tạm trú
