@@ -79,9 +79,9 @@ def getListCuDanFromHoKhau(MaSo):
 # Thêm vào bảng Biến Đổi
 
 
-def insertBienDoi(KieuBienDoi, NoiDungBienDoi, MaSo):
-    query = "insert into BIENDOI values (getdate(), ?, ?, ?)"
-    val = (KieuBienDoi, NoiDungBienDoi, MaSo)
+def insertBienDoi(BienDoi : TaoBienDoi):
+    query = "insert into BIENDOI values (getdate(), ?, ?, ?,?)"
+    val = (BienDoi.KieuBienDoi, BienDoi.NoiDungBienDoi, BienDoi.MaSo, BienDoi.IDQuanLy)
     cursor.execute(query, val)
     mydb.commit()
 
@@ -120,14 +120,16 @@ def InsertSoHoKhau(MaSo, DanhSachNhanKhau, SoNha, Phuong, Quan, Tinh):
         id, quanhe = i[0], i[1]
         if quanhe.upper() == 'Chủ hộ'.upper():
             IDChuHo = id
+            query = " insert into SOHOKHAU values (?,?,?,?,?,?,?) "
+            values = (MaSo, SoThanhVien, SoNha, Phuong, Quan, Tinh, IDChuHo)
+            cursor.execute(query, values)
+            mydb.commit()
+    for i in DanhSachNhanKhau:
+        id, quanhe = i[0], i[1]
         query = "update CUDAN set QuanHe = ?, MaSo = ?  where ID = ? "
         values = (quanhe, MaSo, id)
         cursor.execute(query, values)
         mydb.commit()
-    query = " insert into SOHOKHAU values (?,?,?,?,?,?,?) "
-    values = (MaSo, SoThanhVien, SoNha, Phuong, Quan, Tinh, IDChuHo)
-    cursor.execute(query, values)
-    mydb.commit()
 
 def UpdateThanhVien(MaSo ,DanhSachNhanKhau):
     for i in DanhSachNhanKhau:
@@ -138,6 +140,10 @@ def UpdateThanhVien(MaSo ,DanhSachNhanKhau):
         values = (quanhe, MaSo, id)
         cursor.execute(query, values)
         mydb.commit()
+    query = "update SOHOKHAU set SoThanhVien = ?, IDChuHo = ?"
+    values = (len(DanhSachNhanKhau), IDChuHo)
+    cursor.execute(query, values)
+    mydb.commit()
 
 # Lấy danh sách Mã hộ khẩu
 
@@ -154,9 +160,9 @@ def LayDanhSachMaHoKhau():
 # Thêm giấy tạm vắng
 
 
-def InsertTamVang(HoTen, CCCD, NoiTamVang, Tu, Den, LyDo, NgayLamDon):
-    values = (HoTen, CCCD, NoiTamVang, Tu, Den, LyDo, NgayLamDon)
-    query = "insert into TAMVANG values(?,?,?,?,?,?,?)"
+def InsertTamVang(ID ,HoTen, CCCD, NoiTamVang, Tu, Den, LyDo, NgayLamDon):
+    values = (ID,HoTen, CCCD, NoiTamVang, Tu, Den, LyDo, NgayLamDon)
+    query = "insert into TAMVANG values(?,?,?,?,?,?,?,?)"
     cursor.execute(query, values)
     mydb.commit()
 # Xem giấy tạm vắng
@@ -171,9 +177,9 @@ def getTamVang(HoTen, CCCD):
 # Thêm giấy tạm trú
 
 
-def InsertTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, Tu, Den, LyDo, NgayLamDon):
-    values = (HoTen, CCCD, QueQuan, DiaChiThuongTru, Tu, Den, LyDo, NgayLamDon)
-    query = "insert into TAMTRU values(?,?,?,?,?,?,?,?)"
+def InsertTamTru(ID,HoTen, CCCD, QueQuan, DiaChiThuongTru, Tu, Den, LyDo, NgayLamDon):
+    values = (ID,HoTen, CCCD, QueQuan, DiaChiThuongTru, Tu, Den, LyDo, NgayLamDon)
+    query = "insert into TAMTRU values(?,?,?,?,?,?,?,?,?)"
     cursor.execute(query, values)
     mydb.commit()
 # Xem giấy tạm trú
@@ -294,3 +300,42 @@ def InsertTraLoiKienNghi(ThuTraLoi: TaoTraLoiKienNghi):
     val = (ThuTraLoi.MaKienNghi,)
     cursor.execute(query, val)
     mydb.commit()
+    
+def ThongBao():
+    query = " select * from TraLoiKienNghi  where TrangThai = N'Đã xử lý' "
+    cursor.execute(query)
+    DanhSachTraLoi = cursor.fetchall()
+    if len(DanhSachTraLoi) == 0:
+        return 1,1
+    else: 
+        listTraLoi = []
+        for i in DanhSachTraLoi:
+            listTraLoi.append(TaoTraLoiKienNghi.init_values(i))
+    query = " select * from KIENNGHI  where TrangThai = N'Đã xử lý' "
+    cursor.execute(query)
+    DanhSachKienNghi = cursor.fetchall()
+    listKienNghi = []
+    for i in DanhSachKienNghi:
+        listKienNghi.append(TaoKienNghi.init_values(i))
+    return listKienNghi, listTraLoi
+
+def updateTrangThai(MaKienNghi ,TrangThai):
+    query = " update KIENNGHI set TrangThai = ? where MaKienNghi = ?"
+    values = (TrangThai, MaKienNghi)
+    cursor.execute(query, values)
+    mydb.commit()
+    query = " update TraLoiKienNghi set TrangThai = ? where MaKienNghi = ?"
+    values = (TrangThai, MaKienNghi)
+    cursor.execute(query, values)
+    mydb.commit()
+    
+def CountKienNghi():
+    ListTT = ['Mới ghi nhận','Chưa xử lý','Đã xử lý','Đã thông báo']
+    ThongKe = []
+    for TrangThai in ListTT:
+        query = " select count(MaKienNghi) from KIENNGHI  where upper(TrangThai) = ? "
+        val =(TrangThai.upper(),)
+        cursor.execute(query, val)
+        SoLuong = cursor.fetchall()[0][0]
+        ThongKe.append(SoLuong)
+    return ThongKe

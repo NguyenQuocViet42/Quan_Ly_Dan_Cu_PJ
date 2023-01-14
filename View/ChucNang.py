@@ -121,7 +121,7 @@ def TachHoKhau(HoKhau_1, HoKhau_2):
     MaSo_2 = random.randint(240000002, 259999999)
     DanhSachMaHoKhau = connectDB.LayDanhSachMaHoKhau()
     while MaSo_2 in DanhSachMaHoKhau:
-        MaSo_2 = random.randint(100000002, 999999999)
+        MaSo_2 = random.randint(240000002, 259999999)
     connectDB.InsertSoHoKhau(MaSo_2, DanhSachNhanKhau,
                              SoNha, Phuong, Quan, Tinh)
     NoiDung = 'Sổ hộ khẩu ' + \
@@ -280,7 +280,20 @@ def TraLoiKienNghi(MaKienNghi, NoiDung):
     ThuTraLoi = TaoTraLoiKienNghi(1, MaKienNghi, NoiDung, 1, 1, QuanLy.TenQuanLy, QuanLy.IDQuanLy)
     connectDB.InsertTraLoiKienNghi(ThuTraLoi)
     
-    
 
 """ Khi có phản hồi từ các cơ quan có liên quan, tổ trưởng sẽ ghi nhận lại với phản ánh / kiến nghị tương ứng và thông báo cho
 cá nhân có liên quan. Các kiến nghị trùng nhau có thể được gộp lại thành một nhưng phải ghi nhận những người phản ánh và số lần phản ánh """
+# Hàm này sẽ trả về những kiến nghị mới được cấp trên trả lời
+def ThongBaoTraLoiKienNghi():
+    DanhSachKienNghi, DanhSachTraLoi = connectDB.ThongBao()
+    if DanhSachKienNghi == 1:
+        return 1, 'Không có thông báo mới từ cấp trên'
+    return DanhSachKienNghi, DanhSachTraLoi
+# Hàm này đánh dấu những kiến nghị đã thông báo cho người dân (Thay đổi trạng thái)
+def ThayDoiTrangThai(MaKienNghi ,TrangThai):
+    connectDB.updateTrangThai(MaKienNghi, TrangThai)
+    
+# Trả về list số lượng kiến nghị dựa trên Trạng Thái truyền vào
+# Mới ghi nhận / chưa giải quyết / đã giải quyết / đã thông báo
+def ThongKeKienNghi():
+    return connectDB.CountKienNghi()
