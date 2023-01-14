@@ -300,3 +300,42 @@ def InsertTraLoiKienNghi(ThuTraLoi: TaoTraLoiKienNghi):
     val = (ThuTraLoi.MaKienNghi,)
     cursor.execute(query, val)
     mydb.commit()
+    
+def ThongBao():
+    query = " select * from TraLoiKienNghi  where TrangThai = N'Đã xử lý' "
+    cursor.execute(query)
+    DanhSachTraLoi = cursor.fetchall()
+    if len(DanhSachTraLoi) == 0:
+        return 1,1
+    else: 
+        listTraLoi = []
+        for i in DanhSachTraLoi:
+            listTraLoi.append(TaoTraLoiKienNghi.init_values(i))
+    query = " select * from KIENNGHI  where TrangThai = N'Đã xử lý' "
+    cursor.execute(query)
+    DanhSachKienNghi = cursor.fetchall()
+    listKienNghi = []
+    for i in DanhSachKienNghi:
+        listKienNghi.append(TaoKienNghi.init_values(i))
+    return listKienNghi, listTraLoi
+
+def updateTrangThai(MaKienNghi ,TrangThai):
+    query = " update KIENNGHI set TrangThai = ? where MaKienNghi = ?"
+    values = (TrangThai, MaKienNghi)
+    cursor.execute(query, values)
+    mydb.commit()
+    query = " update TraLoiKienNghi set TrangThai = ? where MaKienNghi = ?"
+    values = (TrangThai, MaKienNghi)
+    cursor.execute(query, values)
+    mydb.commit()
+    
+def CountKienNghi():
+    ListTT = ['Mới ghi nhận','Chưa xử lý','Đã xử lý','Đã thông báo']
+    ThongKe = []
+    for TrangThai in ListTT:
+        query = " select count(MaKienNghi) from KIENNGHI  where upper(TrangThai) = ? "
+        val =(TrangThai.upper(),)
+        cursor.execute(query, val)
+        SoLuong = cursor.fetchall()[0][0]
+        ThongKe.append(SoLuong)
+    return ThongKe
