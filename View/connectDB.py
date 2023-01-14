@@ -6,12 +6,14 @@ from Class.BIENDOI import BIENDOI as TaoBienDoi
 from Class.CUDAN import CUDAN as TaoCuDan
 from Class.KIENNGHI import KIENNGHI as TaoKienNghi
 from Class.TraLoiKienNghi import TraLoiKienNghi as TaoTraLoiKienNghi
+import socket
+hostname = socket.gethostname()
 
 # create connection object
 mydb = pyodbc.connect('Driver={SQL Server};'
-                      'Server=LAPTOP-H9AI1NN1;'  # DESKTOP-EP0NASK
+                      'Server=%s;'
                       'Database=QLCUDAN;'
-                      'Trusted_Connection=yes;')
+                      'Trusted_Connection=yes;' %hostname)
 
 # create cursor object
 cursor = mydb.cursor()
