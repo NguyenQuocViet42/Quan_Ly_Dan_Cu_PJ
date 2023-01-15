@@ -1,20 +1,26 @@
-import datetime
-from math import ceil
-from tkinter import *
-from tkinter import messagebox
-from tkinter import ttk
-import config.config as config
-import tkinter
-import os
-from PIL import ImageTk, Image
-from tkcalendar import Calendar, DateEntry
 import ChucNang
+from math import ceil
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import matplotlib
+import tkinter
+import config.config as config
+from tkinter import ttk
+from tkinter import messagebox
+from tkinter import *
+from tkcalendar import Calendar, DateEntry
+from PIL import ImageTk, Image
+import PIL
+import os
+matplotlib.use('TkAgg')
+
 
 dirname = os.path.dirname(__file__)
 win_bg = config.win_bg
 btn_home_bg = win_bg
 btn_family_bg = win_bg
 btn_demand_bg = win_bg
+btn_thongke_bg = win_bg
 
 padx = 10
 pady = 7
@@ -40,49 +46,56 @@ root.geometry(f"{config.win_w}x{config.win_h}+{int(x)}+0")
 # Đăng nhập
 pathLogoLogin = os.path.join(
     dirname, 'config\\image\\icon_homepage.png')
-logoIconLogin = Image.open(pathLogoLogin)
+logoIconLogin = PIL.Image.open(pathLogoLogin)
 logoLogin = logoIconLogin.resize(
     (100, 100), Image.ANTIALIAS)
 logoLogin = ImageTk.PhotoImage(logoLogin)
 # Nav Bar
 pathLogo = os.path.join(
     dirname, 'config\\image\\icon_homepage.png')
-logoIcon = Image.open(pathLogo)
+logoIcon = PIL.Image.open(pathLogo)
 logo = logoIcon.resize(
     (60, 60), Image.ANTIALIAS)
 logo = ImageTk.PhotoImage(logo)
 # ---------------
 pathNavHomePageIcon = os.path.join(
     dirname, 'config\\image\\icon_nav_home.png')
-navHomePageImage = Image.open(pathNavHomePageIcon)
+navHomePageImage = PIL.Image.open(pathNavHomePageIcon)
 navHomePageImage = navHomePageImage.resize(
     (30, 30), Image.ANTIALIAS)
 navHomePageImage = ImageTk.PhotoImage(navHomePageImage)
 # -------------------------
 pathNavFamilyIcon = os.path.join(
     dirname, 'config\\image\\icon_nav_family.png')
-navFamilyImage = Image.open(pathNavFamilyIcon)
+navFamilyImage = PIL.Image.open(pathNavFamilyIcon)
 navFamilyImage = navFamilyImage.resize(
     (30, 30), Image.ANTIALIAS)
 navFamilyImage = ImageTk.PhotoImage(navFamilyImage)
 # -------------------------
 pathNavDemandIcon = os.path.join(
     dirname, 'config\\image\\icon_nav_demand.png')
-navDemandImage = Image.open(pathNavDemandIcon)
+navDemandImage = PIL.Image.open(pathNavDemandIcon)
 navDemandImage = navDemandImage.resize(
     (30, 30), Image.ANTIALIAS)
 navDemandImage = ImageTk.PhotoImage(navDemandImage)
 # -------------------------
+pathThongKeBtn = os.path.join(
+    dirname, 'config\\image\\thong_ke_button.png')
+navThongKeImage = PIL.Image.open(pathThongKeBtn)
+navThongKeImage = navThongKeImage.resize(
+    (30, 30), Image.ANTIALIAS)
+navThongKeImage = ImageTk.PhotoImage(navThongKeImage)
+# -------------------------
 pathHelpIcon = os.path.join(
     dirname, 'config\\image\\icon_help.png')
-helpImage = Image.open(pathHelpIcon)
+helpImage = PIL.Image.open(pathHelpIcon)
 helpImage = helpImage.resize(
     (30, 30), Image.ANTIALIAS)
 helpImage = ImageTk.PhotoImage(helpImage)
 # ------------------------
 pathSettingIcon = os.path.join(
     dirname, 'config\\image\\icon_setting.png')
-settingImage = Image.open(pathSettingIcon)
+settingImage = PIL.Image.open(pathSettingIcon)
 settingImage = settingImage.resize(
     (30, 30), Image.ANTIALIAS)
 settingImage = ImageTk.PhotoImage(settingImage)
@@ -91,7 +104,7 @@ settingImage = ImageTk.PhotoImage(settingImage)
 # -- load icon schedule
 pathSchedule = os.path.join(
     dirname, 'config\\image\\icon_schedule.png')
-scheduleImage = Image.open(pathSchedule)
+scheduleImage = PIL.Image.open(pathSchedule)
 scheduleImage = scheduleImage.resize(
     (16, 16), Image.ANTIALIAS)
 scheduleImage = ImageTk.PhotoImage(scheduleImage)
@@ -99,7 +112,7 @@ scheduleImage = ImageTk.PhotoImage(scheduleImage)
 # ThayDoiNhanKhau
 pathThayDoiNhanKhau = os.path.join(
     dirname, 'config\\image\\change_person_button.png')
-ThayDoiNhanKhauImage = Image.open(pathThayDoiNhanKhau)
+ThayDoiNhanKhauImage = PIL.Image.open(pathThayDoiNhanKhau)
 ThayDoiNhanKhauImage = ThayDoiNhanKhauImage.resize(
     (config.button_w, config.button_h), Image.ANTIALIAS)
 ThayDoiNhanKhauImage = ImageTk.PhotoImage(ThayDoiNhanKhauImage)
@@ -107,7 +120,7 @@ ThayDoiNhanKhauImage = ImageTk.PhotoImage(ThayDoiNhanKhauImage)
 # viewMyInfo
 pathViewMyInfo = os.path.join(
     dirname, 'config\\image\\view_my_info_button.png')
-viewMyInfoImage = Image.open(pathViewMyInfo)
+viewMyInfoImage = PIL.Image.open(pathViewMyInfo)
 viewMyInfoImage = viewMyInfoImage.resize(
     (config.button_w, config.button_h), Image.ANTIALIAS)
 viewMyInfoImage = ImageTk.PhotoImage(viewMyInfoImage)
@@ -115,7 +128,7 @@ viewMyInfoImage = ImageTk.PhotoImage(viewMyInfoImage)
 # tách khẩu
 pathTachKhau = os.path.join(
     dirname, 'config\\image\\tach_khau_button.png')
-tachKhauImage = Image.open(pathTachKhau)
+tachKhauImage = PIL.Image.open(pathTachKhau)
 tachKhauImage = tachKhauImage.resize(
     (config.button_w, config.button_h), Image.ANTIALIAS)
 tachKhauImage = ImageTk.PhotoImage(tachKhauImage)
@@ -123,7 +136,7 @@ tachKhauImage = ImageTk.PhotoImage(tachKhauImage)
 # tạm trú
 pathTamTru = os.path.join(
     dirname, 'config\\image\\tam_tru_button.png')
-tamTruImage = Image.open(pathTamTru)
+tamTruImage = PIL.Image.open(pathTamTru)
 tamTruImage = tamTruImage.resize(
     (config.button_w, config.button_h), Image.ANTIALIAS)
 tamTruImage = ImageTk.PhotoImage(tamTruImage)
@@ -131,7 +144,7 @@ tamTruImage = ImageTk.PhotoImage(tamTruImage)
 # tạm vắng
 pathTamVang = os.path.join(
     dirname, 'config\\image\\tam_vang_button.png')
-tamVangImage = Image.open(pathTamVang)
+tamVangImage = PIL.Image.open(pathTamVang)
 tamVangImage = tamVangImage.resize(
     (config.button_w, config.button_h), Image.ANTIALIAS)
 tamVangImage = ImageTk.PhotoImage(tamVangImage)
@@ -148,7 +161,7 @@ def switch(frame, data=[], maHoKhau="", hoKhau=(), listCuDan=[], maQuanLy=1):
         for f in frames:
             for widget in f.winfo_children():
                 widget.destroy()
-    global btn_home_bg, btn_family_bg, btn_demand_bg
+    global btn_home_bg, btn_family_bg, btn_demand_bg, btn_thongke_bg
     # home
     if (frame == f_trang_chu):
         destroy_all_frame()
@@ -307,6 +320,42 @@ def switch(frame, data=[], maHoKhau="", hoKhau=(), listCuDan=[], maQuanLy=1):
         btn_demand_bg = win_bg
         XemTatCaLichSuBienDoi()
 
+    elif (frame == f_thong_ke):
+        destroy_all_frame()
+
+        btn_home_bg = win_bg
+        btn_family_bg = win_bg
+        btn_demand_bg = win_bg
+        ThongKe()
+    elif (frame == f_thong_ke_theo_do_tuoi):
+        destroy_all_frame()
+
+        btn_home_bg = win_bg
+        btn_family_bg = win_bg
+        btn_demand_bg = win_bg
+        ThongKeTheoDoTuoi()
+    elif (frame == f_thong_ke_theo_gioi_tinh):
+        destroy_all_frame()
+
+        btn_home_bg = win_bg
+        btn_family_bg = win_bg
+        btn_demand_bg = win_bg
+        ThongKeTheoGioiTinh()
+    # elif (frame == f_thong_ke):
+    #     destroy_all_frame()
+
+    #     btn_home_bg = win_bg
+    #     btn_family_bg = win_bg
+    #     btn_demand_bg = win_bg
+    #     ThongKe()
+    elif (frame == f_thong_ke_tam_tru_tam_vang):
+        destroy_all_frame()
+
+        btn_home_bg = win_bg
+        btn_family_bg = win_bg
+        btn_demand_bg = win_bg
+        ThongKeTamTruTamVang()
+
     Nav()
     frame.tkraise()
 
@@ -343,11 +392,18 @@ f_lich_su = tkinter.Frame(root)
 f_authen_lich_su_bien_doi_theo_ho_khau = tkinter.Frame(root)
 f_lich_su_bien_doi_theo_ho_khau = tkinter.Frame(root)
 f_tat_ca_lich_su_bien_doi = tkinter.Frame(root)
+
+f_thong_ke = tkinter.Frame(root)
+f_thong_ke_theo_do_tuoi = tkinter.Frame(root)
+f_thong_ke_theo_gioi_tinh = tkinter.Frame(root)
+f_thong_ke_theo_khoang_thoi_gian = tkinter.Frame(root)
+f_thong_ke_tam_tru_tam_vang = tkinter.Frame(root)
 # set các frame chồng lên nhau.
 frames = (f_trang_chu, f_authen_family, f_family, f_them_nhan_khau, f_bien_doi_nhan_khau, f_thay_doi_nhan_khau,  f_authen_thay_doi_chu_ho,
           f_thay_doi_chu_ho, f_authen_tach_khau, f_tach_khau, f_tam_tru, f_tao_giay_tam_tru, f_authen_xem_giay_tam_tru, f_xem_giay_tam_tru,
           f_tam_vang, f_tao_giay_tam_vang, f_authen_xem_giay_tam_vang, f_xem_giay_tam_vang, f_lich_su, f_authen_lich_su_bien_doi_theo_ho_khau,
-          f_lich_su_bien_doi_theo_ho_khau, f_tat_ca_lich_su_bien_doi)
+          f_lich_su_bien_doi_theo_ho_khau, f_tat_ca_lich_su_bien_doi, f_thong_ke, f_thong_ke_theo_do_tuoi, f_thong_ke_theo_gioi_tinh,
+          f_thong_ke_theo_khoang_thoi_gian, f_thong_ke_tam_tru_tam_vang)
 for f in frames:
     f.place(relx=1, rely=0, relheight=1, relwidth=0.8, anchor=NE)
 
@@ -411,7 +467,19 @@ def Nav():
     tkinter.Button(
         demandFrame_middle_nav, text="Kiến Nghị", font=font_header3, anchor=W, bg=btn_demand_bg, borderwidth=0, cursor="hand2",
         command="").place(relx=1, rely=0, relheight=1, relwidth=0.7, anchor=NE)
-    # 3. Button
+
+    # 2.4 Thống kê
+    thongKeFrame_middle_nav = tkinter.Frame(
+        middleFrameNav, bg=btn_thongke_bg, padx=5, pady=0)
+    thongKeFrame_middle_nav.place(
+        relx=0, rely=0.3, relheight=0.1, relwidth=1, anchor=NW)
+    tkinter.Label(
+        thongKeFrame_middle_nav, image=navThongKeImage, bg=btn_thongke_bg, anchor=E, padx=5).place(relx=0, rely=0, relheight=1, relwidth=0.3, anchor=NW)
+    tkinter.Button(
+        thongKeFrame_middle_nav, text="Thống kê", font=font_header3, anchor=W, bg=btn_thongke_bg, borderwidth=0, cursor="hand2",
+        command=lambda: switch(f_thong_ke)).place(relx=1, rely=0, relheight=1, relwidth=0.7, anchor=NE)
+
+    '''Bottom'''
     bottomFrame_nav = tkinter.Frame(nav_bar, bg=win_bg, padx=10, pady=20)
     bottomFrame_nav.place(relx=0, rely=1, relheight=0.25,
                           relwidth=1, anchor=SW)
@@ -1991,6 +2059,169 @@ def XemLichSuBienDoiTheoHoKhau(maHoKhau):
         switch(f_trang_chu)
     else:
         showPage(0)
+
+
+'''Thống kê'''
+
+
+def ThongKe():
+    f_all_thong_ke = tkinter.Frame(
+        f_thong_ke, highlightbackground="black", highlightthickness=2)
+    f_thong_ke.grid_columnconfigure(0, weight=1)
+    f_thong_ke.grid_rowconfigure(0, weight=1)
+    f_all_thong_ke.grid(column=0, row=0, sticky='news', padx=10, pady=10)
+
+    tkinter.Label(
+        f_all_thong_ke, text="Chọn yêu cầu của bạn: ", font=font_content, anchor=W).grid(column=0, row=0, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+    option = ("Thống kê theo giới tính", "Thống kê theo độ tuổi",
+              "Thống kê theo khoảng thời gian", "Thống kê tạm trú tạm vắng")
+    chosed = StringVar(f_all_thong_ke)
+    dropDownTamVang = ttk.OptionMenu(
+        f_all_thong_ke, chosed, option[0], *option, style='DropDownStyle.TMenubutton')
+    dropDownTamVang['menu'].configure(font=('Arial', 12))
+    dropDownTamVang.grid(column=1, row=0, sticky=W,
+                         padx=padx, pady=pady, columnspan=1)
+    tkinter.Button(
+        f_all_thong_ke, text="Gửi",  font=font_header3, fg="white", bg="blue", relief='groove', cursor='hand2', command=lambda: submit(chosed.get())).grid(column=0, row=2, padx=padx, pady=pady, columnspan=2)
+
+    def submit(chose):
+        if (chose == "Thống kê theo giới tính"):
+            switch(f_thong_ke_theo_gioi_tinh)
+        elif (chose == "Thống kê theo độ tuổi"):
+            switch(f_thong_ke_theo_do_tuoi)
+        elif (chose == "Thống kê theo khoảng thời gian"):
+            switch(f_thong_ke_theo_khoang_thoi_gian)
+        elif (chose == "Thống kê tạm trú tạm vắng"):
+            switch(f_thong_ke_tam_tru_tam_vang)
+
+
+def ThongKeTheoDoTuoi():
+    f_all_thong_ke_theo_do_tuoi = tkinter.Frame(
+        f_thong_ke_theo_do_tuoi, highlightbackground="black", highlightthickness=2, bg="white")
+    f_thong_ke_theo_do_tuoi.grid_columnconfigure(0, weight=1)
+    f_thong_ke_theo_do_tuoi.grid_rowconfigure(0, weight=1)
+
+    f_all_thong_ke_theo_do_tuoi.grid(
+        column=0, row=0, sticky='news', padx=10, pady=10)
+
+    f_all_thong_ke_theo_do_tuoi.grid_columnconfigure(0, weight=1)
+    f_all_thong_ke_theo_do_tuoi.grid_rowconfigure(0, weight=1)
+    f_all_thong_ke_theo_do_tuoi.grid_rowconfigure(1, weight=10)
+
+    tkinter.Label(f_all_thong_ke_theo_do_tuoi, text="Thống kê theo độ tuổi", font=font_header1, bg="white",
+                  anchor=N, justify=CENTER).grid(column=0, row=0, columnspan=1, sticky=N)
+
+    f = Figure(figsize=(5, 4), dpi=100)
+    ax = f.add_subplot(111)
+
+    data = ChucNang.ThongKeTheoDoTuoi()
+
+    feild = ["Mầm non", "Mẫu giáo", "Cấp 1", "Cấp 2", "Cấp 3",
+             "Lao động", "Nghỉ hưu"]  # the x locations for the groups
+    width = .5
+
+    ax.bar(feild, data, width)
+    ax.set_title('Thống kê theo độ tuổi')
+
+    for i, v in enumerate(data):
+        ax.text(i-0.05, v+0.5, str(v), color="black")
+
+    canvas = FigureCanvasTkAgg(f, master=f_all_thong_ke_theo_do_tuoi)
+    canvas.draw()
+    canvas.get_tk_widget().grid(column=0, row=1, columnspan=1, sticky='news')
+
+
+def ThongKeTheoGioiTinh():
+    MaleColor = "blue"
+    FemaleColor = "orange"
+    f_all_thong_ke_theo_gioi_tinh = tkinter.Frame(
+        f_thong_ke_theo_gioi_tinh, highlightbackground="black", highlightthickness=2, bg="white")
+    f_thong_ke_theo_gioi_tinh.grid_columnconfigure(0, weight=1)
+    f_thong_ke_theo_gioi_tinh.grid_rowconfigure(0, weight=1)
+
+    f_all_thong_ke_theo_gioi_tinh.grid(
+        column=0, row=0, sticky='news', padx=10, pady=10)
+
+    f_all_thong_ke_theo_gioi_tinh.grid_columnconfigure(0, weight=10)
+    f_all_thong_ke_theo_gioi_tinh.grid_columnconfigure(1, weight=1)
+    f_all_thong_ke_theo_gioi_tinh.grid_columnconfigure(2, weight=1)
+    f_all_thong_ke_theo_gioi_tinh.grid_columnconfigure(3, weight=1)
+    f_all_thong_ke_theo_gioi_tinh.grid_rowconfigure(0, weight=1)
+    f_all_thong_ke_theo_gioi_tinh.grid_rowconfigure(1, weight=1)
+    f_all_thong_ke_theo_gioi_tinh.grid_rowconfigure(2, weight=1)
+    f_all_thong_ke_theo_gioi_tinh.grid_rowconfigure(3, weight=1)
+    f_all_thong_ke_theo_gioi_tinh.grid_rowconfigure(4, weight=10)
+
+    data = ChucNang.ThongKeGioiTinh()
+
+    tkinter.Label(f_all_thong_ke_theo_gioi_tinh, text="Thống kê theo giới tính", font=font_header1, bg="white",
+                  anchor=N, justify=CENTER).grid(column=0, row=0, columnspan=4, sticky=N)
+    tkinter.Label(f_all_thong_ke_theo_gioi_tinh, font=font_content,
+                  text="Số lượng: ", bg='white').grid(column=1, row=1, columnspan=3, sticky=W)
+    tkinter.Label(f_all_thong_ke_theo_gioi_tinh, font=font_content, text="", bg=MaleColor,
+                  height=1, width=4).grid(column=1, row=2, columnspan=1, sticky=E)
+    tkinter.Label(f_all_thong_ke_theo_gioi_tinh, font=font_content, text=data[0], bg="white",
+                  height=1, width=4).grid(column=2, row=2, columnspan=1, sticky=W)
+
+    tkinter.Label(f_all_thong_ke_theo_gioi_tinh, font=font_content, text="", bg=FemaleColor,
+                  height=1, width=4).grid(column=1, row=3, columnspan=1, sticky=E)
+    tkinter.Label(f_all_thong_ke_theo_gioi_tinh, font=font_content, text=data[1], bg="white",
+                  height=1, width=4).grid(column=2, row=3, columnspan=1, sticky=W)
+    label = ["Nam", "Nữ"]
+    f = Figure()  # create a figure object
+    ax = f.add_subplot(111)  # add an Axes to the figure
+    ax.pie(data, radius=1, labels=label, colors=[MaleColor, FemaleColor],
+           autopct='%0.2f%%', shadow=True)
+
+    chart1 = FigureCanvasTkAgg(f, master=f_all_thong_ke_theo_gioi_tinh)
+    chart1.get_tk_widget().grid(column=0, row=4, columnspan=4, sticky='news')
+
+
+def ThongKeTamTruTamVang():
+    TamTruColor = "blue"
+    TamVangColor = "orange"
+    f_all_thong_ke_tam_tru_tam_vang = tkinter.Frame(
+        f_thong_ke_tam_tru_tam_vang, highlightbackground="black", highlightthickness=2, bg="white")
+    f_thong_ke_tam_tru_tam_vang.grid_columnconfigure(0, weight=1)
+    f_thong_ke_tam_tru_tam_vang.grid_rowconfigure(0, weight=1)
+
+    f_all_thong_ke_tam_tru_tam_vang.grid(
+        column=0, row=0, sticky='news', padx=10, pady=10)
+
+    f_all_thong_ke_tam_tru_tam_vang.grid_columnconfigure(0, weight=10)
+    f_all_thong_ke_tam_tru_tam_vang.grid_columnconfigure(1, weight=1)
+    f_all_thong_ke_tam_tru_tam_vang.grid_columnconfigure(2, weight=1)
+    f_all_thong_ke_tam_tru_tam_vang.grid_columnconfigure(3, weight=1)
+    f_all_thong_ke_tam_tru_tam_vang.grid_rowconfigure(0, weight=1)
+    f_all_thong_ke_tam_tru_tam_vang.grid_rowconfigure(1, weight=1)
+    f_all_thong_ke_tam_tru_tam_vang.grid_rowconfigure(2, weight=1)
+    f_all_thong_ke_tam_tru_tam_vang.grid_rowconfigure(3, weight=1)
+    f_all_thong_ke_tam_tru_tam_vang.grid_rowconfigure(4, weight=10)
+
+    data = ChucNang.ThongKeTamtruTamVang()
+
+    tkinter.Label(f_all_thong_ke_tam_tru_tam_vang, text="Thống kê tạm trú tạm vắng", font=font_header1, bg="white",
+                  anchor=N, justify=CENTER).grid(column=0, row=0, columnspan=4, sticky=N)
+    tkinter.Label(f_all_thong_ke_tam_tru_tam_vang, font=font_content,
+                  text="Số lượng: ", bg='white').grid(column=1, row=1, columnspan=3, sticky=W)
+    tkinter.Label(f_all_thong_ke_tam_tru_tam_vang, font=font_content, text="", bg=TamTruColor,
+                  height=1, width=4).grid(column=1, row=2, columnspan=1, sticky=E)
+    tkinter.Label(f_all_thong_ke_tam_tru_tam_vang, font=font_content, text=data[0], bg="white",
+                  height=1, width=4).grid(column=2, row=2, columnspan=1, sticky=W)
+
+    tkinter.Label(f_all_thong_ke_tam_tru_tam_vang, font=font_content, text="", bg=TamVangColor,
+                  height=1, width=4).grid(column=1, row=3, columnspan=1, sticky=E)
+    tkinter.Label(f_all_thong_ke_tam_tru_tam_vang, font=font_content, text=data[1], bg="white",
+                  height=1, width=4).grid(column=2, row=3, columnspan=1, sticky=W)
+    label = ["Tạm trú", "Tạm vắng"]
+    f = Figure()  # create a figure object
+    ax = f.add_subplot(111)  # add an Axes to the figure
+    ax.pie(data, radius=1, labels=label, colors=[TamTruColor, TamVangColor],
+           autopct='%0.2f%%', shadow=True)
+
+    chart1 = FigureCanvasTkAgg(f, master=f_all_thong_ke_tam_tru_tam_vang)
+    chart1.get_tk_widget().grid(column=0, row=4, columnspan=4, sticky='news')
 
 
 """----------------------------------------------------------------------------------------------"""
