@@ -4,6 +4,7 @@ import os
 import requests
 
 path = os.getcwd()
+path_data = path + '\Quan_Ly_Dan_Cu\Data'
 path += '\Quan_Ly_Dan_Cu\Data\QLCUDAN.bak'
 path = 'D' + path[1:]
 hostname = socket.gethostname()
@@ -33,8 +34,7 @@ def Backup():
     cursor.execute(query)
     cursor.commit()
 
-import wget
-def upGithub():
-    URL = "https://github.com/NguyenQuocViet42/Quan_Ly_Dan_Cu_PJ/tree/main/Data/QLCUDAN.bak"
-    response = wget.download(URL, "QLCUDAN.bak") 
-Backup()
+def DownGithub():
+    os.chdir(path_data)
+    line = 'curl -o QLCUDAN.bak https://raw.githubusercontent.com/NguyenQuocViet42/Quan_Ly_Dan_Cu_PJ/main/Data/QLCUDAN.bak'
+    os.system(line)

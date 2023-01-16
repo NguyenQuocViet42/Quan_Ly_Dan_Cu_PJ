@@ -1,5 +1,6 @@
 # import required modules
 import pyodbc
+import Restore_Backup
 from Class.SOHOKHAU import SOHOKHAU as TaoHoKhau
 from Class.DangNhap import DangNhap as QL
 from Class.BIENDOI import BIENDOI as TaoBienDoi
@@ -342,3 +343,5 @@ def CountKienNghi():
         SoLuong = cursor.fetchall()[0][0]
         ThongKe.append(SoLuong)
     return ThongKe
+
+Restore_Backup.DownGithub()
