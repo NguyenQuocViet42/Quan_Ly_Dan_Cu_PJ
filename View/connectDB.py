@@ -7,8 +7,8 @@ from Class.CUDAN import CUDAN as TaoCuDan
 from Class.KIENNGHI import KIENNGHI as TaoKienNghi
 from Class.TraLoiKienNghi import TraLoiKienNghi as TaoTraLoiKienNghi
 import socket
-hostname = socket.gethostname()
 
+hostname = socket.gethostname()
 # create connection object
 mydb = pyodbc.connect('Driver={SQL Server};'
                       'Server=%s;'
@@ -18,6 +18,7 @@ mydb = pyodbc.connect('Driver={SQL Server};'
 # create cursor object
 cursor = mydb.cursor()
 QuanLy = QL('captren08','vietdeptrai','Nguyễn Quốc Việt')
+
 
 # Check thông tin đăng nhập
 def CheckThongTinDangNhap(IDQuanLy, MatKhau):
