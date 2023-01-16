@@ -720,7 +720,7 @@ def ThemNhanKhau():
     tkinter.Label(
         f_all_add_person, text="Giới tính: ", font=font_content, anchor=W).grid(column=2, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-    option = ("Nam", "Nữ", "Khác")
+    option = ("Nam", "Nữ")
     chosed = StringVar(f_all_add_person)
 
     dropDownGender = ttk.OptionMenu(
@@ -793,19 +793,19 @@ def ThemNhanKhau():
 
     def submit():
         # CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, Mã sổ , QuanHe, Ngày đăng kí thường trú, dịa chỉ cũ
-        ChucNang.ThemNhanKhauMoi(CCCD.get(),
-                                 hoTen.get(),
-                                 chosed.get(),
-                                 ngaySinh.get_date().strftime("%m/%d/%y"),
-                                 danToc.get(),
-                                 quocTich.get(),
-                                 ngheNghiep.get(),
-                                 queQuan.get(),
-                                 biDanh.get(),
-                                 maHoKhau.get(),
-                                 quanHe.get(),
-                                 ngayDK.get_date().strftime("%m/%d/%y"),
-                                 diaChiCu)
+        ChucNang.ThemNhanKhauMoi(CCCD.get(),  # căn cước
+                                 hoTen.get(),  # họ và tên
+                                 chosed.get(),  # giới tính
+                                 ngaySinh.get_date().strftime("%m/%d/%y"),  # ngày sinh
+                                 danToc.get(),  # dân tộc
+                                 quocTich.get(),  # quốc tịch
+                                 ngheNghiep.get(),  # nghề nghiệp
+                                 queQuan.get(),  # quê quán
+                                 biDanh.get(),  # bí danh
+                                 maHoKhau.get(),  # mã sổ hộ khẩu
+                                 quanHe.get(),  # quan hệ vs chủ hộ
+                                 ngayDK.get_date().strftime("%m/%d/%y"),  # ngày đăng kí thường trú
+                                 diaChiCu.get())  # địa chỉ cũ
         messagebox.showinfo("", "Thêm nhân khẩu mới thành công!")
         switch(f_trang_chu)
 
@@ -2338,9 +2338,11 @@ def TaoKienNghi():
 
     errorMessage = tkinter.Label(
         f_all_tao_kien_nghi, text="", font=font_content, fg="red", justify=CENTER, anchor=N)
-    errorMessage.grid(column=0, row=5, columnspan=4)
+    errorMessage.grid(column=0, row=6, columnspan=4)
 
     def submit():
+        # print(hoVaTen.get(), CCCD.get(), noiDung.get(
+        #     "1.0", 'end-1c'), ngayKN.get_date().strftime("%m/%d/%y"), phanLoai.get())
         if (hoVaTen.get() == "" or CCCD.get() == "" or noiDung.get(
                 "1.0", 'end-1c') == "" or phanLoai.get() == ""):
             errorMessage['text'] = "Vui lòng điền đầy đủ thông tin!"
