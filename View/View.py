@@ -341,13 +341,13 @@ def switch(frame, data=[], maHoKhau="", hoKhau=(), listCuDan=[], maQuanLy=1):
         btn_family_bg = win_bg
         btn_demand_bg = win_bg
         ThongKeTheoGioiTinh()
-    # elif (frame == f_thong_ke):
+    # elif (frame == f_thong_ke_theo_khoang_thoi_gian):
     #     destroy_all_frame()
 
     #     btn_home_bg = win_bg
     #     btn_family_bg = win_bg
     #     btn_demand_bg = win_bg
-    #     ThongKe()
+    #     ThongKeTheoKhoangThoiGian()
     elif (frame == f_thong_ke_tam_tru_tam_vang):
         destroy_all_frame()
 
@@ -355,6 +355,34 @@ def switch(frame, data=[], maHoKhau="", hoKhau=(), listCuDan=[], maQuanLy=1):
         btn_family_bg = win_bg
         btn_demand_bg = win_bg
         ThongKeTamTruTamVang()
+    elif (frame == f_kien_nghi):
+        destroy_all_frame()
+
+        btn_home_bg = win_bg
+        btn_family_bg = win_bg
+        btn_demand_bg = win_bg
+        KienNghi()
+    elif (frame == f_tao_kien_nghi):
+        destroy_all_frame()
+
+        btn_home_bg = win_bg
+        btn_family_bg = win_bg
+        btn_demand_bg = win_bg
+        TaoKienNghi()
+    # elif (frame == f_xem_kien_nghi):
+    #     destroy_all_frame()
+
+    #     btn_home_bg = win_bg
+    #     btn_family_bg = win_bg
+    #     btn_demand_bg = win_bg
+    #     XemKienNghi()
+    # elif (frame == f_tra_loi_kien_nghi):
+    #     destroy_all_frame()
+
+    #     btn_home_bg = win_bg
+    #     btn_family_bg = win_bg
+    #     btn_demand_bg = win_bg
+    #     TraLoiKienNghi()
 
     Nav()
     frame.tkraise()
@@ -398,12 +426,17 @@ f_thong_ke_theo_do_tuoi = tkinter.Frame(root)
 f_thong_ke_theo_gioi_tinh = tkinter.Frame(root)
 f_thong_ke_theo_khoang_thoi_gian = tkinter.Frame(root)
 f_thong_ke_tam_tru_tam_vang = tkinter.Frame(root)
+
+f_kien_nghi = tkinter.Frame(root)
+f_tao_kien_nghi = tkinter.Frame(root)
+f_xem_kien_nghi = tkinter.Frame(root)
+f_tra_loi_kien_nghi = tkinter.Frame(root)
 # set các frame chồng lên nhau.
 frames = (f_trang_chu, f_authen_family, f_family, f_them_nhan_khau, f_bien_doi_nhan_khau, f_thay_doi_nhan_khau,  f_authen_thay_doi_chu_ho,
           f_thay_doi_chu_ho, f_authen_tach_khau, f_tach_khau, f_tam_tru, f_tao_giay_tam_tru, f_authen_xem_giay_tam_tru, f_xem_giay_tam_tru,
           f_tam_vang, f_tao_giay_tam_vang, f_authen_xem_giay_tam_vang, f_xem_giay_tam_vang, f_lich_su, f_authen_lich_su_bien_doi_theo_ho_khau,
           f_lich_su_bien_doi_theo_ho_khau, f_tat_ca_lich_su_bien_doi, f_thong_ke, f_thong_ke_theo_do_tuoi, f_thong_ke_theo_gioi_tinh,
-          f_thong_ke_theo_khoang_thoi_gian, f_thong_ke_tam_tru_tam_vang)
+          f_thong_ke_theo_khoang_thoi_gian, f_thong_ke_tam_tru_tam_vang, f_kien_nghi, f_tao_kien_nghi, f_xem_kien_nghi, f_tra_loi_kien_nghi)
 for f in frames:
     f.place(relx=1, rely=0, relheight=1, relwidth=0.8, anchor=NE)
 
@@ -466,7 +499,7 @@ def Nav():
         demandFrame_middle_nav, image=navDemandImage, bg=btn_demand_bg, anchor=E, padx=5).place(relx=0, rely=0, relheight=1, relwidth=0.3, anchor=NW)
     tkinter.Button(
         demandFrame_middle_nav, text="Kiến Nghị", font=font_header3, anchor=W, bg=btn_demand_bg, borderwidth=0, cursor="hand2",
-        command="").place(relx=1, rely=0, relheight=1, relwidth=0.7, anchor=NE)
+        command=lambda: switch(f_kien_nghi)).place(relx=1, rely=0, relheight=1, relwidth=0.7, anchor=NE)
 
     # 2.4 Thống kê
     thongKeFrame_middle_nav = tkinter.Frame(
@@ -2222,6 +2255,154 @@ def ThongKeTamTruTamVang():
 
     chart1 = FigureCanvasTkAgg(f, master=f_all_thong_ke_tam_tru_tam_vang)
     chart1.get_tk_widget().grid(column=0, row=4, columnspan=4, sticky='news')
+
+
+'''Kiến nghị'''
+
+
+def KienNghi():
+    f_all_kien_nghi = tkinter.Frame(
+        f_kien_nghi, highlightbackground="black", highlightthickness=2)
+    f_kien_nghi.grid_columnconfigure(0, weight=1)
+    f_kien_nghi.grid_rowconfigure(0, weight=1)
+    f_all_kien_nghi.grid(column=0, row=0, sticky='news', padx=10, pady=10)
+
+    tkinter.Label(
+        f_all_kien_nghi, text="Chọn yêu cầu của bạn: ", font=font_content, anchor=W).grid(column=0, row=0, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+    option = ("Tạo kiến nghị", "Xem kiến nghị",
+              "Trả lời kiến nghị")
+    chosed = StringVar(f_all_kien_nghi)
+    dropDownKienNghi = ttk.OptionMenu(
+        f_all_kien_nghi, chosed, option[0], *option, style='DropDownStyle.TMenubutton')
+    dropDownKienNghi['menu'].configure(font=('Arial', 12))
+    dropDownKienNghi.grid(column=1, row=0, sticky=W,
+                          padx=padx, pady=pady, columnspan=1)
+    tkinter.Button(
+        f_all_kien_nghi, text="Gửi",  font=font_header3, fg="white", bg="blue", relief='groove', cursor='hand2', command=lambda: submit(chosed.get())).grid(column=0, row=2, padx=padx, pady=pady, columnspan=2)
+
+    def submit(chose):
+        if (chose == "Tạo kiến nghị"):
+            switch(f_tao_kien_nghi)
+        elif (chose == "Xem kiến nghị"):
+            switch(f_xem_kien_nghi)
+        elif (chose == "Trả lời kiến nghị"):
+            switch(f_tra_loi_kien_nghi)
+
+# HoTen, CCCD, NoiDung, NgayKN: datetime.datetime, PhanLoai
+
+
+def TaoKienNghi():
+    f_all_tao_kien_nghi = tkinter.Frame(
+        f_tao_kien_nghi, highlightbackground="black", highlightthickness=2)
+    f_tao_kien_nghi.grid_columnconfigure(0, weight=1)
+    f_tao_kien_nghi.grid_rowconfigure(0, weight=1)
+    f_all_tao_kien_nghi.grid(
+        column=0, row=0, sticky='news', padx=10, pady=10)
+
+    f_all_tao_kien_nghi.grid_columnconfigure(0, weight=1)
+    f_all_tao_kien_nghi.grid_columnconfigure(1, weight=1)
+    f_all_tao_kien_nghi.grid_columnconfigure(2, weight=1)
+    f_all_tao_kien_nghi.grid_columnconfigure(3, weight=1)
+    # row 0
+    tkinter.Label(f_all_tao_kien_nghi, text="Đơn kiến nghị", font=font_header1).grid(
+        column=0, row=0, padx=padx, pady=pady, columnspan=4)
+    tkinter.Label(f_all_tao_kien_nghi, text="Họ và tên:", font=font_content,
+                  anchor=W, justify=LEFT).grid(column=0, row=1, columnspan=1, sticky=NW, padx=padx, pady=pady)
+    hoVaTen = tkinter.Entry(f_all_tao_kien_nghi, font=font_content, width=60)
+    hoVaTen.grid(column=1, row=1, columnspan=3,
+                 sticky=NW, padx=padx, pady=pady)
+
+    tkinter.Label(f_all_tao_kien_nghi, text="CCCD:", font=font_content,
+                  anchor=W, justify=LEFT).grid(column=0, row=2, columnspan=1, sticky=NW, padx=padx, pady=pady)
+    CCCD = tkinter.Entry(f_all_tao_kien_nghi, font=font_content, width=20)
+    CCCD.grid(column=1, row=2, columnspan=1, sticky=NW, padx=padx, pady=pady)
+
+    tkinter.Label(f_all_tao_kien_nghi, text="Nội dung:", font=font_content,
+                  anchor=W, justify=LEFT).grid(column=0, row=3, columnspan=1, sticky=NW, padx=padx, pady=pady)
+    noiDung = tkinter.Text(f_all_tao_kien_nghi,
+                           font=font_content_mini, width=75, height=15, wrap=WORD)
+    noiDung.grid(column=1, row=3, columnspan=3,
+                 sticky=NW, padx=padx, pady=pady)
+
+    tkinter.Label(f_all_tao_kien_nghi, text="Phân loại:", font=font_content,
+                  anchor=W, justify=LEFT).grid(column=0, row=4, columnspan=1, sticky=NW, padx=padx, pady=pady)
+    phanLoai = tkinter.Entry(f_all_tao_kien_nghi, font=font_content, width=60)
+    phanLoai.grid(column=1, row=4, columnspan=3,
+                  sticky=NW, padx=padx, pady=pady)
+
+    ngayKN = DateEntry(f_all_tao_kien_nghi, font=font_content)
+
+    tkinter.Button(f_all_tao_kien_nghi, text="Gửi", font=font_header3, fg="white", bg="blue",
+                   cursor='hand2', command=lambda: submit()).grid(column=0, row=5, columnspan=4, padx=padx, pady=pady)
+
+    errorMessage = tkinter.Label(
+        f_all_tao_kien_nghi, text="", font=font_content, fg="red", justify=CENTER, anchor=N)
+    errorMessage.grid(column=0, row=5, columnspan=4)
+
+    def submit():
+        if (hoVaTen.get() == "" or CCCD.get() == "" or noiDung.get(
+                "1.0", 'end-1c') == "" or phanLoai.get() == ""):
+            errorMessage['text'] = "Vui lòng điền đầy đủ thông tin!"
+            return
+
+        errorCode = ChucNang.TaoDonKienNghi(hoVaTen.get(), CCCD.get(), noiDung.get(
+            "1.0", 'end-1c'), ngayKN.get_date().strftime("%m/%d/%y"), phanLoai.get())
+
+        if (errorCode == 1):
+            errorMessage['text'] = "Vui lòng kiểm tra lại họ tên, CCCD!"
+            return
+        elif (errorCode == 0):
+            messagebox.showinfo("", "Đã gửi đơn kiến nghị")
+            switch(f_trang_chu)
+
+
+def XemKienNghi():
+    f_all_xem_kien_nghi = tkinter.Frame(
+        f_xem_kien_nghi, highlightbackground="black", highlightthickness=2)
+    f_xem_kien_nghi.grid_columnconfigure(0, weight=1)
+    f_xem_kien_nghi.grid_rowconfigure(0, weight=1)
+    f_all_xem_kien_nghi.grid(
+        column=0, row=0, sticky='news', padx=10, pady=10)
+
+    f_all_xem_kien_nghi.grid_columnconfigure(0, weight=1)
+    f_all_xem_kien_nghi.grid_columnconfigure(1, weight=1)
+    f_all_xem_kien_nghi.grid_columnconfigure(2, weight=1)
+    f_all_xem_kien_nghi.grid_columnconfigure(3, weight=1)
+
+    tkinter.Label(f_all_xem_kien_nghi, text="Họ và tên:", font=font_content,
+                  anchor=W, justify=LEFT).grid(column=0, row=1, columnspan=1, sticky=NW, padx=padx, pady=pady)
+    hoVaTen = tkinter.Entry(f_all_xem_kien_nghi, font=font_content, width=60)
+    hoVaTen.grid(column=1, row=1, columnspan=3,
+                 sticky=NW, padx=padx, pady=pady)
+
+    tkinter.Label(f_all_xem_kien_nghi, text="CCCD:", font=font_content,
+                  anchor=W, justify=LEFT).grid(column=0, row=2, columnspan=1, sticky=NW, padx=padx, pady=pady)
+    CCCD = tkinter.Entry(f_all_xem_kien_nghi, font=font_content, width=20)
+    CCCD.grid(column=1, row=2, columnspan=1, sticky=NW, padx=padx, pady=pady)
+
+    tkinter.Button(f_all_xem_kien_nghi, text="Gửi", font=font_header3, fg="white",
+                   bg="blue", command=lambda: submit()).grid(column=0, row=3, columnspan=4, padx=padx, pady=pady)
+    errorMessage = tkinter.Label(
+        f_all_xem_kien_nghi, text="", font=font_content, fg="red", justify=CENTER)
+    errorMessage.grid(column=0, row=4, columnspan=4,
+                      sticky=N, padx=padx, pady=pady)
+
+    def submit():
+        if (hoVaTen.get() == "" or CCCD.get() == ""):
+            errorMessage['text'] = "Vui lòng điền đầy đủ thông tin!"
+            return
+        errorCode, CuDan, DanhSachKienNghi = ChucNang.XemDonKienNghi(
+            hoVaTen.get(), CCCD.get())
+        if (errorCode == 1):
+            errorMessage['text'] = "Vui lòng kiểm tra lại họ tên, CCCD!"
+            return
+        elif (errorCode == 2):
+            errorMessage['text'] = "Không có đơn kiến nghị nào!"
+            return
+
+    def view():
+        pass
 
 
 """----------------------------------------------------------------------------------------------"""
