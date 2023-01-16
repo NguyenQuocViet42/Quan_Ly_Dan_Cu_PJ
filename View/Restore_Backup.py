@@ -5,7 +5,7 @@ import requests
 
 path = os.getcwd()
 path_data = path + '\Quan_Ly_Dan_Cu\Data'
-path += '\Quan_Ly_Dan_Cu\Data\QLCUDAN.bak'
+path += '\Quan_Ly_Dan_Cu\Data\Data.bak'
 path = 'D' + path[1:]
 hostname = socket.gethostname()
 
@@ -15,13 +15,13 @@ def Restore():
                       'Trusted_Connection=yes;' %hostname)
     cursor = cnxn.cursor()
     cnxn.autocommit = True
-    query = " RESTORE DATABASE QLCUDAN from disk = '%s' with replace " %path
+    query = " RESTORE DATABASE QLCUDAN from disk = '%s' with NOUNLOAD, RECOVERY " %path
     cnxn.autocommit = False
     cursor.execute(query)
     while cursor.nextset():
         pass
     cursor.commit()
-
+    
 def Backup():
     cnxn = pyodbc.connect('Driver={SQL Server};'
                       'Server=%s;'
@@ -29,6 +29,7 @@ def Backup():
                       'Trusted_Connection=yes;' %hostname)
     cursor = cnxn.cursor()
     cnxn.autocommit = True
+    print(path)
     query = " BACKUP DATABASE QLCUDAN TO DISK = '%s'" %path
     cnxn.autocommit = False
     cursor.execute(query)

@@ -11,11 +11,17 @@ import socket
 
 hostname = socket.gethostname()
 # create connection object
-mydb = pyodbc.connect('Driver={SQL Server};'
-                      'Server=%s;'
-                      'Database=QLCUDAN;'
-                      'Trusted_Connection=yes;' %hostname)
-
+try:
+    mydb = pyodbc.connect('Driver={SQL Server};'
+                        'Server=%s;'
+                        'Database=QLCUDAN;'
+                        'Trusted_Connection=yes;' %hostname)
+except:
+    Restore_Backup.Restore()
+    mydb = pyodbc.connect('Driver={SQL Server};'
+                        'Server=%s;'
+                        'Database=QLCUDAN;'
+                        'Trusted_Connection=yes;' %hostname)
 # create cursor object
 cursor = mydb.cursor()
 QuanLy = QL('captren08','vietdeptrai','Nguyễn Quốc Việt')
@@ -343,5 +349,3 @@ def CountKienNghi():
         SoLuong = cursor.fetchall()[0][0]
         ThongKe.append(SoLuong)
     return ThongKe
-
-Restore_Backup.DownGithub()

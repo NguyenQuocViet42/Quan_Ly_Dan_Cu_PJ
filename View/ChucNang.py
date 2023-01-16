@@ -298,5 +298,3 @@ def ThayDoiTrangThai(MaKienNghi ,TrangThai):
 # Mới ghi nhận / chưa giải quyết / đã giải quyết / đã thông báo
 def ThongKeKienNghi():
     return connectDB.CountKienNghi()
-
-Restore_Backup.DownGithub()
