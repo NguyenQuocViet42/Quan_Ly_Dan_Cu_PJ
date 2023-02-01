@@ -1,5 +1,6 @@
 # import required modules
 import pyodbc
+import os
 import Restore_Backup
 from Class.SOHOKHAU import SOHOKHAU as TaoHoKhau
 from Class.DangNhap import DangNhap as QL
@@ -95,12 +96,11 @@ def insertBienDoi(BienDoi : TaoBienDoi):
     cursor.execute(query, val)
     mydb.commit()
 
-# Khi có Nhân khẩu chuyển đi
+# Thay đổi thông tin cư dân
 
-
-def updateCUDAN_ChuyenDi(ID, NgayChuyenDi, NoiChuyenDi, GhiChu):
-    values = (NgayChuyenDi, NoiChuyenDi, GhiChu, ID)
-    query = "UPDATE CUDAN SET NgayChuyenDi = ?, NoiChuyenDi = ?, GhiChu = ? WHERE ID =?"
+def updateCUDAN(ID ,CCCD, HoTen, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu, NgayChuyenDi, NoiChuyenDi, GhiChu):
+    values = (CCCD, HoTen, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu, NgayChuyenDi, NoiChuyenDi, GhiChu, ID)
+    query = "UPDATE CUDAN  set CCCD = ?, HoTen = ?, GioiTinh = ?, NgaySinh = ?, DanToc = ?, QuocTich = ?, NgheNghiep = ?, QueQuan = ?, BiDanh = ?, MaSo = ?, QuanHe = ?, NgayDangKyThuongTru = ?, DiaChiCu = ?, NgayChuyenDi = ?, NoiChuyenDi = ?, GhiChu = ? where ID = ?"
     cursor.execute(query, values)
     mydb.commit()
 
@@ -294,10 +294,17 @@ def TimCUDANTuHoTenCCCD(HoTen, CCCD):
     thongtincudan = cursor.fetchall()[0]
     cudan = TaoCuDan.init_values(values = thongtincudan)
     return cudan
+
 def TimDonKienNghi(CuDan: TaoCuDan):
     query = " select * from KIENNGHI where ID = ? "
     val = (CuDan.ID,)
     cursor.execute(query,val)
+    list = cursor.fetchall()
+    return list
+
+def TimToanBoDonKienNghi():
+    query = " select * from KIENNGHI"
+    cursor.execute(query)
     list = cursor.fetchall()
     return list
 

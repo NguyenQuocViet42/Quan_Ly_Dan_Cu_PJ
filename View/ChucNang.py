@@ -8,6 +8,7 @@ from Class.BIENDOI import BIENDOI as TaoBienDoi
 from Class.SOHOKHAU import SOHOKHAU as TaoHoKhau
 from Class.KIENNGHI import KIENNGHI as TaoKienNghi
 from Class.TraLoiKienNghi import TraLoiKienNghi as TaoTraLoiKienNghi
+import os
 
 QuanLy = QL('captren08','vietdeptrai','Nguyễn Quốc Việt')
 """ Đăng nhập """
@@ -73,7 +74,7 @@ def ThemNhanKhauMoi(CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghie
 nhân khẩu qua đời thì phần ghi chú là “Đã qua đời” """
 
 
-def ThayDoiNhanKhau(NgayChuyenDi, NoiChuyenDi, GhiChu, HoTen, CCCD, MaSo):
+def ThayDoiNhanKhau(CCCD, HoTen, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu, NgayChuyenDi, NoiChuyenDi, GhiChu):
     errorCode = 0
     try:
         ID = connectDB.TimIDTuMaSoCCCDHoTen(MaSo, CCCD, HoTen)
@@ -81,16 +82,12 @@ def ThayDoiNhanKhau(NgayChuyenDi, NoiChuyenDi, GhiChu, HoTen, CCCD, MaSo):
         errorCode = 1
         return errorCode
 
-    connectDB.updateCUDAN_ChuyenDi(ID, NgayChuyenDi, NoiChuyenDi, GhiChu)
+    connectDB.updateCUDAN(ID, HoTen, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu, NgayChuyenDi, NoiChuyenDi, GhiChu)
     if GhiChu == 'Đã qua đời':
         NoiDung = 'Thành viên ' + HoTen + ' ' + CCCD + ' của Hộ Khẩu ' + \
             MaSo + ' đã qua đời vào ngày ' + NgayChuyenDi
     else:
-        if (NoiChuyenDi == ""):
-            errorCode = 2
-            return errorCode
-        NoiDung = 'Thành viên ' + HoTen + ' ' + CCCD + ' của Hộ Khẩu ' + MaSo + \
-            ' chuyển đi ' + NoiChuyenDi + ' vào ngày ' + NgayChuyenDi
+        NoiDung = 'Thay đổi thông tin nhân khẩu ' + HoTen + CCCD
     biendoi = TaoBienDoi(1, 1,KieuBienDoi='Thay đổi nhân khẩu', NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy = QuanLy.IDQuanLy)
     connectDB.insertBienDoi(biendoi)
     return errorCode
@@ -276,11 +273,21 @@ def XemDonKienNghi(HoTen, CCCD):
         DanhSachKienNghi.append(TaoKienNghi.init_values(i))
     return 0, CuDan, DanhSachKienNghi
 
+# Xem toàn bộ kiến nghị
+# Trả về 0 nếu không có đơn kiến nghị nào, trả về 1 nếu có
+def XemToanBoKienNghi():
+    list = connectDB.TimToanBoDonKienNghi()
+    if len(list) == 0:
+        return 0, 'Không có đơn kiến nghị nào'
+    DanhSachKienNghi = []
+    for i in list:
+        DanhSachKienNghi.append(TaoKienNghi.init_values(i))
+    return 1, DanhSachKienNghi
+
 """ Cấp trên trả lời kiến nghị """
 def TraLoiKienNghi(MaKienNghi, NoiDung):
     ThuTraLoi = TaoTraLoiKienNghi(1, MaKienNghi, NoiDung, 1, 1, QuanLy.TenQuanLy, QuanLy.IDQuanLy)
     connectDB.InsertTraLoiKienNghi(ThuTraLoi)
-    
 
 """ Khi có phản hồi từ các cơ quan có liên quan, tổ trưởng sẽ ghi nhận lại với phản ánh / kiến nghị tương ứng và thông báo cho
 cá nhân có liên quan. Các kiến nghị trùng nhau có thể được gộp lại thành một nhưng phải ghi nhận những người phản ánh và số lần phản ánh """
