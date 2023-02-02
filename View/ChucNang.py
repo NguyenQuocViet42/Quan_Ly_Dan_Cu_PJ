@@ -10,10 +10,12 @@ from Class.KIENNGHI import KIENNGHI as TaoKienNghi
 from Class.TraLoiKienNghi import TraLoiKienNghi as TaoTraLoiKienNghi
 import os
 
-QuanLy = QL('captren08','vietdeptrai','Nguyễn Quốc Việt')
+QuanLy = QL('captren08', 'vietdeptrai', 'Nguyễn Quốc Việt')
 """ Đăng nhập """
 # Nếu đăng nhập thành công, trả về đối tượng đăng nhập
 # Trả về 0 là lỗi đăng nhập, trả về 1 là Tổ trưởng hoặc Cấp dưới, trả về 2 là Cấp trên
+
+
 def DangNhap(IDQuanLy, MatKhau):
     try:
         ThongTin = connectDB.CheckThongTinDangNhap(IDQuanLy, MatKhau)
@@ -28,7 +30,10 @@ def DangNhap(IDQuanLy, MatKhau):
     except:
         return 0
 
+
 """ Xem thông tin hộ khẩu | Trả về 2 list, list đầu tiên là thông tin hộ khẩu, list tiếp theo là thông tin các cư dân """
+
+
 def XemSoHoKhau(MaSo):
     error_code = 0
     # Thông tin hộ khẩu:
@@ -65,8 +70,10 @@ def ThemNhanKhauMoi(CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghie
            BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu, None, None, None)
     # Thêm vào data base
     connectDB.insertCUDAN(val)
-    NoiDung = 'Thêm nhân khẩu ' + Hoten + ' ' + CCCD + ' vào hộ khẩu ' + str(MaSo)
-    biendoi = TaoBienDoi(1, 1,KieuBienDoi='Thêm nhân khẩu mới', NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy = QuanLy.IDQuanLy)
+    NoiDung = 'Thêm nhân khẩu ' + Hoten + \
+        ' ' + CCCD + ' vào hộ khẩu ' + str(MaSo)
+    biendoi = TaoBienDoi(1, 1, KieuBienDoi='Thêm nhân khẩu mới',
+                         NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy=QuanLy.IDQuanLy)
     connectDB.insertBienDoi(biendoi)
 
 
@@ -82,13 +89,15 @@ def ThayDoiNhanKhau(CCCD, HoTen, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghie
         errorCode = 1
         return errorCode
 
-    connectDB.updateCUDAN(ID, HoTen, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu, NgayChuyenDi, NoiChuyenDi, GhiChu)
+    connectDB.updateCUDAN(ID, HoTen, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan,
+                          BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu, NgayChuyenDi, NoiChuyenDi, GhiChu)
     if GhiChu == 'Đã qua đời':
         NoiDung = 'Thành viên ' + HoTen + ' ' + CCCD + ' của Hộ Khẩu ' + \
             MaSo + ' đã qua đời vào ngày ' + NgayChuyenDi
     else:
         NoiDung = 'Thay đổi thông tin nhân khẩu ' + HoTen + CCCD
-    biendoi = TaoBienDoi(1, 1,KieuBienDoi='Thay đổi nhân khẩu', NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy = QuanLy.IDQuanLy)
+    biendoi = TaoBienDoi(1, 1, KieuBienDoi='Thay đổi nhân khẩu',
+                         NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy=QuanLy.IDQuanLy)
     connectDB.insertBienDoi(biendoi)
     return errorCode
 
@@ -102,7 +111,8 @@ def ThayDoiChuHo(DanhSachIDThanhVien, DanhSachQuanHe, MaSo):
         connectDB.ThayDoiQuanHe(
             ID=DanhSachIDThanhVien[i], QuanHeMoi=DanhSachQuanHe[i])
     NoiDung = 'Hộ khẩu ' + MaSo + 'thay đổi chủ hộ'
-    biendoi = TaoBienDoi(1, 1,KieuBienDoi='Thay đổi chủ hộ', NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy = QuanLy.IDQuanLy)
+    biendoi = TaoBienDoi(1, 1, KieuBienDoi='Thay đổi chủ hộ',
+                         NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy=QuanLy.IDQuanLy)
     connectDB.insertBienDoi(biendoi)
 
 
@@ -125,7 +135,8 @@ def TachHoKhau(HoKhau_1, HoKhau_2):
     NoiDung = 'Sổ hộ khẩu ' + \
         str(MaSo_1) + ' được tách thành 2 sổ hộ khẩu mới là: ' + \
         str(MaSo_1) + ' và ' + str(MaSo_2)
-    biendoi = TaoBienDoi(1, 1,KieuBienDoi='Tách hộ khẩu', NoiDungBienDoi=NoiDung, MaSo=MaSo_1, IDQuanLy = QuanLy.IDQuanLy)
+    biendoi = TaoBienDoi(1, 1, KieuBienDoi='Tách hộ khẩu',
+                         NoiDungBienDoi=NoiDung, MaSo=MaSo_1, IDQuanLy=QuanLy.IDQuanLy)
     connectDB.insertBienDoi(biendoi)
 
 
@@ -137,7 +148,7 @@ def CapGiayTamVang(HoTen, CCCD, NoiTamVang, NgayBatDau: datetime.datetime, NgayK
     error_code = 0
     try:
         MaSo = connectDB.LayMaHoKhauTuTenCCCD(HoTen, CCCD)
-        id = connectDB.TimIDTuMaSoCCCDHoTen(MaSo,CCCD, HoTen)
+        id = connectDB.TimIDTuMaSoCCCDHoTen(MaSo, CCCD, HoTen)
     except:
         error_code = 1
         return error_code
@@ -147,7 +158,8 @@ def CapGiayTamVang(HoTen, CCCD, NoiTamVang, NgayBatDau: datetime.datetime, NgayK
         ' từ ngày ' + \
         str(NgayBatDau).split(' ')[0] + \
         ' đến ngày ' + str(NgayKetThuc).split(' ')[0]
-    biendoi = TaoBienDoi(1, 1,KieuBienDoi='Cấp giấy tạm vắng', NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy = QuanLy.IDQuanLy)
+    biendoi = TaoBienDoi(1, 1, KieuBienDoi='Cấp giấy tạm vắng',
+                         NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy=QuanLy.IDQuanLy)
     connectDB.insertBienDoi(biendoi)
     return error_code
 
@@ -157,11 +169,11 @@ def CapGiayTamVang(HoTen, CCCD, NoiTamVang, NgayBatDau: datetime.datetime, NgayK
 
 def XemGiayTamVang(HoTen, CCCD):
     error_code = 0
-    try :
+    try:
         ThongTinGiayTamVang = connectDB.getTamVang(HoTen, CCCD)[0]
     except:
         error_code = 1
-        return 1,1
+        return 1, 1
     return error_code, ThongTinGiayTamVang
 
 # ----------------------------------------------------------------
@@ -171,16 +183,17 @@ def CapGiayTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.da
     error_code = 0
     try:
         MaSo = connectDB.LayMaHoKhauTuTenCCCD(HoTen, CCCD)
-        id = connectDB.TimIDTuMaSoCCCDHoTen(MaSo,CCCD, HoTen)
+        id = connectDB.TimIDTuMaSoCCCDHoTen(MaSo, CCCD, HoTen)
     except:
         error_code = 1
         return error_code
-    connectDB.InsertTamTru(id ,HoTen, CCCD, QueQuan, DiaChiThuongTru,
+    connectDB.InsertTamTru(id, HoTen, CCCD, QueQuan, DiaChiThuongTru,
                            NgayBatDau, NgayKetThuc, LyDo, NgayLamDon)
     NoiDung = 'Cấp giấy tạm trú cho cư dân ' + HoTen + ', số căn cước ' + CCCD + ' từ ngày ' + \
         str(NgayBatDau).split(' ')[
             0] + ' đến ngày ' + str(NgayKetThuc).split(' ')[0] + ' tại ' + DiaChiThuongTru
-    biendoi = TaoBienDoi(1, 1,KieuBienDoi='Cấp giấy tạm trú', NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy = QuanLy.IDQuanLy)
+    biendoi = TaoBienDoi(1, 1, KieuBienDoi='Cấp giấy tạm trú',
+                         NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy=QuanLy.IDQuanLy)
     connectDB.insertBienDoi(biendoi)
     return error_code
 
@@ -192,74 +205,95 @@ def XemGiayTamTru(HoTen, CCCD):
     try:
         ThongTinGiayTamTru = connectDB.getTamTru(HoTen, CCCD)[0]
     except:
-        return 1,1
+        return 1, 1
     return 0, ThongTinGiayTamTru
 
 
 """ Xem lịch sử biến đổi nhân khẩu """
 # Hàm trả về danh sách tất cả Thay đổi nhân khẩu
 # Thông tin một bảng thay đổi: MaBienDoi, Ngay, KieuBienDoi, NoiDungBienDoi, MaSo
+
+
 def LayLichSuBienDoiNhanKhau():
     try:
         return 0, connectDB.GetDanhSachThayDoiNhanKhau()
     except:
-        return 1,1
+        return 1, 1
 
 # Hàm trả thông tin của các bản thay đổi nhân khẩu của một Sổ Hộ Khẩu
+
+
 def XemLichSuBienDoiNhanKhau(MaSo):
     try:
         return 0, connectDB.XemDanhSachThayDoiNhanKhau(MaSo)
     except:
-        return 1,1
+        return 1, 1
+
 
 """ Thống kê theo giới tính """
+
+
 def ThongKeGioiTinh():
     # Trả về số lượng Nam, Nữ
     return connectDB.LaySoLuongGioiTinh()
 
+
 """ Thống kê theo độ tuổi theo độ tuổi (mầm non / mẫu giáo / cấp 1 / cấp 2 / cấp 3 / độ tuổi lao động / nghỉ hưu) """
+
+
 def CheckTuoi(Tuoi, Khoang):
     if Tuoi >= Khoang[0] and Tuoi <= Khoang[1]:
         return 1
     return 0
 # Hàm trả về list chứa số lượng cư dân ứng với các độ tuổi: mầm non / mẫu giáo / cấp 1 / cấp 2 / cấp 3 / độ tuổi lao động / nghỉ hưu
+
+
 def ThongKeTheoDoTuoi():
-    MamNon = [0,3]
-    MauGiao = [3,5]
-    Cap1 = [6,10]
-    Cap2 = [11,15]
-    Cap3 = [15,18]
-    LaoDong = [15,60]
-    NghiHuu = [61,999]
+    MamNon = [0, 3]
+    MauGiao = [3, 5]
+    Cap1 = [6, 10]
+    Cap2 = [11, 15]
+    Cap3 = [15, 18]
+    LaoDong = [15, 60]
+    NghiHuu = [61, 999]
     CacKhoangTuoi = [MamNon, MauGiao, Cap1, Cap2, Cap3, LaoDong, NghiHuu]
     ThongKeDoTuoi = [0, 0, 0, 0, 0, 0, 0]
     DanhSachTuoi = connectDB.LayDanhSachTuoi()
     for tuoi in DanhSachTuoi:
         for i in range(len(CacKhoangTuoi)):
             if CheckTuoi(tuoi, CacKhoangTuoi[i]):
-                ThongKeDoTuoi[i] +=1
+                ThongKeDoTuoi[i] += 1
     return ThongKeDoTuoi
+
 
 """ Thống kê tạm trú, tạm vắng """
 # Hàm trả về 2 giá trị: Số lượng tạm trú, số lượng tạm vắng
+
+
 def ThongKeTamtruTamVang():
     SoLuongTamTru = connectDB.LaySoLuongTamTru()
     SoLuongTamVang = connectDB.LaySoLuongTamVang()
     return SoLuongTamTru, SoLuongTamVang
 
+
 """ Các thông tin phản ánh, kiến nghị của nhân dân trong tổ sẽ được tổ trưởng ghi nhận để tổng hợp gửi lên cấp trên. Mỗi
 phản ảnh, kiến nghị cần ghi nhận: người phản ánh, nội dung, ngày phản ánh, phân loại và trạng thái. """
-def TaoDonKienNghi( HoTen, CCCD, NoiDung, NgayKN: datetime.datetime, PhanLoai):
+
+
+def TaoDonKienNghi(HoTen, CCCD, NoiDung, NgayKN: datetime.datetime, PhanLoai):
     try:
         CuDan = connectDB.TimCUDANTuHoTenCCCD(HoTen, CCCD)
     except:
         return 1, 'Họ tên và căn cước không hợp lệ', 1
-    DonKienNghi = TaoKienNghi(1, CuDan.ID, CCCD, NoiDung, NgayKN, PhanLoai ,'Mới ghi nhận')
+    DonKienNghi = TaoKienNghi(
+        1, CuDan.ID, CCCD, NoiDung, NgayKN, PhanLoai, 'Mới ghi nhận')
     return 0, connectDB.InsertDonKienNghi(DonKienNghi)
 
 # Trả về Cư Dân và danh sách kiến nghị của cư dân đó
 # Trả về 3 giá trị: error code, CuDan, DanhSachKienNghi
 # error code = 0 --> không lỗi, error code = 1 --> Lỗi Họ tên và CCCD, error code =2 --> Cư dân đó không có đơn kiến nghị
+
+
 def XemDonKienNghi(HoTen, CCCD):
     try:
         CuDan = connectDB.TimCUDANTuHoTenCCCD(HoTen, CCCD)
@@ -275,33 +309,47 @@ def XemDonKienNghi(HoTen, CCCD):
 
 # Xem toàn bộ kiến nghị
 # Trả về 0 nếu không có đơn kiến nghị nào, trả về 1 nếu có
+
+
 def XemToanBoKienNghi():
     list = connectDB.TimToanBoDonKienNghi()
-    if len(list) == 0:
-        return 0, 'Không có đơn kiến nghị nào'
     DanhSachKienNghi = []
+
+    if len(list) == 0:
+        return 0, DanhSachKienNghi
     for i in list:
         DanhSachKienNghi.append(TaoKienNghi.init_values(i))
     return 1, DanhSachKienNghi
 
+
 """ Cấp trên trả lời kiến nghị """
+
+
 def TraLoiKienNghi(MaKienNghi, NoiDung):
-    ThuTraLoi = TaoTraLoiKienNghi(1, MaKienNghi, NoiDung, 1, 1, QuanLy.TenQuanLy, QuanLy.IDQuanLy)
+    ThuTraLoi = TaoTraLoiKienNghi(
+        1, MaKienNghi, NoiDung, 1, 1, QuanLy.TenQuanLy, QuanLy.IDQuanLy)
     connectDB.InsertTraLoiKienNghi(ThuTraLoi)
+
 
 """ Khi có phản hồi từ các cơ quan có liên quan, tổ trưởng sẽ ghi nhận lại với phản ánh / kiến nghị tương ứng và thông báo cho
 cá nhân có liên quan. Các kiến nghị trùng nhau có thể được gộp lại thành một nhưng phải ghi nhận những người phản ánh và số lần phản ánh """
 # Hàm này sẽ trả về những kiến nghị mới được cấp trên trả lời
+
+
 def ThongBaoTraLoiKienNghi():
     DanhSachKienNghi, DanhSachTraLoi = connectDB.ThongBao()
     if DanhSachKienNghi == 1:
         return 1, 'Không có thông báo mới từ cấp trên'
     return DanhSachKienNghi, DanhSachTraLoi
 # Hàm này đánh dấu những kiến nghị đã thông báo cho người dân (Thay đổi trạng thái)
-def ThayDoiTrangThai(MaKienNghi ,TrangThai):
+
+
+def ThayDoiTrangThai(MaKienNghi, TrangThai):
     connectDB.updateTrangThai(MaKienNghi, TrangThai)
-    
+
 # Trả về list số lượng kiến nghị dựa trên Trạng Thái truyền vào
 # Mới ghi nhận / chưa giải quyết / đã giải quyết / đã thông báo
+
+
 def ThongKeKienNghi():
     return connectDB.CountKienNghi()
