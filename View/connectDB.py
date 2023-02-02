@@ -61,6 +61,11 @@ def getCUDAN(ID):
     cursor.execute(query, val)
     return cursor.fetchall()
 
+def getTenCUDAN(ID):
+    arr = getCUDAN(ID)[0]
+    name = arr[2]
+    return name
+
 # Lấy mã hộ khẩu từ tên và cccd
 
 
