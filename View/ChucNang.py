@@ -89,7 +89,7 @@ def ThayDoiNhanKhau(CCCD, HoTen, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghie
         errorCode = 1
         return errorCode
 
-    connectDB.updateCUDAN(ID, HoTen, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan,
+    connectDB.updateCUDAN(ID, CCCD, HoTen, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan,
                           BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu, NgayChuyenDi, NoiChuyenDi, GhiChu)
     if GhiChu == 'Đã qua đời':
         NoiDung = 'Thành viên ' + HoTen + ' ' + CCCD + ' của Hộ Khẩu ' + \
