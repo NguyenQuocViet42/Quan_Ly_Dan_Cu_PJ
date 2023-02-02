@@ -295,17 +295,21 @@ def TaoDonKienNghi(HoTen, CCCD, NoiDung, NgayKN: datetime.datetime, PhanLoai):
 
 
 def XemDonKienNghi(HoTen, CCCD):
+    Data = []
     try:
         CuDan = connectDB.TimCUDANTuHoTenCCCD(HoTen, CCCD)
     except:
-        return 1, 'Họ tên và căn cước không hợp lệ', 1
+        return 1, Data
     list = connectDB.TimDonKienNghi(CuDan)
     if len(list) == 0:
-        return 2, CuDan, ('Cư dân ' + CuDan.HoTen + ' không có đơn kiến nghị nào.')
+        return 2, Data
     DanhSachKienNghi = []
     for i in list:
-        DanhSachKienNghi.append(TaoKienNghi.init_values(i))
-    return 0, CuDan, DanhSachKienNghi
+        subData = []
+        subData.append(CuDan)
+        subData.append(TaoKienNghi.init_values(i))
+        Data.append(subData)
+    return 0, Data
 
 # Xem toàn bộ kiến nghị
 # Trả về 0 nếu không có đơn kiến nghị nào, trả về 1 nếu có
@@ -313,13 +317,17 @@ def XemDonKienNghi(HoTen, CCCD):
 
 def XemToanBoKienNghi():
     list = connectDB.TimToanBoDonKienNghi()
-    DanhSachKienNghi = []
+    # Data =[[Cư dân, Kiến nghị]]
+    Data = []
 
     if len(list) == 0:
-        return 0, DanhSachKienNghi
+        return 0, Data
     for i in list:
-        DanhSachKienNghi.append(TaoKienNghi.init_values(i))
-    return 1, DanhSachKienNghi
+        subData = []
+        subData.append(connectDB.getCUDAN(i.ID))
+        subData.append(TaoKienNghi.init_values(i))
+        Data.append(subData)
+    return 1, Data
 
 
 """ Cấp trên trả lời kiến nghị """
