@@ -358,6 +358,10 @@ def ThayDoiTrangThai(MaKienNghi, TrangThai):
 # Trả về list số lượng kiến nghị dựa trên Trạng Thái truyền vào
 # Mới ghi nhận / chưa giải quyết / đã giải quyết / đã thông báo
 
-
 def ThongKeKienNghi():
     return connectDB.CountKienNghi()
+
+def GopKienNghi(ListMaKienNghi):
+    # Giữ lại kiến nghị mới nhất
+    for i in range(1,len(ListMaKienNghi)):
+        connectDB.XoaKienNghi(ListMaKienNghi[i])

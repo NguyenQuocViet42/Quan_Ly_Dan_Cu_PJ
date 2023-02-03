@@ -327,7 +327,7 @@ def TimDonKienNghi(CuDan: TaoCuDan):
 
 
 def TimToanBoDonKienNghi():
-    query = " select * from KIENNGHI"
+    query = "select * from KIENNGHI order by NgayKN desc"
     cursor.execute(query)
     list = cursor.fetchall()
     return list
@@ -346,7 +346,7 @@ def InsertTraLoiKienNghi(ThuTraLoi: TaoTraLoiKienNghi):
 
 
 def ThongBao():
-    query = " select * from TraLoiKienNghi  where TrangThai = N'Đã xử lý' "
+    query = " select * from TraLoiKienNghi  where TrangThai = N'Đã xử lý' order by NgayTraLoi desc"
     cursor.execute(query)
     DanhSachTraLoi = cursor.fetchall()
     if len(DanhSachTraLoi) == 0:
@@ -385,3 +385,9 @@ def CountKienNghi():
         SoLuong = cursor.fetchall()[0][0]
         ThongKe.append(SoLuong)
     return ThongKe
+
+def XoaKienNghi(ID):
+    query = 'delete from KIENNGHI where MaKienNghi = ?'
+    values = (ID,)
+    cursor.execute(query, values)
+    mydb.commit()

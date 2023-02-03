@@ -14,6 +14,7 @@ import PIL
 import os
 matplotlib.use('TkAgg')
 
+ID = 1
 
 dirname = os.path.dirname(__file__)
 win_bg = config.win_bg
@@ -2604,7 +2605,8 @@ def XemKienNghi(Data):
                           font=font_content_mini, anchor=W, justify=LEFT, wraplength=350).grid(column=2, row=j+1, columnspan=1, sticky=NW)
             tkinter.Label(f_all_xem_kien_nghi, text=Data[i*8 + j][1].TrangThai, font=font_content_mini,
                           anchor=W, justify=LEFT, wraplength=140).grid(column=3, row=j+1, columnspan=1, sticky=NW)
-            tkinter.Button(f_all_xem_kien_nghi, text="Trả lời", fg="white", bg="blue",
+            if ID == 2: 
+                tkinter.Button(f_all_xem_kien_nghi, text="Trả lời", fg="white", bg="blue",
                            font=font_content_mini, command=lambda data=i*8 + j: TraLoiKienNghi(Data[data][1])).grid(column=4, row=j+1, columnspan=1, sticky=NW)
 
         if (i != 0):
