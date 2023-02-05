@@ -62,7 +62,7 @@ def getCUDAN(ID):
     val = (ID,)
     # biến truyền vào dưới dạng 1 mảng
     cursor.execute(query, val)
-    return cursor.fetchall()[0]
+    return cursor.fetchall()
 
 
 def getTenCUDAN(ID):
