@@ -8,6 +8,7 @@ from Class.BIENDOI import BIENDOI as TaoBienDoi
 from Class.SOHOKHAU import SOHOKHAU as TaoHoKhau
 from Class.KIENNGHI import KIENNGHI as TaoKienNghi
 from Class.TraLoiKienNghi import TraLoiKienNghi as TaoTraLoiKienNghi
+from Class.BangGopKienNghi import BangGopKienNghi as TaoBangGopKienNghi
 import os
 
 QuanLy = QL('captren08', 'vietdeptrai', 'Nguyễn Quốc Việt')
@@ -181,6 +182,7 @@ def XemGiayTamVang(HoTen, CCCD):
 
 def CapGiayTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.datetime, NgayKetThuc: datetime.datetime, LyDo, NgayLamDon: datetime.datetime):
     error_code = 0
+    ThemNhanKhauMoi(CCCD = CCCD, Hoten = HoTen, GioiTinh = 'Nam', NgaySinh = NgayLamDon, DanToc = 'Kinh', QuocTich='Việt Nam', NgheNghiep = 'Tạm Trú', QueQuan =QueQuan, BiDanh='NULL', MaSo=999999999, QuanHe = 'Tạm Trú', NgayDangKyThuongTru = NgayBatDau, DiaChiCu = QueQuan)
     try:
         MaSo = connectDB.LayMaHoKhauTuTenCCCD(HoTen, CCCD)
         id = connectDB.TimIDTuMaSoCCCDHoTen(MaSo, CCCD, HoTen)
@@ -319,13 +321,23 @@ def XemToanBoKienNghi():
     list = connectDB.TimToanBoDonKienNghi()
     # Data =[[Cư dân, Kiến nghị]]
     Data = []
-
+    ListMaKienNghi, ListDanhSachHoTen, ListCCCD, ListSoLuong = connectDB.TimToanBoBangGop()
     if len(list) == 0:
         return 0, Data
     for i in list:
         subData = []
-        subData.append(connectDB.getCUDAN(i.ID)[0])
-        subData.append(TaoKienNghi.init_values(i))
+        kiennghi = TaoKienNghi.init_values(i)
+        cudan = connectDB.getCUDAN(i.ID)[0]
+        if kiennghi.MaKienNghi in ListMaKienNghi:
+            index = ListMaKienNghi.index(kiennghi.MaKienNghi)
+            kiennghi.CCCD = ListCCCD[index]
+            cudan[2] = ListDanhSachHoTen[index]
+            cudan[1] = ListCCCD[index]
+            subData.append(cudan)
+            subData.append(kiennghi)
+        else:
+            subData.append(cudan)
+            subData.append(kiennghi)
         Data.append(subData)
     return 1, Data
 
@@ -374,7 +386,22 @@ def ThayDoiTrangThai(MaKienNghi, TrangThai):
 def ThongKeKienNghi():
     return connectDB.CountKienNghi()
 
-def GopKienNghi(ListMaKienNghi):
-    # Giữ lại kiến nghị mới nhất
+def GopKienNghi(ListMaKienNghi, DanhSachHoTen, DanhSachCCCD):
+    MaKienNghiChinh = ListMaKienNghi[0]
     for i in range(1,len(ListMaKienNghi)):
         connectDB.XoaKienNghi(ListMaKienNghi[i])
+    SoLuong = len(DanhSachHoTen)
+    # Giữ lại kiến nghị mới nhất
+    ListHoTen = ''
+    DanhSachHoTen = set(DanhSachHoTen)
+    DanhSachCCCD = set(DanhSachCCCD)
+    ListCCCD = ''	
+    for name in DanhSachHoTen:
+        ListHoTen += name
+        ListHoTen +=','
+    for cccd in DanhSachCCCD:
+        ListCCCD += cccd
+        ListCCCD +=','
+    ListHoTen = ListHoTen[:-1]
+    ListCCCD = ListCCCD[:-1]
+    connectDB.GopKienNGhi(MaKienNghi=MaKienNghiChinh,  DanhSachHoTen = ListHoTen, DanhSachCCCD = ListCCCD, SoLuong = SoLuong)

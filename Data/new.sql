@@ -1,3 +1,5 @@
 ﻿use QLCUDAN
 
-select * from KIENNGHI order by NgayKN desc
+
+
+select * from BangGopKienNghi
