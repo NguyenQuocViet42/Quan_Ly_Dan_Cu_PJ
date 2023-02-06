@@ -397,3 +397,24 @@ def XoaKienNghi(ID):
     values = (ID,)
     cursor.execute(query, values)
     mydb.commit()
+    
+def GopKienNGhi(MaKienNghi, DanhSachHoTen, DanhSachCCCD, SoLuong):
+    query = 'insert into BangGopKienNghi values(?,?,?,?)'
+    values = (MaKienNghi, DanhSachHoTen, DanhSachCCCD, SoLuong)
+    cursor.execute(query, values)
+    mydb.commit()
+    
+def TimToanBoBangGop():
+    query = 'select * from BangGopKienNghi'
+    cursor.execute(query)
+    list = cursor.fetchall()
+    ListMaKienNghi = []
+    ListDanhSachHoTen = []
+    ListCCCD = []
+    ListSoLuong = []
+    for i in list:
+        ListMaKienNghi.append(i[0])
+        ListDanhSachHoTen.append(i[1])
+        ListCCCD.append(i[2])
+        ListSoLuong.append(i[3])
+    return ListMaKienNghi, ListDanhSachHoTen, ListCCCD, ListSoLuong
