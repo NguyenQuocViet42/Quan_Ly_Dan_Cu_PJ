@@ -345,13 +345,23 @@ def XemToanBoKienNghiTheoTrangThai(TrangThai):
     list = connectDB.TimToanBoDonKienNghiTheoTrangThai(TrangThai)
     # Data =[[Cư dân, Kiến nghị]]
     Data = []
-
+    ListMaKienNghi, ListDanhSachHoTen, ListCCCD, ListSoLuong = connectDB.TimToanBoBangGop()
     if len(list) == 0:
         return 0, Data
     for i in list:
         subData = []
-        subData.append(connectDB.getCUDAN(i.ID)[0])
-        subData.append(TaoKienNghi.init_values(i))
+        kiennghi = TaoKienNghi.init_values(i)
+        cudan = connectDB.getCUDAN(i.ID)[0]
+        if kiennghi.MaKienNghi in ListMaKienNghi:
+            index = ListMaKienNghi.index(kiennghi.MaKienNghi)
+            kiennghi.CCCD = ListCCCD[index]
+            cudan[2] = ListDanhSachHoTen[index]
+            cudan[1] = ListCCCD[index]
+            subData.append(cudan)
+            subData.append(kiennghi)
+        else:
+            subData.append(cudan)
+            subData.append(kiennghi)
         Data.append(subData)
     return 1, Data
 
