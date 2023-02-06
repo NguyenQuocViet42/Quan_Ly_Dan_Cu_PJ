@@ -332,6 +332,12 @@ def TimToanBoDonKienNghi():
     list = cursor.fetchall()
     return list
 
+def TimToanBoDonKienNghiTheoTrangThai(TrangThai):
+    query = "select * from KIENNGHI where TrangThai = ? order by NgayKN desc"
+    val = (TrangThai,)
+    cursor.execute(query,val)
+    list = cursor.fetchall()
+    return list
 
 def InsertTraLoiKienNghi(ThuTraLoi: TaoTraLoiKienNghi):
     query = " insert into TraLoiKienNghi values(?,?, getdate(), N'Đã xử lý', ?, ?) "

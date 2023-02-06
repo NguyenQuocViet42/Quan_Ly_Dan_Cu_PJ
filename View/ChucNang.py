@@ -324,11 +324,24 @@ def XemToanBoKienNghi():
         return 0, Data
     for i in list:
         subData = []
-        subData.append(connectDB.getCUDAN(i.ID))
+        subData.append(connectDB.getCUDAN(i.ID)[0])
         subData.append(TaoKienNghi.init_values(i))
         Data.append(subData)
     return 1, Data
 
+def XemToanBoKienNghiTheoTrangThai(TrangThai):
+    list = connectDB.TimToanBoDonKienNghiTheoTrangThai(TrangThai)
+    # Data =[[Cư dân, Kiến nghị]]
+    Data = []
+
+    if len(list) == 0:
+        return 0, Data
+    for i in list:
+        subData = []
+        subData.append(connectDB.getCUDAN(i.ID)[0])
+        subData.append(TaoKienNghi.init_values(i))
+        Data.append(subData)
+    return 1, Data
 
 """ Cấp trên trả lời kiến nghị """
 
