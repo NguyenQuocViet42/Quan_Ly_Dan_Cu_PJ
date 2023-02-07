@@ -182,7 +182,8 @@ def XemGiayTamVang(HoTen, CCCD):
 
 def CapGiayTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.datetime, NgayKetThuc: datetime.datetime, LyDo, NgayLamDon: datetime.datetime):
     error_code = 0
-    ThemNhanKhauMoi(CCCD = CCCD, Hoten = HoTen, GioiTinh = 'Nam', NgaySinh = NgayLamDon, DanToc = 'Kinh', QuocTich='Việt Nam', NgheNghiep = 'Tạm Trú', QueQuan =QueQuan, BiDanh='NULL', MaSo=999999999, QuanHe = 'Tạm Trú', NgayDangKyThuongTru = NgayBatDau, DiaChiCu = QueQuan)
+    ThemNhanKhauMoi(CCCD=CCCD, Hoten=HoTen, GioiTinh='Nam', NgaySinh=NgayLamDon, DanToc='Kinh', QuocTich='Việt Nam', NgheNghiep='Tạm Trú',
+                    QueQuan=QueQuan, BiDanh='NULL', MaSo=999999999, QuanHe='Tạm Trú', NgayDangKyThuongTru=NgayBatDau, DiaChiCu=QueQuan)
     try:
         MaSo = connectDB.LayMaHoKhauTuTenCCCD(HoTen, CCCD)
         id = connectDB.TimIDTuMaSoCCCDHoTen(MaSo, CCCD, HoTen)
@@ -296,22 +297,22 @@ def TaoDonKienNghi(HoTen, CCCD, NoiDung, NgayKN: datetime.datetime, PhanLoai):
 # error code = 0 --> không lỗi, error code = 1 --> Lỗi Họ tên và CCCD, error code =2 --> Cư dân đó không có đơn kiến nghị
 
 
-def XemDonKienNghi(HoTen, CCCD):
-    Data = []
-    try:
-        CuDan = connectDB.TimCUDANTuHoTenCCCD(HoTen, CCCD)
-    except:
-        return 1, Data
-    list = connectDB.TimDonKienNghi(CuDan)
-    if len(list) == 0:
-        return 2, Data
-    DanhSachKienNghi = []
-    for i in list:
-        subData = []
-        subData.append(CuDan)
-        subData.append(TaoKienNghi.init_values(i))
-        Data.append(subData)
-    return 0, Data
+# def XemDonKienNghi(HoTen, CCCD):
+#     Data = []
+#     try:
+#         CuDan = connectDB.TimCUDANTuHoTenCCCD(HoTen, CCCD)
+#     except:
+#         return 1, Data
+#     list = connectDB.TimDonKienNghi(CuDan)
+#     if len(list) == 0:
+#         return 2, Data
+#     DanhSachKienNghi = []
+#     for i in list:
+#         subData = []
+#         subData.append(CuDan)
+#         subData.append(TaoKienNghi.init_values(i))
+#         Data.append(subData)
+#     return 0, Data
 
 # Xem toàn bộ kiến nghị
 # Trả về 0 nếu không có đơn kiến nghị nào, trả về 1 nếu có
@@ -341,6 +342,7 @@ def XemToanBoKienNghi():
         Data.append(subData)
     return 1, Data
 
+
 def XemToanBoKienNghiTheoTrangThai(TrangThai):
     list = connectDB.TimToanBoDonKienNghiTheoTrangThai(TrangThai)
     # Data =[[Cư dân, Kiến nghị]]
@@ -364,6 +366,7 @@ def XemToanBoKienNghiTheoTrangThai(TrangThai):
             subData.append(kiennghi)
         Data.append(subData)
     return 1, Data
+
 
 """ Cấp trên trả lời kiến nghị """
 
@@ -393,25 +396,28 @@ def ThayDoiTrangThai(MaKienNghi, TrangThai):
 # Trả về list số lượng kiến nghị dựa trên Trạng Thái truyền vào
 # Mới ghi nhận / chưa giải quyết / đã giải quyết / đã thông báo
 
+
 def ThongKeKienNghi():
     return connectDB.CountKienNghi()
 
+
 def GopKienNghi(ListMaKienNghi, DanhSachHoTen, DanhSachCCCD):
     MaKienNghiChinh = ListMaKienNghi[0]
-    for i in range(1,len(ListMaKienNghi)):
+    for i in range(1, len(ListMaKienNghi)):
         connectDB.XoaKienNghi(ListMaKienNghi[i])
     SoLuong = len(DanhSachHoTen)
     # Giữ lại kiến nghị mới nhất
     ListHoTen = ''
     DanhSachHoTen = set(DanhSachHoTen)
     DanhSachCCCD = set(DanhSachCCCD)
-    ListCCCD = ''	
+    ListCCCD = ''
     for name in DanhSachHoTen:
         ListHoTen += name
-        ListHoTen +=','
+        ListHoTen += ','
     for cccd in DanhSachCCCD:
         ListCCCD += cccd
-        ListCCCD +=','
+        ListCCCD += ','
     ListHoTen = ListHoTen[:-1]
     ListCCCD = ListCCCD[:-1]
-    connectDB.GopKienNGhi(MaKienNghi=MaKienNghiChinh,  DanhSachHoTen = ListHoTen, DanhSachCCCD = ListCCCD, SoLuong = SoLuong)
+    connectDB.GopKienNGhi(MaKienNghi=MaKienNghiChinh,
+                          DanhSachHoTen=ListHoTen, DanhSachCCCD=ListCCCD, SoLuong=SoLuong)
