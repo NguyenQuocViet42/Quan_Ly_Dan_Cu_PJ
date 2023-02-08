@@ -852,171 +852,253 @@ def ThayDoiNhanKhau():
     f_all_change_person.grid_columnconfigure(2, weight=1)
     f_all_change_person.grid_columnconfigure(3, weight=1)
 
-    # row 0
     tkinter.Label(
-        f_all_change_person, text="Quan hệ với chủ hộ:", font=font_header3, anchor=W).grid(row=0, column=0, columnspan=2, padx=padx, pady=pady, sticky=W)
-    quanHe = tkinter.Entry(f_all_change_person, font=font_content, width=40)
-    quanHe.grid(row=0, column=2, padx=padx,
-                pady=pady, sticky=W, columnspan=2)
-
-    # row 1
-    tkinter.Label(
-        f_all_change_person, text="Họ và tên: ", font=font_content, anchor=W).grid(column=0, row=1, sticky=W, padx=padx, pady=pady, columnspan=1)
-
+        f_all_change_person, text="Nhập họ và tên:", font=font_content, anchor=W).grid(column=0, row=0, sticky=W, padx=padx, pady=pady, columnspan=1)
     hoTen = tkinter.Entry(
-        f_all_change_person, font=font_content, width=60)
-    hoTen.grid(column=1, row=1, padx=padx, pady=pady, columnspan=3)
-
-    # row 2
+        f_all_change_person, font=font_content, width=40)
+    hoTen.grid(column=1, row=0, sticky=W,
+               padx=padx, pady=pady, columnspan=2)
     tkinter.Label(
-        f_all_change_person, text="Bí danh(nếu có): ", font=font_content, anchor=W).grid(column=0, row=2, sticky=W, padx=padx, pady=pady, columnspan=1)
+        f_all_change_person, text="Nhập CCCD:", font=font_content, anchor=W).grid(column=0, row=1, sticky=W, padx=padx, pady=pady, columnspan=1)
+    CCCD = tkinter.Entry(
+        f_all_change_person, font=font_content, width=40)
+    CCCD.grid(column=1, row=1, sticky=W,
+              padx=padx, pady=pady, columnspan=2)
 
-    biDanh = tkinter.Entry(
-        f_all_change_person, font=font_content, width=20)
-    biDanh.grid(column=1, row=2, padx=padx, pady=pady, columnspan=1)
-
-    tkinter.Label(
-        f_all_change_person, text="Nghề nghiệp: ", font=font_content, anchor=W).grid(column=2, row=2, sticky=W, padx=padx, pady=pady, columnspan=1)
-
-    ngheNghiep = tkinter.Entry(
-        f_all_change_person, font=font_content, width=20)
-    ngheNghiep.grid(column=3, row=2, padx=padx, pady=pady, columnspan=1)
-
-    # row 3
-    tkinter.Label(
-        f_all_change_person, text="Ngày sinh: ", font=font_content, anchor=W).grid(column=0, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
-
-    ngaySinh = DateEntry(f_all_change_person, font=font_content)
-    ngaySinh.grid(column=1, row=3, sticky=W,
-                  padx=padx, pady=pady, columnspan=1)
-
-    tkinter.Label(
-        f_all_change_person, text="Giới tính: ", font=font_content, anchor=W).grid(column=2, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
-
-    option = ("Nam", "Nữ")
-    chosed = StringVar(f_all_change_person)
-
-    dropDownGender = ttk.OptionMenu(
-        f_all_change_person, chosed, option[0], *option, style='DropDownStyle.TMenubutton')
-    dropDownGender['menu'].configure(font=('Arial', 12))
-    dropDownGender.grid(column=3, row=3, sticky=W,
-                        padx=padx, pady=pady, columnspan=1)
-
-    # row 4
-    tkinter.Label(
-        f_all_change_person, text="Quê quán: ", font=font_content, anchor=W).grid(column=0, row=4, sticky=W, padx=padx, pady=pady, columnspan=1)
-
-    queQuan = tkinter.Entry(
-        f_all_change_person, font=font_content, width=60)
-    queQuan.grid(column=1, row=4, sticky=W,
-                 padx=padx, pady=pady, columnspan=3)
-
-    # row 5
-    tkinter.Label(
-        f_all_change_person, text="Số căn cước công dân:", anchor=W, font=font_content).grid(column=0, row=5, padx=padx, pady=pady, sticky=W, columnspan=1)
-
-    CCCD = tkinter.Entry(f_all_change_person, font=font_content, width=20)
-    CCCD.grid(column=1, row=5, padx=padx,
-              pady=pady, sticky=W, columnspan=1)
-
-    tkinter.Label(
-        f_all_change_person, text="Mã hộ khẩu: ", anchor=W, font=font_content).grid(column=2, row=5, padx=padx,
-                                                                                    pady=pady, sticky=W, columnspan=1)
-
-    maHoKhau = tkinter.Entry(f_all_change_person, font=font_content, width=20)
-    maHoKhau.grid(column=3, row=5, padx=padx,
-                  pady=pady, sticky=W, columnspan=1)
-
-    # row 6
-    tkinter.Label(
-        f_all_change_person, text="Dân tộc: ", font=font_content, anchor=W).grid(column=0, row=6, sticky=W, padx=padx, pady=pady, columnspan=1)
-
-    danToc = tkinter.Entry(f_all_change_person, font=font_content, width=20)
-    danToc.grid(column=1, row=6, sticky=W,
-                padx=padx, pady=pady, columnspan=1)
-
-    tkinter.Label(
-        f_all_change_person, text="Quốc tịch: ", font=font_content, anchor=W).grid(column=2, row=6, sticky=W, padx=padx, pady=pady, columnspan=1)
-    quocTich = tkinter.Entry(
-        f_all_change_person, font=font_content, width=20)
-    quocTich.grid(column=3, row=6, sticky=W,
-                  padx=padx, pady=pady, columnspan=1)
-
-    # row 7
-    tkinter.Label(
-        f_all_change_person, text="Địa chỉ cũ:", font=font_content, anchor=W).grid(column=0, row=7, sticky=W, padx=padx, pady=pady, columnspan=1)
-
-    diaChiCu = tkinter.Entry(
-        f_all_change_person, font=font_content, width=60)
-    diaChiCu.grid(
-        column=1, row=7, padx=padx, pady=pady, columnspan=3)
-
-    # row 8
-    tkinter.Label(
-        f_all_change_person, text="Ngày đăng ký thường trú: ", font=font_content, anchor=W).grid(column=0, row=8, sticky=W, padx=padx, pady=pady, columnspan=2)
-
-    ngayDK = DateEntry(f_all_change_person, font=font_content)
-    ngayDK.grid(column=2, row=8, sticky=W,
-                padx=padx, pady=pady, columnspan=2)
-
-    # row 8
-    tkinter.Label(
-        f_all_change_person, text="Ngày chuyển đi: ", font=font_content, anchor=W).grid(column=0, row=9, sticky=W, padx=padx, pady=pady, columnspan=1)
-
-    ngayChuyenDi = DateEntry(f_all_change_person, font=font_content)
-    ngayChuyenDi.grid(column=1, row=9, sticky=W,
-                      padx=padx, pady=pady, columnspan=1)
-
-    # row 9
-    tkinter.Label(
-        f_all_change_person, text="Nơi chuyển đi : ", font=font_content, anchor=W).grid(column=0, row=10, sticky=W, padx=padx, pady=pady, columnspan=1)
-
-    noiChuyenDi = tkinter.Entry(
-        f_all_change_person, font=font_content, width=60)
-    noiChuyenDi.grid(column=1, row=10, padx=padx, pady=pady, columnspan=3)
-    # row 10
-    tkinter.Label(
-        f_all_change_person, text="Ghi chú: ", font=font_content, anchor=W).grid(column=0, row=11, sticky=W, padx=padx, pady=pady, columnspan=1)
-
-    ghiChu = tkinter.Entry(
-        f_all_change_person, font=font_content, width=60)
-    ghiChu.grid(column=1, row=11, padx=padx, pady=pady, columnspan=3)
-    # row 11
     tkinter.Button(
-        f_all_change_person, text="Gửi",  font=font_header3, fg="white", bg="blue", relief="groove", cursor='hand2', command=lambda: submit()).grid(column=0, row=12, padx=padx, pady=pady, columnspan=4)
+        f_all_change_person, text="Gửi",  font=font_header3, fg="white", bg="blue", relief='groove', cursor='hand2', command=lambda: submit()).grid(column=0, row=2, padx=padx, pady=pady, columnspan=4)
 
-    # row 12
     errorMessage = tkinter.Label(
-        f_all_change_person, text="", font=font_content, fg="red", justify=CENTER)
-    errorMessage.grid(column=0, row=13, columnspan=4)
+        f_all_change_person, text="", font=font_content, fg="red", anchor=W)
+    errorMessage.grid(column=0, row=3, padx=padx,
+                      pady=pady, sticky=W, columnspan=4)
 
     def submit():
-        # CCCD, HoTen, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu, NgayChuyenDi, NoiChuyenDi, GhiChu
+        hovaten = hoTen.get()
+        cccd = CCCD.get()
+        if (hovaten == "" or cccd == ""):
+            errorMessage['text'] = "Vui lòng nhập đầy đủ thông tin!"
+            return
+        else:
+            errorCode, CuDan = ChucNang.XemCuDan(hovaten, cccd)
+            if (errorCode == 1):
+                errorMessage['text'] = "Vui lòng kiểm tra lại thông tin!"
+            elif (errorCode == 0):
+                view(CuDan)
 
-        errorCode = ChucNang.ThayDoiNhanKhau(CCCD.get(),  # căn cước
-                                             hoTen.get(),  # họ và tên
-                                             chosed.get(),  # giới tính
-                                             ngaySinh.get_date().strftime("%m/%d/%y"),  # ngày sinh
-                                             danToc.get(),  # dân tộc
-                                             quocTich.get(),  # quốc tịch
-                                             ngheNghiep.get(),  # nghề nghiệp
-                                             queQuan.get(),  # quê quán
-                                             biDanh.get(),  # bí danh
-                                             maHoKhau.get(),  # mã sổ hộ khẩu
-                                             quanHe.get(),  # quan hệ vs chủ hộ
-                                             ngayDK.get_date().strftime("%m/%d/%y"),  # ngày đăng kí thường trú
-                                             diaChiCu.get(),  # địa chỉ cũ
-                                             ngayChuyenDi.get(),
-                                             noiChuyenDi.get(),
-                                             ghiChu.get()
-                                             )
+    def view(Data):
+        for widget in f_all_change_person.winfo_children():
+            widget.destroy()
+        # row 0
+        tkinter.Label(
+            f_all_change_person, text="Quan hệ với chủ hộ:", font=font_header3, anchor=W).grid(row=0, column=0, columnspan=2, padx=padx, pady=pady, sticky=W)
+        quanHe = tkinter.Entry(f_all_change_person,
+                               font=font_content, width=40)
+        quanHe.grid(row=0, column=2, padx=padx,
+                    pady=pady, sticky=W, columnspan=2)
+        if (Data.QuanHe):
+            quanHe.insert(0, Data.QuanHe)
+        # row 1
+        tkinter.Label(
+            f_all_change_person, text="Họ và tên: ", font=font_content, anchor=W).grid(column=0, row=1, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-        if (errorCode == 0):
-            messagebox.showinfo("", "Thay đổi nhân khẩu thành công!")
-            switch(f_trang_chu)
-        # errC = 1 trong trường hợp không tìm thấy dữ liệu
-        elif (errorCode == 1):
-            errorMessage['text'] = "Vui lòng kiểm tra lại CCCD, Họ tên, Mã hộ khẩu"
+        hoTen = tkinter.Entry(
+            f_all_change_person, font=font_content, width=60)
+        hoTen.grid(column=1, row=1, padx=padx,
+                   pady=pady, sticky=W, columnspan=3)
+        if (Data.HoTen):
+            hoTen.insert(0, Data.HoTen)
+
+        # row 2
+        tkinter.Label(
+            f_all_change_person, text="Bí danh(nếu có): ", font=font_content, anchor=W).grid(column=0, row=2, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+        biDanh = tkinter.Entry(
+            f_all_change_person, font=font_content, width=20)
+        biDanh.grid(column=1, row=2, padx=padx,
+                    pady=pady, sticky=W, columnspan=1)
+        if (Data.BiDanh):
+            biDanh.insert(0, Data.BiDanh)
+
+        tkinter.Label(
+            f_all_change_person, text="Nghề nghiệp: ", font=font_content, anchor=W).grid(column=2, row=2, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+        ngheNghiep = tkinter.Entry(
+            f_all_change_person, font=font_content, width=20)
+        ngheNghiep.grid(column=3, row=2, padx=padx,
+                        pady=pady, sticky=W, columnspan=1)
+        if (Data.NgheNghiep):
+            ngheNghiep.insert(0, Data.NgheNghiep)
+
+        # row 3
+        tkinter.Label(
+            f_all_change_person, text="Ngày sinh: ", font=font_content, anchor=W).grid(column=0, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+        ngaySinh = DateEntry(f_all_change_person, font=font_content)
+        ngaySinh.grid(column=1, row=3, sticky=W,
+                      padx=padx, pady=pady, columnspan=1)
+        if (Data.NgaySinh):
+            y_m_d = Data.NgaySinh.split("-")
+            NgaySinh = ""+y_m_d[2]+"/"+y_m_d[1]+"/"+y_m_d[0]
+            ngaySinh.set_date(NgaySinh)
+
+        tkinter.Label(
+            f_all_change_person, text="Giới tính: ", font=font_content, anchor=W).grid(column=2, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+        option = ("Nam", "Nữ")
+        chosed = StringVar(f_all_change_person)
+
+        dropDownGender = ttk.OptionMenu(
+            f_all_change_person, chosed, Data.GioiTinh, *option, style='DropDownStyle.TMenubutton')
+        dropDownGender['menu'].configure(font=('Arial', 12))
+        dropDownGender.grid(column=3, row=3, sticky=W,
+                            padx=padx, pady=pady, columnspan=1)
+
+        # row 4
+        tkinter.Label(
+            f_all_change_person, text="Quê quán: ", font=font_content, anchor=W).grid(column=0, row=4, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+        queQuan = tkinter.Entry(
+            f_all_change_person, font=font_content, width=60)
+        queQuan.grid(column=1, row=4, sticky=W,
+                     padx=padx, pady=pady, columnspan=3)
+        if (Data.QueQuan):
+            queQuan.insert(0, Data.QueQuan)
+
+        # row 5
+        tkinter.Label(
+            f_all_change_person, text="Số căn cước công dân:", anchor=W, font=font_content).grid(column=0, row=5, padx=padx, pady=pady, sticky=W, columnspan=1)
+
+        CCCD = tkinter.Entry(f_all_change_person, font=font_content, width=20)
+        CCCD.grid(column=1, row=5, padx=padx,
+                  pady=pady, sticky=W, columnspan=1)
+        if (Data.CCCD):
+            CCCD.insert(0, Data.CCCD)
+
+        tkinter.Label(
+            f_all_change_person, text="Mã hộ khẩu: ", anchor=W, font=font_content).grid(column=2, row=5, padx=padx,
+                                                                                        pady=pady, sticky=W, columnspan=1)
+
+        maHoKhau = tkinter.Entry(
+            f_all_change_person, font=font_content, width=20)
+        maHoKhau.grid(column=3, row=5, padx=padx,
+                      pady=pady, sticky=W, columnspan=1)
+        if (Data.MaSo):
+            maHoKhau.insert(0, Data.MaSo)
+
+        # row 6
+        tkinter.Label(
+            f_all_change_person, text="Dân tộc: ", font=font_content, anchor=W).grid(column=0, row=6, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+        danToc = tkinter.Entry(f_all_change_person,
+                               font=font_content, width=20)
+        danToc.grid(column=1, row=6, sticky=W,
+                    padx=padx, pady=pady, columnspan=1)
+        if (Data.DanToc):
+            danToc.insert(0, Data.DanToc)
+
+        tkinter.Label(
+            f_all_change_person, text="Quốc tịch: ", font=font_content, anchor=W).grid(column=2, row=6, sticky=W, padx=padx, pady=pady, columnspan=1)
+        quocTich = tkinter.Entry(
+            f_all_change_person, font=font_content, width=20)
+        quocTich.grid(column=3, row=6, sticky=W,
+                      padx=padx, pady=pady, columnspan=1)
+        if (Data.QuocTich):
+            quocTich.insert(0, Data.QuocTich)
+
+        # row 7
+        tkinter.Label(
+            f_all_change_person, text="Địa chỉ cũ:", font=font_content, anchor=W).grid(column=0, row=7, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+        diaChiCu = tkinter.Entry(
+            f_all_change_person, font=font_content, width=60)
+        diaChiCu.grid(
+            column=1, row=7, padx=padx, pady=pady, columnspan=3, sticky=W)
+        if (Data.DiaChiCu):
+            diaChiCu.insert(0, Data.DiaChiCu)
+
+        # row 8
+        tkinter.Label(
+            f_all_change_person, text="Ngày đăng ký thường trú: ", font=font_content, anchor=W).grid(column=0, row=8, sticky=W, padx=padx, pady=pady, columnspan=2)
+
+        ngayDK = DateEntry(f_all_change_person, font=font_content)
+        ngayDK.grid(column=2, row=8, sticky=W,
+                    padx=padx, pady=pady, columnspan=2)
+        if (Data.NgayDangKyThuongTru):
+            y_m_d = Data.NgayDangKyThuongTru.split("-")
+            ngayDangKyThuongTru = ""+y_m_d[2]+"/"+y_m_d[1]+"/"+y_m_d[0]
+            ngayDK.set_date(ngayDangKyThuongTru)
+
+        # row 8
+        tkinter.Label(
+            f_all_change_person, text="Ngày chuyển đi: ", font=font_content, anchor=W).grid(column=0, row=9, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+        ngayChuyenDi = DateEntry(f_all_change_person, font=font_content)
+        ngayChuyenDi.grid(column=1, row=9, sticky=W,
+                          padx=padx, pady=pady, columnspan=1)
+        if (Data.NgayChuyenDi):
+            y_m_d = Data.NgayChuyenDi.split("-")
+            ngayCD = ""+y_m_d[2]+"/"+y_m_d[1]+"/"+y_m_d[0]
+            ngayChuyenDi.set_date(ngayCD)
+
+        # row 9
+        tkinter.Label(
+            f_all_change_person, text="Nơi chuyển đi : ", font=font_content, anchor=W).grid(column=0, row=10, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+        noiChuyenDi = tkinter.Entry(
+            f_all_change_person, font=font_content, width=60)
+        noiChuyenDi.grid(column=1, row=10, padx=padx,
+                         pady=pady, columnspan=3, sticky=W)
+        if (Data.NoiChuyenDi):
+            noiChuyenDi.insert(0, Data.NoiChuyenDi)
+
+        # row 10
+        tkinter.Label(
+            f_all_change_person, text="Ghi chú: ", font=font_content, anchor=W).grid(column=0, row=11, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+        ghiChu = tkinter.Entry(
+            f_all_change_person, font=font_content, width=60)
+        ghiChu.grid(column=1, row=11, padx=padx,
+                    pady=pady, columnspan=3, sticky=W)
+        if (Data.GhiChu):
+            ghiChu.insert(0, Data.GhiChu)
+
+        # row 11
+        tkinter.Button(
+            f_all_change_person, text="Gửi",  font=font_header3, fg="white", bg="blue", relief="groove", cursor='hand2', command=lambda: submit()).grid(column=0, row=12, padx=padx, pady=pady, columnspan=4)
+
+        # row 12
+        errorMessage = tkinter.Label(
+            f_all_change_person, text="", font=font_content, fg="red", justify=CENTER)
+        errorMessage.grid(column=0, row=13, columnspan=4)
+
+        def submit():
+            # CCCD, HoTen, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu, NgayChuyenDi, NoiChuyenDi, GhiChu
+
+            errorCode = ChucNang.ThayDoiNhanKhau(CCCD.get(),  # căn cước
+                                                 hoTen.get(),  # họ và tên
+                                                 chosed.get(),  # giới tính
+                                                 ngaySinh.get_date().strftime("%m/%d/%y"),  # ngày sinh
+                                                 danToc.get(),  # dân tộc
+                                                 quocTich.get(),  # quốc tịch
+                                                 ngheNghiep.get(),  # nghề nghiệp
+                                                 queQuan.get(),  # quê quán
+                                                 biDanh.get(),  # bí danh
+                                                 maHoKhau.get(),  # mã sổ hộ khẩu
+                                                 quanHe.get(),  # quan hệ vs chủ hộ
+                                                 ngayDK.get_date().strftime("%m/%d/%y"),  # ngày đăng kí thường trú
+                                                 diaChiCu.get(),  # địa chỉ cũ
+                                                 ngayChuyenDi.get(),
+                                                 noiChuyenDi.get(),
+                                                 ghiChu.get()
+                                                 )
+
+            if (errorCode == 0):
+                messagebox.showinfo("", "Thay đổi nhân khẩu thành công!")
+                switch(f_trang_chu)
+            # errC = 1 trong trường hợp không tìm thấy dữ liệu
+            elif (errorCode == 1):
+                errorMessage['text'] = "Vui lòng kiểm tra lại CCCD, Họ tên, Mã hộ khẩu"
 
 
 '''Thay đổi chủ hộ'''
@@ -2404,8 +2486,7 @@ def KienNghi():
         if (chose == "Tạo kiến nghị"):
             switch(f_tao_kien_nghi)
         elif (chose == "Kiến nghị đã xử lý"):
-            errorCode, Data = ChucNang.XemToanBoKienNghiTheoTrangThai(
-                "Đã xử lý")
+            Data = ChucNang.GetTraLoiKienNghi()
             XemKienNghi(Data, False)
 
         elif (chose == "Xem kiến nghị"):
@@ -2554,34 +2635,45 @@ def XemKienNghi(Data, tuongTac):
 # 'MaKienNghi', 'ID', 'CCCD', 'NoiDung', 'NgayKN', 'PhanLoai', 'TrangThai'
 
     def KienNghiInfo(i):
-        tkinter.Label(f_all_xem_kien_nghi, text="Họ và tên", font=font_content,
-                      anchor=W, justify=LEFT).grid(column=0, row=0, columnspan=1, sticky=W)
-        tkinter.Label(f_all_xem_kien_nghi, text="CCCD", font=font_content,
-                      anchor=W, justify=LEFT).grid(column=1, row=0, columnspan=1, sticky=W)
-        tkinter.Label(f_all_xem_kien_nghi, text="Nội Dung", font=font_content,
-                      anchor=W, justify=LEFT).grid(column=2, row=0, columnspan=1, sticky=W)
-        tkinter.Label(f_all_xem_kien_nghi, text="Trạng thái", font=font_content,
-                      anchor=W, justify=LEFT).grid(column=3, row=0, columnspan=1, sticky=W)
         if (tuongTac):
+            tkinter.Label(f_all_xem_kien_nghi, text="Họ và tên", font=font_content,
+                          anchor=W, justify=LEFT).grid(column=0, row=0, columnspan=1, sticky=W)
+            tkinter.Label(f_all_xem_kien_nghi, text="CCCD", font=font_content,
+                          anchor=W, justify=LEFT).grid(column=1, row=0, columnspan=1, sticky=W)
+            tkinter.Label(f_all_xem_kien_nghi, text="Nội Dung", font=font_content,
+                          anchor=W, justify=LEFT).grid(column=2, row=0, columnspan=1, sticky=W)
+            tkinter.Label(f_all_xem_kien_nghi, text="Trạng thái", font=font_content,
+                          anchor=W, justify=LEFT).grid(column=3, row=0, columnspan=1, sticky=W)
             if (ID == 2):
                 tkinter.Label(f_all_xem_kien_nghi, text="Trả lời", font=font_content,
                               anchor=W, justify=LEFT).grid(column=4, row=0, columnspan=1, sticky=W)
             if (ID == 1):
                 tkinter.Label(f_all_xem_kien_nghi, text="Chọn để gộp", font=font_content,
                               anchor=W, justify=LEFT).grid(column=4, row=0, columnspan=1, sticky=W)
+        else:
+            tkinter.Label(f_all_xem_kien_nghi, text="Họ và tên", font=font_content,
+                          anchor=W, justify=LEFT).grid(column=0, row=0, columnspan=1, sticky=W)
+            tkinter.Label(f_all_xem_kien_nghi, text="CCCD", font=font_content,
+                          anchor=W, justify=LEFT).grid(column=1, row=0, columnspan=1, sticky=W)
+            tkinter.Label(f_all_xem_kien_nghi, text="Nội Dung", font=font_content,
+                          anchor=W, justify=LEFT).grid(column=2, row=0, columnspan=1, sticky=W)
+            tkinter.Label(f_all_xem_kien_nghi, text="Nội dung trả lời", font=font_content,
+                          anchor=W, justify=LEFT).grid(column=3, row=0, columnspan=1, sticky=W)
+            tkinter.Label(f_all_xem_kien_nghi, text="Đã thông báo", font=font_content,
+                          anchor=W, justify=LEFT).grid(column=4, row=0, columnspan=1, sticky=W)
 
         for j in range(8):
             if (i*8 + j >= n):
                 break
-            tkinter.Label(f_all_xem_kien_nghi, text=Data[i*8+j][0].HoTen.replace(",", "\n"), font=font_content_mini,
-                          anchor=W, justify=LEFT, wraplength=140).grid(column=0, row=j+1, columnspan=1, sticky=NW)
-            tkinter.Label(f_all_xem_kien_nghi, text=Data[i*8+j][0].CCCD.replace(",", "\n"), font=font_content_mini,
-                          anchor=W, justify=LEFT, wraplength=140).grid(column=1, row=j+1, columnspan=1, sticky=NW)
-            tkinter.Label(f_all_xem_kien_nghi, text=Data[i*8 + j][1].NoiDung,
-                          font=font_content_mini, anchor=W, justify=LEFT, wraplength=350).grid(column=2, row=j+1, columnspan=1, sticky=NW)
-            tkinter.Label(f_all_xem_kien_nghi, text=Data[i*8 + j][1].TrangThai, font=font_content_mini,
-                          anchor=W, justify=LEFT, wraplength=140).grid(column=3, row=j+1, columnspan=1, sticky=NW)
             if (tuongTac):
+                tkinter.Label(f_all_xem_kien_nghi, text=Data[i*8+j][0].HoTen.replace(",", "\n"), font=font_content_mini,
+                              anchor=W, justify=LEFT, wraplength=140).grid(column=0, row=j+1, columnspan=1, sticky=NW)
+                tkinter.Label(f_all_xem_kien_nghi, text=Data[i*8+j][0].CCCD.replace(",", "\n"), font=font_content_mini,
+                              anchor=W, justify=LEFT, wraplength=140).grid(column=1, row=j+1, columnspan=1, sticky=NW)
+                tkinter.Label(f_all_xem_kien_nghi, text=Data[i*8 + j][1].NoiDung,
+                              font=font_content_mini, anchor=W, justify=LEFT, wraplength=350).grid(column=2, row=j+1, columnspan=1, sticky=NW)
+                tkinter.Label(f_all_xem_kien_nghi, text=Data[i*8 + j][1].TrangThai, font=font_content_mini,
+                              anchor=W, justify=LEFT, wraplength=140).grid(column=3, row=j+1, columnspan=1, sticky=NW)
                 if ID == 2:
                     tkinter.Button(f_all_xem_kien_nghi, text="Trả lời", fg="white", bg="blue",
                                    font=font_content_mini, command=lambda data=i*8 + j: TraLoiKienNghi(Data, data, tuongTac)).grid(column=4, row=j+1, columnspan=1, sticky=NW)
@@ -2589,7 +2681,18 @@ def XemKienNghi(Data, tuongTac):
                     listVar.append(IntVar())
                     tkinter.Checkbutton(f_all_xem_kien_nghi, text="",
                                         font=font_content, cursor='hand2', variable=listVar[i*8+j], onvalue=1, offvalue=0, command=lambda data=i*8+j: choseMerge(data)).grid(column=4, row=j+1, columnspan=1, sticky=NW)
-
+            else:
+                tkinter.Label(f_all_xem_kien_nghi, text=Data[i*8+j][0].HoTen.replace(",", "\n"), font=font_content_mini,
+                              anchor=W, justify=LEFT, wraplength=140).grid(column=0, row=j+1, columnspan=1, sticky=NW)
+                tkinter.Label(f_all_xem_kien_nghi, text=Data[i*8+j][0].CCCD.replace(",", "\n"), font=font_content_mini,
+                              anchor=W, justify=LEFT, wraplength=140).grid(column=1, row=j+1, columnspan=1, sticky=NW)
+                tkinter.Label(f_all_xem_kien_nghi, text=Data[i*8 + j][1].NoiDung,
+                              font=font_content_mini, anchor=W, justify=LEFT, wraplength=350).grid(column=2, row=j+1, columnspan=1, sticky=NW)
+                tkinter.Label(f_all_xem_kien_nghi, text=Data[i*8 + j][2].NoiDung, font=font_content_mini,
+                              anchor=W, justify=LEFT, wraplength=140).grid(column=3, row=j+1, columnspan=1, sticky=NW)
+                listVar.append(IntVar())
+                tkinter.Checkbutton(f_all_xem_kien_nghi, text="",
+                                    font=font_content, cursor='hand2', variable=listVar[i*8+j], onvalue=1, offvalue=0, command=lambda data=i*8+j: changeStatus(data)).grid(column=4, row=j+1, columnspan=1, sticky=NW)
         if (i != 0):
             tkinter.Button(
                 f_all_xem_kien_nghi, text="Trang trước",  font=font_header3+" bold", fg="white", bg="blue", relief="groove", cursor='hand2', command=lambda: showPage(i-1)).grid(column=0, row=9, sticky=W, padx=padx, pady=pady, columnspan=1)
@@ -2621,27 +2724,39 @@ def XemKienNghi(Data, tuongTac):
             else:
                 btn["text"] = "Gửi"
 
-        if (ID == 2):
+        if (tuongTac == False or ID == 2):
             btn['text'] = "OK"
         else:
             btn['text'] = 'Gửi'
 
+        def changeStatus(data):
+            print("change Status: ", data)
+
         def submit():
-            global cnt
-            if (ID == 2):
-                switch(f_trang_chu)
-            elif (ID == 1):
-                if (cnt >= 2):
-                    ChucNang.GopKienNghi(listMaKienNghi, listHoTen, listCCCD)
-                    errorCode, Data1 = ChucNang.XemToanBoKienNghiTheoTrangThai(
-                        "Mới ghi nhận")
-                    messagebox.showinfo("", "Đã gộp")
-                    XemKienNghi(Data1, True)
-                else:
-                    for i in Data:
-                        ChucNang.ThayDoiTrangThai(
-                            i[1].MaKienNghi, "Chưa xử lý")
+            if (tuongTac):
+                global cnt
+                if ((tuongTac == False) or ID == 2):
                     switch(f_trang_chu)
+                elif (ID == 1):
+                    if (cnt >= 2):
+                        ChucNang.GopKienNghi(
+                            listMaKienNghi, listHoTen, listCCCD)
+                        errorCode, Data1 = ChucNang.XemToanBoKienNghiTheoTrangThai(
+                            "Mới ghi nhận")
+                        messagebox.showinfo("", "Đã gộp")
+                        XemKienNghi(Data1, True)
+                    else:
+                        for i in Data:
+                            ChucNang.ThayDoiTrangThai(
+                                i[1].MaKienNghi, "Chưa xử lý")
+                        switch(f_trang_chu)
+            else:
+                for i in range(n):
+                    # đã thông báo và người dân lên làm việc
+                    if (listVar[i]):
+                        ChucNang.ThayDoiTrangThai(
+                            Data[i][1].MaKienNghi, "Đã thông báo")
+                switch(f_trang_chu)
 
     showPage(0)
 

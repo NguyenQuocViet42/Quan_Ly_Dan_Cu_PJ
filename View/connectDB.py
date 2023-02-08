@@ -57,16 +57,24 @@ def insertCUDAN(values):
 # Lấy thông tin cư dân
 
 
-def getCUDAN(ID):
-    query = "select CUDAN.* from CUDAN where CUDAN.ID = ?"
-    val = (ID,)
+def getCUDANFROMHOTENVACCCD(HoTen, CCCD):
+    query = "select CUDAN.* from CUDAN where CUDAN.HoTen = ? and CUDAN.CCCD = ?"
+    val = (HoTen, CCCD,)
     # biến truyền vào dưới dạng 1 mảng
     cursor.execute(query, val)
     return cursor.fetchall()
 
 
+def getCUDANFROMID(ID):
+    query = "select CUDAN.* from CUDAN where CUDAN.ID = ?"
+    val = (ID,)
+    # biến truyền vào dưới dạng 1 mảng
+    cursor.execute(query, val)
+    return cursor.fetchall()[0]
+
+
 def getTenCUDAN(ID):
-    arr = getCUDAN(ID)[0]
+    arr = getCUDANFROMID(ID)[0]
     name = arr[2]
     return name
 
@@ -326,18 +334,44 @@ def TimDonKienNghi(CuDan: TaoCuDan):
     return list
 
 
+def TimDonKienNghiTuMaKienNghi(MaKienNghi):
+    query = " select * from KIENNGHI where MaKienNghi = ? "
+    val = (MaKienNghi,)
+    cursor.execute(query, val)
+    kienNghi = TaoKienNghi.init_values(values=cursor.fetchall()[0])
+    return kienNghi
+
+
+def TimCuDanTuMaKienNghi(MaKienNghi):
+    KienNghi = TimDonKienNghiTuMaKienNghi(MaKienNghi)
+    CuDan = getCUDANFROMID(KienNghi.ID)
+
+    return TaoCuDan.init_values(CuDan)
+
+
 def TimToanBoDonKienNghi():
     query = "select * from KIENNGHI order by NgayKN desc"
     cursor.execute(query)
     list = cursor.fetchall()
     return list
 
+
 def TimToanBoDonKienNghiTheoTrangThai(TrangThai):
     query = "select * from KIENNGHI where TrangThai = ? order by NgayKN desc"
     val = (TrangThai,)
-    cursor.execute(query,val)
+    cursor.execute(query, val)
     list = cursor.fetchall()
     return list
+
+
+def LayKienNghiDaTraLoi():
+    query = "select * from TraLoiKienNghi"
+    cursor.execute(query)
+    listTraLoi = []
+    for TraLoi in cursor.fetchall():
+        listTraLoi.append(TaoTraLoiKienNghi.init_values(TraLoi))
+    return listTraLoi
+
 
 def InsertTraLoiKienNghi(ThuTraLoi: TaoTraLoiKienNghi):
     query = " insert into TraLoiKienNghi values(?,?, getdate(), N'Đã xử lý', ?, ?) "
@@ -392,18 +426,21 @@ def CountKienNghi():
         ThongKe.append(SoLuong)
     return ThongKe
 
+
 def XoaKienNghi(ID):
     query = 'delete from KIENNGHI where MaKienNghi = ?'
     values = (ID,)
     cursor.execute(query, values)
     mydb.commit()
-    
+
+
 def GopKienNGhi(MaKienNghi, DanhSachHoTen, DanhSachCCCD, SoLuong):
     query = 'insert into BangGopKienNghi values(?,?,?,?)'
     values = (MaKienNghi, DanhSachHoTen, DanhSachCCCD, SoLuong)
     cursor.execute(query, values)
     mydb.commit()
-    
+
+
 def TimToanBoBangGop():
     query = 'select * from BangGopKienNghi'
     cursor.execute(query)

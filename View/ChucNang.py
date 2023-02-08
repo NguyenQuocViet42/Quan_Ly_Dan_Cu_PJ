@@ -35,6 +35,17 @@ def DangNhap(IDQuanLy, MatKhau):
 """ Xem thông tin hộ khẩu | Trả về 2 list, list đầu tiên là thông tin hộ khẩu, list tiếp theo là thông tin các cư dân """
 
 
+def XemCuDan(HoVaTen, CCCD):
+    error_code = 0
+    CuDan = []
+    try:
+        CuDan = connectDB.getCUDANFROMHOTENVACCCD(HoVaTen, CCCD)[0]
+        return error_code, CuDan
+    except:
+        error_code = 1
+        return error_code, CuDan
+
+
 def XemSoHoKhau(MaSo):
     error_code = 0
     # Thông tin hộ khẩu:
@@ -49,7 +60,7 @@ def XemSoHoKhau(MaSo):
     # Thông tin nhân khẩu:
     # ID ,CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, Mã sổ , QuanHe, Ngày đăng kí thường trú, dịa chỉ cũ, Ngày chuyển đi, nơi chuyển đi, ghi chú
     for i in range(len(ListCCCD)):
-        thongtincudan = connectDB.getCUDAN(ListCCCD[i][0])[0]
+        thongtincudan = connectDB.getCUDANFROMID(ListCCCD[i][0])
         ListCuDan.append(list(thongtincudan))
     for i in range(len(ListCuDan)):
         if ListCuDan[i][11].upper() == 'Chủ Hộ'.upper():
@@ -328,7 +339,7 @@ def XemToanBoKienNghi():
     for i in list:
         subData = []
         kiennghi = TaoKienNghi.init_values(i)
-        cudan = connectDB.getCUDAN(i.ID)[0]
+        cudan = connectDB.getCUDANFROMID(i.ID)
         if kiennghi.MaKienNghi in ListMaKienNghi:
             index = ListMaKienNghi.index(kiennghi.MaKienNghi)
             kiennghi.CCCD = ListCCCD[index]
@@ -353,7 +364,7 @@ def XemToanBoKienNghiTheoTrangThai(TrangThai):
     for i in list:
         subData = []
         kiennghi = TaoKienNghi.init_values(i)
-        cudan = connectDB.getCUDAN(i.ID)[0]
+        cudan = connectDB.getCUDANFROMID(i.ID)
         if kiennghi.MaKienNghi in ListMaKienNghi:
             index = ListMaKienNghi.index(kiennghi.MaKienNghi)
             kiennghi.CCCD = ListCCCD[index]
@@ -375,6 +386,23 @@ def TraLoiKienNghi(MaKienNghi, NoiDung):
     ThuTraLoi = TaoTraLoiKienNghi(
         1, MaKienNghi, NoiDung, 1, 1, QuanLy.TenQuanLy, QuanLy.IDQuanLy)
     connectDB.InsertTraLoiKienNghi(ThuTraLoi)
+
+
+def GetTraLoiKienNghi():
+    listRes = []
+    try:
+        listTraLoi = connectDB.LayKienNghiDaTraLoi()
+        for TraLoi in listTraLoi:
+            kienNghi = connectDB.TimDonKienNghiTuMaKienNghi(TraLoi.MaKienNghi)
+            cuDan = connectDB.TimCuDanTuMaKienNghi(TraLoi.MaKienNghi)
+            temp = []
+            temp.append(cuDan)
+            temp.append(kienNghi)
+            temp.append(TraLoi)
+            listRes.append(temp)
+        return listRes
+    except:
+        return []
 
 
 """ Khi có phản hồi từ các cơ quan có liên quan, tổ trưởng sẽ ghi nhận lại với phản ánh / kiến nghị tương ứng và thông báo cho
