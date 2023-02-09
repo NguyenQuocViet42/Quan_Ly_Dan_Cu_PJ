@@ -78,6 +78,13 @@ def getTenCUDAN(ID):
     name = arr[2]
     return name
 
+
+def setIDChuHo(ID, MaSo):
+    query = "update SOHOKHAU set IDChuHo = ? where MaSo = ?"
+    val = (ID, MaSo)
+    cursor.execute(query, val)
+    mydb.commit()
+
 # Lấy mã hộ khẩu từ tên và cccd
 
 
@@ -99,6 +106,13 @@ def getHoKhau(hostId):
     hokhau = TaoHoKhau(MaSo, SoThanhVien, SoNha, Phuong, Huyen, Tinh, IDChuHo)
     return hokhau
 
+
+def updateThongTinHoKhau(maSo, soNhaTenDuong, xaPhuong, quanHuyen, tinhThanhPho):
+    query = "update SOHOKHAU set [SoNha/TenDuong] = ?, [Phuong/Xa] = ?, [Quan/Huyen] = ?, Tinh = ? where MaSO = ?"
+    val = (soNhaTenDuong, xaPhuong, quanHuyen, tinhThanhPho, maSo)
+
+    cursor.execute(query, val)
+    mydb.commit()
 # Lấy danh sách ID cư dân thuộc hộ khẩu
 
 
@@ -146,6 +160,13 @@ def DeleteSoHoKhau(MaSo):
     mydb.commit()
 
 # Thêm một hộ khẩu
+
+
+def TaoHoKhauMoi(MaSo, SoNha, Phuong, Quan, Tinh):
+    query = "insert into SOHOKHAU values (?,?,?,?,?,?,?)"
+    val = (MaSo, 0, SoNha, Phuong, Quan, Tinh, 1)
+    cursor.execute(query, val)
+    mydb.commit()
 
 
 def InsertSoHoKhau(MaSo, DanhSachNhanKhau, SoNha, Phuong, Quan, Tinh):

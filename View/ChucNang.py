@@ -46,6 +46,15 @@ def XemCuDan(HoVaTen, CCCD):
         return error_code, CuDan
 
 
+def GetThongTinHoKhau(MaSo):
+    errorCode = 0
+    try:
+        hoKhau = connectDB.getHoKhau(MaSo)
+        return 0, hoKhau
+    except:
+        return 1, []
+
+
 def XemSoHoKhau(MaSo):
     error_code = 0
     # Thông tin hộ khẩu:
@@ -54,7 +63,7 @@ def XemSoHoKhau(MaSo):
         HoKhau = connectDB.getHoKhau(MaSo)
     except:
         error_code = 1
-        return error_code, 1, 1
+        return error_code, 1, []
     ListCCCD = connectDB.getListCuDanFromHoKhau(HoKhau.MaSo)
     ListCuDan = []
     # Thông tin nhân khẩu:
@@ -71,6 +80,11 @@ def XemSoHoKhau(MaSo):
     return error_code, HoKhau, ListCuDan
 
 
+def UpdateThongTinHoKhau(maSo, soNhaTenDuong, xaPhuong, quanHuyen, tinhThanhPho):
+    connectDB.updateThongTinHoKhau(
+        maSo, soNhaTenDuong, xaPhuong, quanHuyen, tinhThanhPho)
+
+
 """ Thêm nhân khẩu mới gia đình sinh thêm con thì sẽ thêm mới thông tin nhân khẩu như trên, bỏ trống các chi tiết về nghề nghiệp, CMND và nơi
  thường trú chuyển đến sẽ ghi là “mới sinh” """
 # Thông tin nhân khẩu:
@@ -82,6 +96,9 @@ def ThemNhanKhauMoi(CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghie
            BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu, None, None, None)
     # Thêm vào data base
     connectDB.insertCUDAN(val)
+    ID = connectDB.getCUDANFROMHOTENVACCCD(Hoten, CCCD)[0][0]
+    if (QuanHe.upper() == "CHỦ HỘ"):
+        connectDB.setIDChuHo(ID, MaSo)
     NoiDung = 'Thêm nhân khẩu ' + Hoten + \
         ' ' + CCCD + ' vào hộ khẩu ' + str(MaSo)
     biendoi = TaoBienDoi(1, 1, KieuBienDoi='Thêm nhân khẩu mới',
@@ -126,6 +143,20 @@ def ThayDoiChuHo(DanhSachIDThanhVien, DanhSachQuanHe, MaSo):
     biendoi = TaoBienDoi(1, 1, KieuBienDoi='Thay đổi chủ hộ',
                          NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy=QuanLy.IDQuanLy)
     connectDB.insertBienDoi(biendoi)
+
+
+def TaoHoKhauMoi(SoNha, Phuong, Quan, Tinh):
+    MaSo = random.randint(240000002, 259999999)
+    DanhSachMaHoKhau = connectDB.LayDanhSachMaHoKhau()
+    while MaSo in DanhSachMaHoKhau:
+        MaSo = random.randint(240000002, 259999999)
+    connectDB.TaoHoKhauMoi(MaSo,
+                           SoNha, Phuong, Quan, Tinh)
+    NoiDung = 'Sổ hộ khẩu với mã sổ: ' + str(MaSo) + " đã được tạo"
+    biendoi = TaoBienDoi(1, 1, KieuBienDoi='Tạo hộ khẩu mới',
+                         NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy=QuanLy.IDQuanLy)
+    connectDB.insertBienDoi(biendoi)
+    return MaSo
 
 
 """ Khi tách hộ từ một hộ khẩu đã có thì một sổ hộ khẩu mới sẽ được tạo ra với các nhân khẩu được chọn """

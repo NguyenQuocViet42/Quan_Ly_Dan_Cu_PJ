@@ -18,10 +18,12 @@ ID = 0
 
 dirname = os.path.dirname(__file__)
 win_bg = config.win_bg
-btn_home_bg = win_bg
-btn_family_bg = win_bg
-btn_demand_bg = win_bg
-btn_thongke_bg = win_bg
+selected_bg = config.selected_bg
+btn_trang_chu_bg = win_bg
+btn_ho_khau_bg = win_bg
+btn_kien_nghi_bg = win_bg
+btn_thong_ke_bg = win_bg
+btn_lich_su_bg = win_bg
 
 padx = 10
 pady = 7
@@ -162,185 +164,221 @@ def switch(frame, data=[], maHoKhau="", hoKhau=(), listCuDan=[]):
         for f in frames:
             for widget in f.winfo_children():
                 widget.destroy()
-    global btn_home_bg, btn_family_bg, btn_demand_bg, btn_thongke_bg
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
     # home
     if (frame == f_trang_chu):
         destroy_all_frame()
-        btn_home_bg = config.selected_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = selected_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         TrangChu()
     # xem hộ khẩu
     elif (frame == f_authen_family):
         destroy_all_frame()
-
-        btn_home_bg = win_bg
-        btn_family_bg = config.selected_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = selected_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         AuthenFamily()
-    elif (frame == f_family):
-        destroy_all_frame()
-
-        btn_home_bg = win_bg
-        btn_family_bg = config.selected_bg
-        btn_demand_bg = win_bg
-        Family(hoKhau=hoKhau, listCuDan=listCuDan)
     # thay đổi nhân khẩu
     elif (frame == f_bien_doi_nhan_khau):
         destroy_all_frame()
-
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         BienDoiNhanKhau()
     # thêm nhân khẩu mới
     elif (frame == f_them_nhan_khau):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         ThemNhanKhau()
 
     elif (frame == f_thay_doi_nhan_khau):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         ThayDoiNhanKhau()
     # thay đổi chủ hộ
     elif (frame == f_authen_thay_doi_chu_ho):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         AuthenThayDoiChuHo()
     elif (frame == f_thay_doi_chu_ho):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         ThayDoiChuHo(maHoKhau=maHoKhau, hoKhau=hoKhau, listCuDan=listCuDan)
     elif (frame == f_authen_tach_khau):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         AuthenTachKhau()
     elif (frame == f_tach_khau):
         destroy_all_frame()
-
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         TachKhau(maHoKhau=maHoKhau, hoKhau=hoKhau, listCuDan=listCuDan)
     elif (frame == f_tam_tru):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         TamTru()
     elif (frame == f_tao_giay_tam_tru):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         TaoGiayTamTru()
     elif (frame == f_authen_xem_giay_tam_tru):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         AuthenXemGiayTamTru()
     elif (frame == f_xem_giay_tam_tru):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         XemGiayTamTru(thongTinGiayTamTru=data)
     elif (frame == f_tam_vang):
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         TamVang()
     elif (frame == f_tao_giay_tam_vang):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         TaoGiayTamVang()
     elif (frame == f_authen_xem_giay_tam_vang):
         destroy_all_frame()
-
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         AuthenXemGiayTamVang()
     elif (frame == f_xem_giay_tam_vang):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         XemGiayTamVang(thongTinGiayTamVang=data)
     elif (frame == f_lich_su):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = selected_bg
         LichSu()
     elif (frame == f_authen_lich_su_bien_doi_theo_ho_khau):
         destroy_all_frame()
-
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         AuthenXemLichSuBienDoiTheoHoKhau()
     elif (frame == f_lich_su_bien_doi_theo_ho_khau):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         XemLichSuBienDoiTheoHoKhau(maHoKhau=maHoKhau)
     elif (frame == f_tat_ca_lich_su_bien_doi):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         XemTatCaLichSuBienDoi()
 
     elif (frame == f_thong_ke):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = selected_bg
+        btn_lich_su_bg = win_bg
         ThongKe()
     elif (frame == f_thong_ke_theo_do_tuoi):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         ThongKeTheoDoTuoi()
     elif (frame == f_thong_ke_theo_gioi_tinh):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         ThongKeTheoGioiTinh()
     # elif (frame == f_thong_ke_theo_khoang_thoi_gian):
     #     destroy_all_frame()
@@ -352,44 +390,36 @@ def switch(frame, data=[], maHoKhau="", hoKhau=(), listCuDan=[]):
     elif (frame == f_thong_ke_tam_tru_tam_vang):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         ThongKeTamTruTamVang()
     elif (frame == f_kien_nghi):
         destroy_all_frame()
-
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = selected_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         KienNghi()
     elif (frame == f_tao_kien_nghi):
         destroy_all_frame()
 
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         TaoKienNghi()
-    elif (frame == f_authen_xem_kien_nghi_theo_ca_nhan):
-        destroy_all_frame()
-
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
-        authenXemKienNghiTheoCaNhan()
-    # elif (frame == f_xem_kien_nghi):
-    #     destroy_all_frame()
-
-    #     btn_home_bg = win_bg
-    #     btn_family_bg = win_bg
-    #     btn_demand_bg = win_bg
-    #     XemKienNghi()
     elif (frame == f_tra_loi_kien_nghi):
         destroy_all_frame()
-
-        btn_home_bg = win_bg
-        btn_family_bg = win_bg
-        btn_demand_bg = win_bg
+        btn_trang_chu_bg = win_bg
+        btn_ho_khau_bg = win_bg
+        btn_kien_nghi_bg = win_bg
+        btn_thong_ke_bg = win_bg
+        btn_lich_su_bg = win_bg
         TraLoiKienNghi()
 
     Nav()
@@ -475,51 +505,51 @@ def Nav():
                          relwidth=1, anchor=NW)
     # 2.1 Home Butotn
     homeFrame_middle_nav = tkinter.Frame(
-        middleFrameNav, bg=btn_home_bg, padx=5, pady=0)
+        middleFrameNav, bg=btn_trang_chu_bg, padx=5, pady=0)
     homeFrame_middle_nav.place(
         relx=0, rely=0, relheight=0.1, relwidth=1, anchor=NW)
 
     tkinter.Label(
-        homeFrame_middle_nav, image=navHomePageImage, bg=btn_home_bg, anchor=E, padx=5).place(relx=0, rely=0, relheight=1, relwidth=0.3, anchor=NW)
+        homeFrame_middle_nav, image=navHomePageImage, bg=btn_trang_chu_bg, anchor=E, padx=5).place(relx=0, rely=0, relheight=1, relwidth=0.3, anchor=NW)
     tkinter.Button(
-        homeFrame_middle_nav, text="Trang chủ", font=font_header3, anchor=W, bg=btn_home_bg, borderwidth=0, cursor="hand2",
+        homeFrame_middle_nav, text="Trang chủ", font=font_header3, anchor=W, bg=btn_trang_chu_bg, borderwidth=0, cursor="hand2",
         command=lambda: switch(f_trang_chu)).place(relx=1, rely=0, relheight=1,
                                                    relwidth=0.7, anchor=NE)
 
     # 2.2 Family Button
 
     familyFrame_middle_nav = tkinter.Frame(
-        middleFrameNav, bg=btn_family_bg, padx=5, pady=0)
+        middleFrameNav, bg=btn_ho_khau_bg, padx=5, pady=0)
     familyFrame_middle_nav.place(
         relx=0, rely=0.1, relheight=0.1, relwidth=1, anchor=NW)
 
     tkinter.Label(
-        familyFrame_middle_nav, image=navFamilyImage, bg=btn_family_bg, anchor=E, padx=5).place(relx=0, rely=0, relheight=1, relwidth=0.3, anchor=NW)
+        familyFrame_middle_nav, image=navFamilyImage, bg=btn_ho_khau_bg, anchor=E, padx=5).place(relx=0, rely=0, relheight=1, relwidth=0.3, anchor=NW)
     tkinter.Button(
-        familyFrame_middle_nav, text="Family", font=font_header3, anchor=W, bg=btn_family_bg, borderwidth=0, cursor="hand2",
+        familyFrame_middle_nav, text="Sổ hộ khẩu", font=font_header3, anchor=W, bg=btn_ho_khau_bg, borderwidth=0, cursor="hand2",
         command=lambda: switch(f_authen_family)).place(relx=1, rely=0, relheight=1, relwidth=0.7, anchor=NE)
     # 2.3 Demand Button
 
     demandFrame_middle_nav = tkinter.Frame(
-        middleFrameNav, bg=btn_demand_bg, padx=5, pady=0)
+        middleFrameNav, bg=btn_kien_nghi_bg, padx=5, pady=0)
     demandFrame_middle_nav.place(
         relx=0, rely=0.2, relheight=0.1, relwidth=1, anchor=NW)
 
     tkinter.Label(
-        demandFrame_middle_nav, image=navDemandImage, bg=btn_demand_bg, anchor=E, padx=5).place(relx=0, rely=0, relheight=1, relwidth=0.3, anchor=NW)
+        demandFrame_middle_nav, image=navDemandImage, bg=btn_kien_nghi_bg, anchor=E, padx=5).place(relx=0, rely=0, relheight=1, relwidth=0.3, anchor=NW)
     tkinter.Button(
-        demandFrame_middle_nav, text="Kiến Nghị", font=font_header3, anchor=W, bg=btn_demand_bg, borderwidth=0, cursor="hand2",
+        demandFrame_middle_nav, text="Kiến Nghị", font=font_header3, anchor=W, bg=btn_kien_nghi_bg, borderwidth=0, cursor="hand2",
         command=lambda: switch(f_kien_nghi)).place(relx=1, rely=0, relheight=1, relwidth=0.7, anchor=NE)
 
     # 2.4 Thống kê
     thongKeFrame_middle_nav = tkinter.Frame(
-        middleFrameNav, bg=btn_thongke_bg, padx=5, pady=0)
+        middleFrameNav, bg=btn_thong_ke_bg, padx=5, pady=0)
     thongKeFrame_middle_nav.place(
         relx=0, rely=0.3, relheight=0.1, relwidth=1, anchor=NW)
     tkinter.Label(
-        thongKeFrame_middle_nav, image=navThongKeImage, bg=btn_thongke_bg, anchor=E, padx=5).place(relx=0, rely=0, relheight=1, relwidth=0.3, anchor=NW)
+        thongKeFrame_middle_nav, image=navThongKeImage, bg=btn_thong_ke_bg, anchor=E, padx=5).place(relx=0, rely=0, relheight=1, relwidth=0.3, anchor=NW)
     tkinter.Button(
-        thongKeFrame_middle_nav, text="Thống kê", font=font_header3, anchor=W, bg=btn_thongke_bg, borderwidth=0, cursor="hand2",
+        thongKeFrame_middle_nav, text="Thống kê", font=font_header3, anchor=W, bg=btn_thong_ke_bg, borderwidth=0, cursor="hand2",
         command=lambda: switch(f_thong_ke)).place(relx=1, rely=0, relheight=1, relwidth=0.7, anchor=NE)
 
     '''Bottom'''
@@ -528,14 +558,14 @@ def Nav():
                           relwidth=1, anchor=SW)
     # 3.1 History
     helpFrame_bottom_nav = tkinter.Frame(
-        bottomFrame_nav, bg=win_bg, padx=5, pady=0)
+        bottomFrame_nav, bg=btn_lich_su_bg, padx=5, pady=0)
     helpFrame_bottom_nav.place(
         relx=0, rely=0, relheight=0.3, relwidth=1, anchor=NW)
 
     tkinter.Label(
-        helpFrame_bottom_nav, text="", image=helpImage, bg=win_bg, anchor=E, padx=5).place(relx=0, rely=0, relheight=1, relwidth=0.3, anchor=NW)
+        helpFrame_bottom_nav, text="", image=helpImage, bg=btn_lich_su_bg, anchor=E, padx=5).place(relx=0, rely=0, relheight=1, relwidth=0.3, anchor=NW)
     tkinter.Button(
-        helpFrame_bottom_nav, text="Lịch sử", font=font_header3, anchor=W, bg=win_bg, borderwidth=0, cursor="hand2",
+        helpFrame_bottom_nav, text="Lịch sử", font=font_header3, anchor=W, bg=btn_lich_su_bg, borderwidth=0, cursor="hand2",
         command=lambda: switch(f_lich_su)).place(relx=1, rely=0, relheight=1, relwidth=0.7, anchor=NE)
     # 3.2 Logout
     settingFrame_bottom_nav = tkinter.Frame(
@@ -706,6 +736,14 @@ def ThemNhanKhau():
     f_all_add_person.grid_columnconfigure(1, weight=1)
     f_all_add_person.grid_columnconfigure(2, weight=1)
     f_all_add_person.grid_columnconfigure(3, weight=1)
+    f_all_add_person.grid_columnconfigure(4, weight=1)
+    f_all_add_person.grid_columnconfigure(5, weight=1)
+    f_all_add_person.grid_columnconfigure(6, weight=1)
+    f_all_add_person.grid_columnconfigure(7, weight=1)
+    f_all_add_person.grid_columnconfigure(8, weight=1)
+    f_all_add_person.grid_columnconfigure(9, weight=1)
+    f_all_add_person.grid_columnconfigure(10, weight=1)
+    f_all_add_person.grid_columnconfigure(11, weight=1)
 
     # row 0
     tkinter.Label(
@@ -818,7 +856,23 @@ def ThemNhanKhau():
         f_all_add_person, text="Gửi",  font=font_header3, fg="white", bg="blue", relief="groove", cursor='hand2',
         command=lambda: submit()).grid(column=0, row=10, padx=padx, pady=pady, columnspan=4)
 
+    errorMessage = tkinter.Label(
+        f_all_add_person, text="", font=font_content, fg="red", justify=CENTER)
+    errorMessage.grid(column=0, row=11, columnspan=4)
+
     def submit():
+        if (hoTen.get() == "" or danToc.get() == "" or quocTich.get() == "" or maHoKhau.get() == "" or quanHe.get() == ""):
+            errorMessage['text'] = "Vui lòng điền đầy đủ thông tin!"
+            return
+
+        error_code, HoKhau, ListCuDan = ChucNang.XemSoHoKhau(maHoKhau.get())
+        if (len(ListCuDan) == 0 and quanHe.get().upper() != "CHỦ HỘ"):
+            errorMessage['text'] = "Hộ khẩu trống, vui lòng nhập chủ hộ đầu tiên!"
+            return
+        if (len(ListCuDan) and quanHe.get().upper() == "CHỦ HỘ"):
+            errorMessage['text'] = "Vui lòng xem lại quan hệ, chủ hộ của hộ khẩu này đã tồn tại!"
+            return
+
         # CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, Mã sổ , QuanHe, Ngày đăng kí thường trú, dịa chỉ cũ
         ChucNang.ThemNhanKhauMoi(CCCD.get(),  # căn cước
                                  hoTen.get(),  # họ và tên
@@ -1873,7 +1927,7 @@ def XemGiayTamVang(thongTinGiayTamVang):
 
 
 def AuthenFamily():
-    # Create a child frame to destroy when no use parent frame
+
     f_all_authen_family = tkinter.Frame(
         f_authen_family, highlightbackground="black", highlightthickness=2)
     f_authen_family.grid_columnconfigure(0, weight=1)
@@ -1881,17 +1935,241 @@ def AuthenFamily():
     f_all_authen_family.grid(column=0, row=0, sticky='news', padx=10, pady=10)
 
     tkinter.Label(
-        f_all_authen_family, text="Nhập mã hộ khẩu", font=font_content, anchor=W).grid(column=0, row=0, sticky=W, padx=padx, pady=pady, columnspan=1)
+        f_all_authen_family, text="Chọn chức năng: ", font=font_content, anchor=W).grid(column=0, row=0, sticky=W, padx=padx, pady=pady, columnspan=1)
+
+    option = ("Thêm hộ khẩu mới", "Thay đổi thông tin hộ khẩu", "Xem hộ khẩu")
+    chosed = StringVar(f_all_authen_family)
+    dropDownGender = ttk.OptionMenu(
+        f_all_authen_family, chosed, option[0], *option, style='DropDownStyle.TMenubutton')
+    dropDownGender['menu'].configure(font=('Arial', 12))
+    dropDownGender.grid(column=1, row=0, sticky=W,
+                        padx=padx, pady=pady, columnspan=1)
+    tkinter.Button(
+        f_all_authen_family, text="Gửi",  font=font_header3, fg="white", bg="blue", relief='groove', cursor='hand2',
+        command=lambda: submit(chosed.get())).grid(column=0, row=2, padx=padx, pady=pady, columnspan=2)
+
+    def submit(chose):
+        if (chose == "Thêm hộ khẩu mới"):
+            ThemHoKhau()
+        elif (chose == "Thay đổi thông tin hộ khẩu"):
+            ThayDoiThongTinHoKhau()
+        elif (chose == "Xem hộ khẩu"):
+            XemHoKhau()
+
+# Thông tin nhân khẩu:
+# ID ,CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, Mã sổ , QuanHe, Ngày đăng kí thường trú, dịa chỉ cũ, Ngày chuyển đi, nơi chuyển đi, ghi chú
+# Giao diện xem nhân khẩu
+
+
+def ThemHoKhau():
+    for f in frames:
+        for widget in f.winfo_children():
+            widget.destroy()
+    f_family.tkraise()
+
+    # Create a child frame to destroy when no use parent frame
+    f_all_family = tkinter.Frame(
+        f_family, highlightbackground="black", highlightthickness=2)
+    f_family.grid_columnconfigure(0, weight=1)
+    f_family.grid_rowconfigure(0, weight=1)
+    f_all_family.grid(column=0, row=0, sticky='news', padx=10, pady=10)
+
+    f_all_family.grid_rowconfigure(0, weight=1)
+    f_all_family.grid_rowconfigure(1, weight=1)
+    f_all_family.grid_rowconfigure(2, weight=1)
+    f_all_family.grid_rowconfigure(3, weight=1)
+    f_all_family.grid_rowconfigure(4, weight=1)
+    f_all_family.grid_rowconfigure(5, weight=1)
+    f_all_family.grid_rowconfigure(6, weight=1)
+    f_all_family.grid_rowconfigure(7, weight=1)
+    f_all_family.grid_columnconfigure(0, weight=1)
+    f_all_family.grid_columnconfigure(1, weight=3)
+
+    tkinter.Label(f_all_family, text="Thêm hộ khẩu", font=font_header2,
+                  anchor=N, justify=CENTER).grid(column=0, row=0, columnspan=2)
+
+    tkinter.Label(f_all_family, text="Số nhà/tên đường:",
+                  font=font_content, anchor=W, justify=LEFT).grid(column=0, row=1, sticky=W, padx=padx, pady=pady)
+    soNhaTenDuong = tkinter.Entry(f_all_family, font=font_content,
+                                  width=60, justify=LEFT)
+    soNhaTenDuong.grid(column=1, row=1, sticky=W, padx=padx, pady=pady)
+
+    tkinter.Label(f_all_family, text="Xã/Phường:",
+                  font=font_content, anchor=W, justify=LEFT).grid(column=0, row=2, sticky=W, padx=padx, pady=pady)
+    xaPhuong = tkinter.Entry(f_all_family, font=font_content,
+                             width=60, justify=LEFT)
+    xaPhuong.grid(column=1, row=2, sticky=W, padx=padx, pady=pady)
+
+    tkinter.Label(f_all_family, text="Quận/Huyện:",
+                  font=font_content, anchor=W, justify=LEFT).grid(column=0, row=3, sticky=W, padx=padx, pady=pady)
+    quanHuyen = tkinter.Entry(f_all_family, font=font_content,
+                              width=60, justify=LEFT)
+    quanHuyen.grid(column=1, row=3, sticky=W, padx=padx, pady=pady)
+
+    tkinter.Label(f_all_family, text="Tỉnh/Thành phố:",
+                  font=font_content, anchor=W, justify=LEFT).grid(column=0, row=4, sticky=W, padx=padx, pady=pady)
+    tinhThanhPho = tkinter.Entry(f_all_family, font=font_content,
+                                 width=60, justify=LEFT)
+    tinhThanhPho.grid(column=1, row=4, sticky=W, padx=padx, pady=pady)
+
+    tkinter.Button(f_all_family, text="Thêm", font=font_header3, bg="blue",
+                   fg="white", command=lambda: submit()).grid(column=0, row=5, columnspan=2)
+
+    errorMessage = tkinter.Label(
+        f_all_family, text="", fg="red", justify=CENTER, font=font_content)
+    errorMessage.grid(column=0, row=6, columnspan=2,
+                      sticky=N, padx=padx, pady=pady)
+
+    def submit():
+        nha = soNhaTenDuong.get()
+        xa = xaPhuong.get()
+        quan = quanHuyen.get()
+        tinh = tinhThanhPho.get()
+
+        if (nha == "" or xa == "" or quan == "" or tinh == ""):
+            errorMessage['text'] = "Vui lòng nhập đầy đủ thông tin!"
+            return
+        else:
+            MaSo = ChucNang.TaoHoKhauMoi(nha, xa, quan, tinh)
+            messagebox.showinfo(
+                "", f'''Tạo mới thành công sổ hộ khẩu có mã:\n\
+                                 {MaSo}                   \n\
+Vui lòng ghi nhớ và thêm thành viên\n\
+  trong chức năng thêm nhân khẩu''')
+            switch(f_trang_chu)
+
+
+def ThayDoiThongTinHoKhau():
+    for f in frames:
+        for widget in f.winfo_children():
+            widget.destroy()
+    f_family.tkraise()
+
+    # Create a child frame to destroy when no use parent frame
+    f_all_family = tkinter.Frame(
+        f_family, highlightbackground="black", highlightthickness=2)
+    f_family.grid_columnconfigure(0, weight=1)
+    f_family.grid_rowconfigure(0, weight=1)
+    f_all_family.grid(column=0, row=0, sticky='news', padx=10, pady=10)
+
+    f_all_family.grid_columnconfigure(0, weight=1)
+    f_all_family.grid_columnconfigure(1, weight=1)
+    f_all_family.grid_columnconfigure(2, weight=1)
+    f_all_family.grid_columnconfigure(3, weight=1)
+
+    tkinter.Label(f_all_family, text="Thay đổi thông tin hộ khẩu", font=font_header2, justify=CENTER,
+                  anchor=W).grid(column=0, row=0, columnspan=2, sticky=W, padx=padx, pady=pady)
+    tkinter.Label(f_all_family, text="Nhập mã hộ khẩu", font=font_content,
+                  justify=LEFT, anchor=W).grid(column=0, row=1, sticky=W, padx=padx, pady=pady)
     maHoKhau = tkinter.Entry(
-        f_all_authen_family, font=font_content, width=20)
+        f_all_family, font=font_content, justify=LEFT, width=20)
+    maHoKhau.grid(column=1, row=1, sticky=W, padx=padx, pady=pady)
+
+    tkinter.Button(f_all_family, text="Gửi", font=font_content, fg="white", bg="blue",
+                   command=lambda: submitAuthen()).grid(column=0, row=2, columnspan=2, padx=padx, pady=pady)
+
+    errorMessage = tkinter.Label(
+        f_all_family, text="", font=font_content, fg="red")
+    errorMessage.grid(column=0, row=3, columnspan=2, padx=padx, pady=pady)
+
+    def submitAuthen():
+        maSo = maHoKhau.get()
+        if (maSo == ""):
+            errorMessage['text'] = "Vui lòng điền mã hộ khẩu"
+            return
+        else:
+            errorCode, hoKhau = ChucNang.GetThongTinHoKhau(maSo)
+            if (errorCode):
+                errorMessage['text'] = "Vui lòng kiểm tra lại mã hộ khẩu"
+            else:
+                View(hoKhau)
+
+    def View(hoKhau):
+        for widget in f_all_family.winfo_children():
+            widget.destroy()
+
+        f_all_family.grid_rowconfigure(0, weight=1)
+        f_all_family.grid_rowconfigure(1, weight=1)
+        f_all_family.grid_rowconfigure(2, weight=1)
+        f_all_family.grid_rowconfigure(3, weight=1)
+        f_all_family.grid_rowconfigure(4, weight=1)
+        f_all_family.grid_rowconfigure(5, weight=1)
+        f_all_family.grid_rowconfigure(6, weight=1)
+        f_all_family.grid_rowconfigure(7, weight=1)
+        f_all_family.grid_columnconfigure(0, weight=1)
+        f_all_family.grid_columnconfigure(1, weight=3)
+
+        tkinter.Label(f_all_family, text="Thêm hộ khẩu", font=font_header2,
+                      anchor=N, justify=CENTER).grid(column=0, row=0, columnspan=2)
+
+        tkinter.Label(f_all_family, text="Số nhà/tên đường:",
+                      font=font_content, anchor=W, justify=LEFT).grid(column=0, row=1, sticky=W, padx=padx, pady=pady)
+        soNhaTenDuong = tkinter.Entry(f_all_family, font=font_content,
+                                      width=60, justify=LEFT)
+        soNhaTenDuong.grid(column=1, row=1, sticky=W, padx=padx, pady=pady)
+        soNhaTenDuong.insert(0, hoKhau.SoNha)
+
+        tkinter.Label(f_all_family, text="Xã/Phường:",
+                      font=font_content, anchor=W, justify=LEFT).grid(column=0, row=2, sticky=W, padx=padx, pady=pady)
+        xaPhuong = tkinter.Entry(f_all_family, font=font_content,
+                                 width=60, justify=LEFT)
+        xaPhuong.grid(column=1, row=2, sticky=W, padx=padx, pady=pady)
+        xaPhuong.insert(0, hoKhau.Phuong)
+        tkinter.Label(f_all_family, text="Quận/Huyện:",
+                      font=font_content, anchor=W, justify=LEFT).grid(column=0, row=3, sticky=W, padx=padx, pady=pady)
+        quanHuyen = tkinter.Entry(f_all_family, font=font_content,
+                                  width=60, justify=LEFT)
+        quanHuyen.grid(column=1, row=3, sticky=W, padx=padx, pady=pady)
+        quanHuyen.insert(0, hoKhau.Huyen)
+        tkinter.Label(f_all_family, text="Tỉnh/Thành phố:",
+                      font=font_content, anchor=W, justify=LEFT).grid(column=0, row=4, sticky=W, padx=padx, pady=pady)
+        tinhThanhPho = tkinter.Entry(f_all_family, font=font_content,
+                                     width=60, justify=LEFT)
+        tinhThanhPho.grid(column=1, row=4, sticky=W, padx=padx, pady=pady)
+        tinhThanhPho.insert(0, hoKhau.Tinh)
+        tkinter.Button(f_all_family, text="Xác nhận", font=font_header3, bg="blue",
+                       fg="white", command=lambda: submit()).grid(column=0, row=5, columnspan=2)
+
+        errorMessage = tkinter.Label(
+            f_all_family, text="", fg="red", justify=CENTER, font=font_content)
+        errorMessage.grid(column=0, row=6, columnspan=2,
+                          sticky=N, padx=padx, pady=pady)
+
+        def submit():
+            if (soNhaTenDuong.get() == "" or xaPhuong.get() == "" or quanHuyen.get() == "" or tinhThanhPho.get() == ""):
+                errorMessage['text'] = "Vui lòng nhập đầy đủ thông tin"
+                return
+            ChucNang.UpdateThongTinHoKhau(hoKhau.MaSo, soNhaTenDuong.get(
+            ), xaPhuong.get(), quanHuyen.get(), tinhThanhPho.get())
+            messagebox.showinfo("", "Đã cập nhật thành công")
+            switch(f_trang_chu)
+
+
+def XemHoKhau():
+    for f in frames:
+        for widget in f.winfo_children():
+            widget.destroy()
+    f_family.tkraise()
+
+    # Create a child frame to destroy when no use parent frame
+    f_all_family = tkinter.Frame(
+        f_family, highlightbackground="black", highlightthickness=2)
+    f_family.grid_columnconfigure(0, weight=1)
+    f_family.grid_rowconfigure(0, weight=1)
+    f_all_family.grid(column=0, row=0, sticky='news', padx=10, pady=10)
+
+    tkinter.Label(
+        f_all_family, text="Nhập mã hộ khẩu", font=font_content, anchor=W).grid(column=0, row=0, sticky=W, padx=padx, pady=pady, columnspan=1)
+    maHoKhau = tkinter.Entry(
+        f_all_family, font=font_content, width=20)
     maHoKhau.grid(column=1, row=0, sticky=W,
                   padx=padx, pady=pady, columnspan=1)
 
     tkinter.Button(
-        f_all_authen_family, text="Gửi", font=font_header3, fg="white", bg="blue", relief='groove', cursor='hand2', command=lambda: submit(maHoKhau.get(), errorMessage)).grid(column=0, row=1, padx=padx, pady=pady, columnspan=2)
+        f_all_family, text="Gửi", font=font_header3, fg="white", bg="blue", relief='groove', cursor='hand2', command=lambda: submit(maHoKhau.get(), errorMessage)).grid(column=0, row=1, padx=padx, pady=pady, columnspan=2)
 
     errorMessage = tkinter.Label(
-        f_all_authen_family, text="", font=font_content, fg="red", anchor=W)
+        f_all_family, text="", font=font_content, fg="red", anchor=W)
     errorMessage.grid(column=0, row=2, padx=padx,
                       pady=pady, sticky=W, columnspan=2)
 
@@ -1901,157 +2179,147 @@ def AuthenFamily():
             errorMessage['text'] = f"Số hộ khẩu: {maHoKhau} bị sai!. Vui lòng nhập lại"
 
         else:
-            switch(frame=f_family, maHoKhau=maHoKhau,
-                   hoKhau=hoKhau, listCuDan=listCuDan)
+            XemNhanKhau(listCuDan)
 
-# Thông tin nhân khẩu:
-# ID ,CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, Mã sổ , QuanHe, Ngày đăng kí thường trú, dịa chỉ cũ, Ngày chuyển đi, nơi chuyển đi, ghi chú
-# Giao diện xem nhân khẩu
+    def XemNhanKhau(listCuDan):
+        for widget in f_all_family.winfo_children():
+            widget.destroy()
+        n = len(listCuDan)
 
+        f_all_family.grid_columnconfigure(0, weight=1)
+        f_all_family.grid_columnconfigure(1, weight=1)
+        f_all_family.grid_columnconfigure(2, weight=1)
+        f_all_family.grid_columnconfigure(3, weight=1)
 
-def Family(hoKhau, listCuDan):
-    n = len(listCuDan)
-    # Create a child frame to destroy when no use parent frame
-    f_all_view_family = tkinter.Frame(
-        f_family, highlightbackground="black", highlightthickness=2)
-    f_family.grid_columnconfigure(0, weight=1)
-    f_family.grid_rowconfigure(0, weight=1)
-    f_all_view_family.grid(
-        column=0, row=0, sticky='news', padx=10, pady=10)
-    f_all_view_family.grid_columnconfigure(0, weight=1)
-    f_all_view_family.grid_columnconfigure(1, weight=1)
-    f_all_view_family.grid_columnconfigure(2, weight=1)
-    f_all_view_family.grid_columnconfigure(3, weight=1)
+        def showPerson(i):
+            if (n == 0):
+                f_all_family.grid_columnconfigure(0, weight=1)
+                f_all_family.grid_rowconfigure(0, weight=1)
+                f_all_family.grid_columnconfigure(4, weight=0)
 
-    def showPerson(i):
-        if (n == 0):
-            f_all_view_family.grid_columnconfigure(0, weight=1)
-            f_all_view_family.grid_rowconfigure(0, weight=1)
-            f_all_view_family.grid_columnconfigure(4, weight=0)
+                tkinter.Label(f_all_family, text="Không có data", fg="red",
+                              font=font_header1).grid(column=0, row=0)
+            else:
+                # Không cho đi về trước nhân khẩu đầu tiên
+                if (i <= 0):
+                    i = 0
+                # Không cho đi quá nhân khẩu cuối
+                elif (i >= n-1):
+                    i = n-1
+                # Xóa dữ liệu cũ
+                for widget in f_all_family.winfo_children():
+                    widget.destroy()
+                # Hiện thông tin nhân khẩu thứ i
+                PersonInfo(i)
 
-            tkinter.Label(f_all_view_family, text="Không có data", fg="red",
-                          font=font_header1).grid(column=0, row=0)
-        else:
-            # Không cho đi về trước nhân khẩu đầu tiên
-            if (i <= 0):
-                i = 0
-            # Không cho đi quá nhân khẩu cuối
-            elif (i >= n-1):
-                i = n-1
-            # Xóa dữ liệu cũ
-            for widget in f_all_view_family.winfo_children():
-                widget.destroy()
-            # Hiện thông tin nhân khẩu thứ i
-            PersonInfo(i)
+        def PersonInfo(i):
+            # row 0
+            tkinter.Label(
+                f_all_family, text="Quan hệ với chủ hộ:", font=font_header3, anchor=W).grid(row=0, column=0, columnspan=2, padx=padx, pady=pady, sticky=W)
+            tkinter.Label(
+                f_all_family, anchor=W, text=listCuDan[i][11], font=font_content).grid(row=0, column=2, padx=padx, pady=pady, sticky=W, columnspan=2)
 
-    def PersonInfo(i):
-        # row 0
-        tkinter.Label(
-            f_all_view_family, text="Quan hệ với chủ hộ:", font=font_header3, anchor=W).grid(row=0, column=0, columnspan=2, padx=padx, pady=pady, sticky=W)
-        tkinter.Label(
-            f_all_view_family, anchor=W, text=listCuDan[i][11], font=font_content).grid(row=0, column=2, padx=padx, pady=pady, sticky=W, columnspan=2)
+            # row 1
+            tkinter.Label(
+                f_all_family, text="Họ và tên:", font=font_content, anchor=W).grid(column=0, row=1, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-        # row 1
-        tkinter.Label(
-            f_all_view_family, text="Họ và tên:", font=font_content, anchor=W).grid(column=0, row=1, sticky=W, padx=padx, pady=pady, columnspan=1)
+            tkinter.Label(
+                f_all_family, anchor=W, text=listCuDan[i][2], font=font_content).grid(column=1, row=1, padx=padx, pady=pady, columnspan=3, sticky=W)
 
-        tkinter.Label(
-            f_all_view_family, anchor=W, text=listCuDan[i][2], font=font_content).grid(column=1, row=1, padx=padx, pady=pady, columnspan=3, sticky=W)
+            # row 2
+            tkinter.Label(
+                f_all_family, text="Bí danh(Nếu có):", font=font_content, anchor=W).grid(column=0, row=2, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-        # row 2
-        tkinter.Label(
-            f_all_view_family, text="Bí danh(Nếu có):", font=font_content, anchor=W).grid(column=0, row=2, sticky=W, padx=padx, pady=pady, columnspan=1)
+            tkinter.Label(
+                f_all_family, anchor=W, text=listCuDan[i][9], font=font_content).grid(column=1, row=2, padx=padx, pady=pady, columnspan=1, sticky=W)
 
-        tkinter.Label(
-            f_all_view_family, anchor=W, text=listCuDan[i][9], font=font_content).grid(column=1, row=2, padx=padx, pady=pady, columnspan=1, sticky=W)
+            tkinter.Label(
+                f_all_family, text="Nghề nghiệp : ", font=font_content, anchor=W).grid(column=2, row=2, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-        tkinter.Label(
-            f_all_view_family, text="Nghề nghiệp : ", font=font_content, anchor=W).grid(column=2, row=2, sticky=W, padx=padx, pady=pady, columnspan=1)
+            tkinter.Label(
+                f_all_family, anchor=W, text=listCuDan[i][7], font=font_content, justify=LEFT).grid(column=3, row=2, padx=padx, pady=pady, columnspan=1, sticky=W)
 
-        tkinter.Label(
-            f_all_view_family, anchor=W, text=listCuDan[i][7], font=font_content, justify=LEFT).grid(column=3, row=2, padx=padx, pady=pady, columnspan=1, sticky=W)
+            # row 3
+            tkinter.Label(
+                f_all_family, text="Ngày sinh: ", font=font_content, anchor=W).grid(column=0, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-        # row 3
-        tkinter.Label(
-            f_all_view_family, text="Ngày sinh: ", font=font_content, anchor=W).grid(column=0, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
+            Label(
+                f_all_family, anchor=W, text=listCuDan[i][4], font=font_content).grid(column=1, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-        Label(
-            f_all_view_family, anchor=W, text=listCuDan[i][4], font=font_content).grid(column=1, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
+            tkinter.Label(
+                f_all_family, text="Giới tính: ", font=font_content, anchor=W).grid(column=2, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-        tkinter.Label(
-            f_all_view_family, text="Giới tính: ", font=font_content, anchor=W).grid(column=2, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
+            Label(
+                f_all_family, anchor=W, text=listCuDan[i][3], font=font_content).grid(column=3, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-        Label(
-            f_all_view_family, anchor=W, text=listCuDan[i][3], font=font_content).grid(column=3, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
+            # row 4
+            tkinter.Label(
+                f_all_family, text="Quê quán: ", font=font_content, anchor=W).grid(column=0, row=4, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-        # row 4
-        tkinter.Label(
-            f_all_view_family, text="Quê quán: ", font=font_content, anchor=W).grid(column=0, row=4, sticky=W, padx=padx, pady=pady, columnspan=1)
+            tkinter.Label(
+                f_all_family, anchor=W, text=listCuDan[i][8], font=font_content).grid(column=1, row=4, sticky=W, padx=padx, pady=pady, columnspan=3)
 
-        tkinter.Label(
-            f_all_view_family, anchor=W, text=listCuDan[i][8], font=font_content).grid(column=1, row=4, sticky=W, padx=padx, pady=pady, columnspan=3)
+            # row 5
+            tkinter.Label(
+                f_all_family, text="Số căn cước công dân: ", anchor=W, font=font_content).grid(column=0, row=5, padx=padx, pady=pady, sticky=W, columnspan=2)
 
-        # row 5
-        tkinter.Label(
-            f_all_view_family, text="Số căn cước công dân: ", anchor=W, font=font_content).grid(column=0, row=5, padx=padx, pady=pady, sticky=W, columnspan=2)
+            tkinter.Label(
+                f_all_family, anchor=W, text=listCuDan[i][1], font=font_content).grid(column=2, row=5, padx=padx, pady=pady, sticky=W, columnspan=2)
 
-        tkinter.Label(
-            f_all_view_family, anchor=W, text=listCuDan[i][1], font=font_content).grid(column=2, row=5, padx=padx, pady=pady, sticky=W, columnspan=2)
+            # row 6
+            tkinter.Label(
+                f_all_family, text="Dân tộc: ", font=font_content, anchor=W).grid(column=0, row=6, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-        # row 6
-        tkinter.Label(
-            f_all_view_family, text="Dân tộc: ", font=font_content, anchor=W).grid(column=0, row=6, sticky=W, padx=padx, pady=pady, columnspan=1)
+            tkinter.Label(
+                f_all_family, anchor=W, text=listCuDan[i][5], font=font_content).grid(column=1, row=6, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-        tkinter.Label(
-            f_all_view_family, anchor=W, text=listCuDan[i][5], font=font_content).grid(column=1, row=6, sticky=W, padx=padx, pady=pady, columnspan=1)
+            tkinter.Label(
+                f_all_family, text="Quốc tịch: ", font=font_content, anchor=W).grid(column=2, row=6, sticky=W, padx=padx, pady=pady, columnspan=1)
+            tkinter.Label(
+                f_all_family, anchor=W, text=listCuDan[i][6], font=font_content).grid(column=3, row=6, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-        tkinter.Label(
-            f_all_view_family, text="Quốc tịch: ", font=font_content, anchor=W).grid(column=2, row=6, sticky=W, padx=padx, pady=pady, columnspan=1)
-        tkinter.Label(
-            f_all_view_family, anchor=W, text=listCuDan[i][6], font=font_content).grid(column=3, row=6, sticky=W, padx=padx, pady=pady, columnspan=1)
+            # row 7
+            tkinter.Label(
+                f_all_family, text="Địa chỉ cũ:", font=font_content, anchor=W).grid(column=0, row=7, sticky=W, padx=padx, pady=pady, columnspan=2)
 
-        # row 7
-        tkinter.Label(
-            f_all_view_family, text="Địa chỉ cũ:", font=font_content, anchor=W).grid(column=0, row=7, sticky=W, padx=padx, pady=pady, columnspan=2)
+            tkinter.Label(
+                f_all_family, anchor=W, text=listCuDan[i][13], font=font_content).grid(column=1, row=7, padx=padx, pady=pady, columnspan=3, sticky=W)
 
-        tkinter.Label(
-            f_all_view_family, anchor=W, text=listCuDan[i][13], font=font_content).grid(column=1, row=7, padx=padx, pady=pady, columnspan=3, sticky=W)
+            # row 8
+            tkinter.Label(
+                f_all_family, text="Ngày đăng ký thường trú:", font=font_content, anchor=W).grid(column=0, row=8, sticky=W, padx=padx, pady=pady, columnspan=2)
 
-        # row 8
-        tkinter.Label(
-            f_all_view_family, text="Ngày đăng ký thường trú:", font=font_content, anchor=W).grid(column=0, row=8, sticky=W, padx=padx, pady=pady, columnspan=2)
+            tkinter.Label(
+                f_all_family, anchor=W, text=listCuDan[i][12], font=font_content).grid(column=2, row=8, padx=padx, pady=pady, columnspan=2, sticky=W)
 
-        tkinter.Label(
-            f_all_view_family, anchor=W, text=listCuDan[i][12], font=font_content).grid(column=2, row=8, padx=padx, pady=pady, columnspan=2, sticky=W)
+            # row 9
+            tkinter.Label(
+                f_all_family, text="Ngày chuyển đi:", font=font_content, anchor=W).grid(column=0, row=9, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-        # row 9
-        tkinter.Label(
-            f_all_view_family, text="Ngày chuyển đi:", font=font_content, anchor=W).grid(column=0, row=9, sticky=W, padx=padx, pady=pady, columnspan=1)
+            tkinter.Label(
+                f_all_family, anchor=W, text=listCuDan[i][14], font=font_content).grid(column=1, row=9, padx=padx, pady=pady, columnspan=3, sticky=W)
 
-        tkinter.Label(
-            f_all_view_family, anchor=W, text=listCuDan[i][14], font=font_content).grid(column=1, row=9, padx=padx, pady=pady, columnspan=3, sticky=W)
+            # row 10
+            tkinter.Label(
+                f_all_family, text="Nơi chuyển đi:", font=font_content, anchor=W).grid(column=0, row=10, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-        # row 10
-        tkinter.Label(
-            f_all_view_family, text="Nơi chuyển đi:", font=font_content, anchor=W).grid(column=0, row=10, sticky=W, padx=padx, pady=pady, columnspan=1)
+            tkinter.Label(
+                f_all_family, anchor=W, text=listCuDan[i][15], font=font_content).grid(column=1, row=10, padx=padx, pady=pady, columnspan=3, sticky=W)
+            # row 11
+            tkinter.Label(
+                f_all_family, text="Ghi chú:", font=font_content, anchor=W).grid(column=0, row=11, sticky=W, padx=padx, pady=pady, columnspan=1)
 
-        tkinter.Label(
-            f_all_view_family, anchor=W, text=listCuDan[i][15], font=font_content).grid(column=1, row=10, padx=padx, pady=pady, columnspan=3, sticky=W)
-        # row 11
-        tkinter.Label(
-            f_all_view_family, text="Ghi chú:", font=font_content, anchor=W).grid(column=0, row=11, sticky=W, padx=padx, pady=pady, columnspan=1)
+            tkinter.Label(
+                f_all_family, anchor=W, text=listCuDan[i][16], font=font_content).grid(column=1, row=11, padx=padx, pady=pady, columnspan=3, sticky=W)
+            # row 12
+            if (i != 0):
+                tkinter.Button(
+                    f_all_family, text="Trang trước",  font=font_header3, fg="white", bg="blue", relief="groove", cursor='hand2', command=lambda: showPerson(i-1)).grid(column=0, row=12, sticky=W, padx=padx, pady=pady, columnspan=1)
+            if (i != n-1):
+                tkinter.Button(
+                    f_all_family, text="Trang sau",  font=font_header3, fg="white", bg="blue", relief="groove", cursor='hand2', command=lambda: showPerson(i+1)).grid(column=3, row=12, sticky=E, padx=padx, pady=pady, columnspan=1)
 
-        tkinter.Label(
-            f_all_view_family, anchor=W, text=listCuDan[i][16], font=font_content).grid(column=1, row=11, padx=padx, pady=pady, columnspan=3, sticky=W)
-        # row 12
-        if (i != 0):
-            tkinter.Button(
-                f_all_view_family, text="Trang trước",  font=font_header3, fg="white", bg="blue", relief="groove", cursor='hand2', command=lambda: showPerson(i-1)).grid(column=0, row=12, sticky=W, padx=padx, pady=pady, columnspan=1)
-        if (i != n-1):
-            tkinter.Button(
-                f_all_view_family, text="Trang sau",  font=font_header3, fg="white", bg="blue", relief="groove", cursor='hand2', command=lambda: showPerson(i+1)).grid(column=3, row=12, sticky=E, padx=padx, pady=pady, columnspan=1)
-
-    showPerson(0)
+        showPerson(0)
 
 
 """END FAMILY"""
@@ -2730,7 +2998,7 @@ def XemKienNghi(Data, tuongTac):
             btn['text'] = 'Gửi'
 
         def changeStatus(data):
-            print("change Status: ", data)
+            pass
 
         def submit():
             if (tuongTac):
@@ -2887,6 +3155,6 @@ def LogIn():
             f_log_in.destroy()
 
 
-# LogIn()
 LogIn()
+# switch(f_trang_chu)
 root.mainloop()
