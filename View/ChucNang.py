@@ -55,14 +55,21 @@ def GetThongTinHoKhau(MaSo):
         return 1, []
 
 
-def XemSoHoKhau(MaSo):
+def XemSoHoKhau(MaSo="", hoTen="", CCCD=""):
     error_code = 0
-    # Thông tin hộ khẩu:
-    # MaSo, CCCDChuHo, SoThanhVien, SoNha/TenDuong, Phuong/Xa, Quan/Huyen,Tinh
+
+    if (MaSo == ""):
+        try:
+            MaSo = connectDB.LayMaHoKhauTuTenCCCD(hoTen, CCCD)
+        except:
+            return 1, 1, []
+
+        # Thông tin hộ khẩu:
+        # MaSo, CCCDChuHo, SoThanhVien, SoNha/TenDuong, Phuong/Xa, Quan/Huyen,Tinh
     try:
         HoKhau = connectDB.getHoKhau(MaSo)
     except:
-        error_code = 1
+        error_code = 2
         return error_code, 1, []
     ListCCCD = connectDB.getListCuDanFromHoKhau(HoKhau.MaSo)
     ListCuDan = []

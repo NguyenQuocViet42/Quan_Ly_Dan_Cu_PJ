@@ -2158,28 +2158,85 @@ def XemHoKhau():
     f_family.grid_rowconfigure(0, weight=1)
     f_all_family.grid(column=0, row=0, sticky='news', padx=10, pady=10)
 
-    tkinter.Label(
-        f_all_family, text="Nhập mã hộ khẩu", font=font_content, anchor=W).grid(column=0, row=0, sticky=W, padx=padx, pady=pady, columnspan=1)
-    maHoKhau = tkinter.Entry(
-        f_all_family, font=font_content, width=20)
-    maHoKhau.grid(column=1, row=0, sticky=W,
-                  padx=padx, pady=pady, columnspan=1)
+    f_all_family.grid_columnconfigure(0, weight=1)
+    f_all_family.grid_columnconfigure(1, weight=1)
+    f_all_family.grid_columnconfigure(2, weight=1)
+    f_all_family.grid_columnconfigure(3, weight=1)
 
-    tkinter.Button(
-        f_all_family, text="Gửi", font=font_header3, fg="white", bg="blue", relief='groove', cursor='hand2', command=lambda: submit(maHoKhau.get(), errorMessage)).grid(column=0, row=1, padx=padx, pady=pady, columnspan=2)
+    tkinter.Label(f_all_family, text="Xem hộ khẩu", font=font_header1,
+                  anchor=W, justify=LEFT).grid(column=0, row=0, columnspan=1, padx=padx, pady=pady, sticky=W)
+    tkinter.Label(f_all_family, text="Chọn phương thức tìm hộ khẩu",
+                  font=font_content, justify=LEFT).grid(column=0, row=1, columnspan=2, padx=padx, pady=pady, sticky=W)
+    option = ("Tìm bằng mã hộ khẩu", "Tìm bằng thông tin bản thân")
+    chosed = StringVar(f_all_family)
+    dropDownXemHoKhau = ttk.OptionMenu(
+        f_all_family, chosed, option[0], *option, style='DropDownStyle.TMenubutton', command=lambda x=None: commandDrop())
+    dropDownXemHoKhau['menu'].configure(font=('Arial', 12))
+    dropDownXemHoKhau.grid(column=0, row=2, sticky=W,
+                           padx=padx, pady=pady, columnspan=2)
 
-    errorMessage = tkinter.Label(
-        f_all_family, text="", font=font_content, fg="red", anchor=W)
-    errorMessage.grid(column=0, row=2, padx=padx,
-                      pady=pady, sticky=W, columnspan=2)
+    def commandDrop():
+        if (chosed.get() == "Tìm bằng mã hộ khẩu"):
+            for widget in f_all_family.grid_slaves():
+                if (widget.grid_info()['row'] > 2):
+                    widget.grid_forget()
+            tkinter.Label(
+                f_all_family, text="Nhập mã hộ khẩu:", font=font_content, anchor=W).grid(column=0, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
+            maHoKhau = tkinter.Entry(
+                f_all_family, font=font_content, width=20)
+            maHoKhau.grid(column=1, row=3, sticky=W,
+                          padx=padx, pady=pady, columnspan=1)
 
-    def submit(maHoKhau, errorMessage):
-        errorCode, hoKhau, listCuDan = ChucNang.XemSoHoKhau(maHoKhau)
-        if (errorCode):
-            errorMessage['text'] = f"Số hộ khẩu: {maHoKhau} bị sai!. Vui lòng nhập lại"
+            tkinter.Button(
+                f_all_family, text="Gửi", font=font_header3, fg="white", bg="blue", relief='groove', cursor='hand2', command=lambda: submit(maHoKhau.get(), errorMessage)).grid(column=0, row=4, padx=padx, pady=pady, columnspan=2)
 
-        else:
-            XemNhanKhau(listCuDan)
+            errorMessage = tkinter.Label(
+                f_all_family, text="", font=font_content, fg="red", anchor=W)
+            errorMessage.grid(column=0, row=5, padx=padx,
+                              pady=pady, sticky=W, columnspan=2)
+
+            def submit(maHoKhau, errorMessage):
+                errorCode, hoKhau, listCuDan = ChucNang.XemSoHoKhau(
+                    MaSo=maHoKhau)
+                if (errorCode == 2):
+                    errorMessage['text'] = f"Số hộ khẩu: {maHoKhau} bị sai!. Vui lòng nhập lại"
+
+                else:
+                    XemNhanKhau(listCuDan)
+        elif (chosed.get() == "Tìm bằng thông tin bản thân"):
+            for widget in f_all_family.grid_slaves():
+                if (widget.grid_info()['row'] > 2):
+                    widget.grid_forget()
+
+            tkinter.Label(f_all_family, text="Họ và tên:", font=font_content,
+                          anchor=W, justify=LEFT).grid(column=0, row=3, columnspan=1, sticky=NW, padx=padx, pady=pady)
+            hoVaTen = tkinter.Entry(f_all_family, font=font_content, width=60)
+            hoVaTen.grid(column=1, row=3, columnspan=3,
+                         sticky=NW, padx=padx, pady=pady)
+
+            tkinter.Label(f_all_family, text="CCCD:", font=font_content,
+                          anchor=W, justify=LEFT).grid(column=0, row=4, columnspan=1, sticky=NW, padx=padx, pady=pady)
+            CCCD = tkinter.Entry(f_all_family, font=font_content, width=20)
+            CCCD.grid(column=1, row=4, columnspan=1,
+                      sticky=NW, padx=padx, pady=pady)
+
+            tkinter.Button(
+                f_all_family, text="Gửi", font=font_header3, fg="white", bg="blue", relief='groove', cursor='hand2', command=lambda: submit(hoVaTen.get(), CCCD.get(), errorMessage)).grid(column=0, row=5, padx=padx, pady=pady, columnspan=2)
+
+            errorMessage = tkinter.Label(
+                f_all_family, text="", font=font_content, fg="red", anchor=W)
+            errorMessage.grid(column=0, row=5, padx=padx,
+                              pady=pady, sticky=W, columnspan=2)
+
+            def submit(hovaten, CCCD, errorMessage):
+                errorCode, hoKhau, listCuDan = ChucNang.XemSoHoKhau(
+                    hoTen=hovaten, CCCD=CCCD)
+                if (errorCode == 1):
+                    errorMessage['text'] = "Vui lòng kiểm tra lại họ tên và CCCD"
+                elif (errorCode == 2):
+                    errorMessage['text'] = "Không tìm thấy hộ khẩu của người này"
+                else:
+                    XemNhanKhau(listCuDan)
 
     def XemNhanKhau(listCuDan):
         for widget in f_all_family.winfo_children():
@@ -3155,6 +3212,6 @@ def LogIn():
             f_log_in.destroy()
 
 
-LogIn()
-# switch(f_trang_chu)
+# LogIn()
+switch(f_trang_chu)
 root.mainloop()
