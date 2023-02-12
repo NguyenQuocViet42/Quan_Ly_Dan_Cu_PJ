@@ -162,259 +162,70 @@ someStyle.configure('DropDownStyle.TMenubutton',
 
 
 def switch(frame, maHoKhau="", hoKhau=(), listCuDan=[]):
-    def destroy_all_frame():
-        for f in frames:
-            for widget in f.winfo_children():
-                widget.destroy()
-    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    for f in frames:
+        for widget in f.winfo_children():
+            widget.destroy()
     # home
     if (frame == f_trang_chu):
-        destroy_all_frame()
-        btn_trang_chu_bg = selected_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         TrangChu()
     # xem hộ khẩu
     elif (frame == f_authen_family):
-        destroy_all_frame()
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = selected_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         AuthenFamily()
     # thay đổi nhân khẩu
     elif (frame == f_bien_doi_nhan_khau):
-        destroy_all_frame()
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         BienDoiNhanKhau()
     # thêm nhân khẩu mới
     elif (frame == f_them_nhan_khau):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         ThemNhanKhau()
 
     elif (frame == f_thay_doi_nhan_khau):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         ThayDoiNhanKhau()
     # thay đổi chủ hộ
     elif (frame == f_authen_thay_doi_chu_ho):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         AuthenThayDoiChuHo()
     elif (frame == f_thay_doi_chu_ho):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         ThayDoiChuHo(maHoKhau=maHoKhau, hoKhau=hoKhau, listCuDan=listCuDan)
     elif (frame == f_authen_tach_khau):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         AuthenTachKhau()
     elif (frame == f_tach_khau):
-        destroy_all_frame()
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         TachKhau(maHoKhau=maHoKhau, hoKhau=hoKhau, listCuDan=listCuDan)
     elif (frame == f_tam_tru):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         TamTru()
     elif (frame == f_tao_giay_tam_tru):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         TaoGiayTamTru()
     elif (frame == f_authen_xem_giay_tam_tru):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         AuthenXemGiayTamTru()
     elif (frame == f_xem_tat_ca_tam_tru):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         XemTatCaTamTru()
     elif (frame == f_tam_vang):
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         TamVang()
     elif (frame == f_tao_giay_tam_vang):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         TaoGiayTamVang()
     elif (frame == f_authen_xem_giay_tam_vang):
-        destroy_all_frame()
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         AuthenXemGiayTamVang()
     elif (frame == f_xem_tat_ca_tam_vang):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         XemTatCaTamVang()
     elif (frame == f_lich_su):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = selected_bg
         LichSu()
     elif (frame == f_authen_lich_su_bien_doi_theo_ho_khau):
-        destroy_all_frame()
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         AuthenXemLichSuBienDoiTheoHoKhau()
     elif (frame == f_lich_su_bien_doi_theo_ho_khau):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         XemLichSuBienDoiTheoHoKhau(maHoKhau=maHoKhau)
     elif (frame == f_tat_ca_lich_su_bien_doi):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         XemTatCaLichSuBienDoi()
-
     elif (frame == f_thong_ke):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = selected_bg
-        btn_lich_su_bg = win_bg
         ThongKe()
     elif (frame == f_thong_ke_theo_do_tuoi):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         ThongKeTheoDoTuoi()
     elif (frame == f_thong_ke_theo_gioi_tinh):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         ThongKeTheoGioiTinh()
     elif (frame == f_thong_ke_tam_tru_tam_vang):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         ThongKeTamTruTamVang()
     elif (frame == f_kien_nghi):
-        destroy_all_frame()
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = selected_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         KienNghi()
     elif (frame == f_tao_kien_nghi):
-        destroy_all_frame()
-
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         TaoKienNghi()
     elif (frame == f_tra_loi_kien_nghi):
-        destroy_all_frame()
-        btn_trang_chu_bg = win_bg
-        btn_ho_khau_bg = win_bg
-        btn_kien_nghi_bg = win_bg
-        btn_thong_ke_bg = win_bg
-        btn_lich_su_bg = win_bg
         TraLoiKienNghi()
 
     Nav()
@@ -584,6 +395,12 @@ def Nav():
 
 
 def TrangChu():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     # Create a child frame to destroy when no use parent frame
     f_all_home = tkinter.Frame(
         f_trang_chu, highlightbackground="black", highlightthickness=2)
@@ -693,6 +510,12 @@ def TrangChu():
 
 
 def BienDoiNhanKhau():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     # Create a child frame to destroy when no use parent frame
     f_all_authen_change = tkinter.Frame(
         f_bien_doi_nhan_khau, highlightbackground="black", highlightthickness=2)
@@ -730,6 +553,12 @@ def BienDoiNhanKhau():
 
 
 def ThemNhanKhau():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     # Create a child frame to destroy when no use parent frame
     f_all_add_person = tkinter.Frame(
         f_them_nhan_khau, highlightbackground="black", highlightthickness=2)
@@ -902,6 +731,12 @@ def ThemNhanKhau():
 
 
 def ThayDoiNhanKhau():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     # Create a child frame to destroy when no use parent frame
     f_all_change_person = tkinter.Frame(
         f_thay_doi_nhan_khau, highlightbackground="black", highlightthickness=2)
@@ -1175,6 +1010,12 @@ def ThayDoiNhanKhau():
 
 
 def AuthenThayDoiChuHo():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     # Create a child frame to destroy when no use parent frame
     f_all_authen_change_host_person = tkinter.Frame(
         f_authen_thay_doi_chu_ho, highlightbackground="black", highlightthickness=2)
@@ -1213,6 +1054,12 @@ def AuthenThayDoiChuHo():
 
 
 def ThayDoiChuHo(maHoKhau, hoKhau, listCuDan):
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     n = len(listCuDan)
     # Create a child frame to destroy when no use parent frame
     f_all_change_host_person = tkinter.Frame(
@@ -1284,6 +1131,12 @@ def ThayDoiChuHo(maHoKhau, hoKhau, listCuDan):
 
 
 def AuthenTachKhau():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     # Create a child frame to destroy when no use parent frame
     f_all_authen_tach_khau = tkinter.Frame(
         f_authen_tach_khau, highlightbackground="black", highlightthickness=2)
@@ -1323,6 +1176,12 @@ def AuthenTachKhau():
 
 
 def TachKhau(maHoKhau, hoKhau, listCuDan):
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     n = len(listCuDan)
     # Create a child frame to destroy when no use parent frame
     f_all_tach_khau = tkinter.Frame(
@@ -1449,6 +1308,12 @@ def TachKhau(maHoKhau, hoKhau, listCuDan):
 
 
 def TamTru():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     f_all_tam_tru = tkinter.Frame(
         f_tam_tru, highlightbackground="black", highlightthickness=2)
     f_tam_tru.grid_columnconfigure(0, weight=1)
@@ -1483,6 +1348,12 @@ def TamTru():
 # HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.datetime, NgayKetThuc: datetime.datetime, LyDo, NgayLamDon: datetime.datetime
 
 def TaoGiayTamTru():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     # Create a child frame to destroy when no use parent frame
     f_all_tao_giay_tam_tru = tkinter.Frame(
         f_tao_giay_tam_tru, highlightbackground="black", highlightthickness=2)
@@ -1584,6 +1455,12 @@ def TaoGiayTamTru():
 
 
 def AuthenXemGiayTamTru():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     f_all_authen_xem_giay_tam_tru = tkinter.Frame(
         f_authen_xem_giay_tam_tru, highlightbackground="black", highlightthickness=2)
     f_authen_xem_giay_tam_tru.grid_columnconfigure(0, weight=1)
@@ -1637,6 +1514,12 @@ def AuthenXemGiayTamTru():
 
 
 def XemGiayTamTru(thongTinGiayTamTru, frame):
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     f_xem_giay_tam_tru.tkraise()
     # Create a child frame to destroy when no use parent frame
     f_all_xem_giay_tam_tru = tkinter.Frame(
@@ -1702,6 +1585,12 @@ def XemGiayTamTru(thongTinGiayTamTru, frame):
 
 
 def XemTatCaTamTru():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     f_all_xem_tat_ca_tam_tru = tkinter.Frame(
         f_xem_tat_ca_tam_tru, highlightbackground="black", highlightthickness=2)
     f_xem_tat_ca_tam_tru.grid_columnconfigure(0, weight=1)
@@ -1796,6 +1685,12 @@ def XemTatCaTamTru():
 
 
 def TamVang():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     f_all_tam_vang = tkinter.Frame(
         f_tam_vang, highlightbackground="black", highlightthickness=2)
     f_tam_vang.grid_columnconfigure(0, weight=1)
@@ -1829,6 +1724,12 @@ def TamVang():
 # HoTen, CCCD, NoiTamVang, NgayBatDau: datetime.datetime, NgayKetThuc: datetime.datetime, LyDo, NgayLamDon: datetime.datetime
 
 def TaoGiayTamVang():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     # Create a child frame to destroy when no use parent frame
     f_all_tao_giay_tam_vang = tkinter.Frame(
         f_tao_giay_tam_vang, highlightbackground="black", highlightthickness=2)
@@ -1866,14 +1767,6 @@ def TaoGiayTamVang():
                                font=font_content, width=60)
     noiTamVang.grid(column=1, row=3, sticky=W,
                     padx=padx, pady=pady, columnspan=3)
-
-    # # row 4
-    # tkinter.Label(f_all_tao_giay_tam_vang, text="Địa chỉ thường trú:", font=font_content, anchor=W).grid(
-    #     column=0, row=4, sticky=W, padx=padx, pady=pady, columnspan=1)
-    # thuongTru = tkinter.Entry(f_all_tao_giay_tam_vang,
-    #                           font=font_content, width=60)
-    # thuongTru.grid(column=1, row=4, sticky=W,
-    #                padx=padx, pady=pady, columnspan=3)
 
     # row 5
     tkinter.Label(f_all_tao_giay_tam_vang, text="Từ ngày: ", font=font_content, anchor=W).grid(
@@ -1930,6 +1823,12 @@ def TaoGiayTamVang():
 
 
 def AuthenXemGiayTamVang():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     f_all_authen_xem_giay_tam_vang = tkinter.Frame(
         f_authen_xem_giay_tam_vang, highlightbackground="black", highlightthickness=2)
     f_authen_xem_giay_tam_vang.grid_columnconfigure(0, weight=1)
@@ -1979,6 +1878,12 @@ def AuthenXemGiayTamVang():
 # MaGiayTamVang, HoTen, CCCD, NoiTamVang ,Tu, Den, LyDo, NgayLamDon
 
 def XemGiayTamVang(thongTinGiayTamVang, frame):
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     # Create a child frame to destroy when no use parent frame
     f_xem_giay_tam_vang.tkraise()
     for widget in f_xem_giay_tam_vang.winfo_children():
@@ -2051,6 +1956,12 @@ def XemGiayTamVang(thongTinGiayTamVang, frame):
 
 
 def XemTatCaTamVang():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = selected_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     f_all_xem_tat_ca_tam_vang = tkinter.Frame(
         f_xem_tat_ca_tam_vang, highlightbackground="black", highlightthickness=2)
     f_xem_tat_ca_tam_vang.grid_columnconfigure(0, weight=1)
@@ -2150,7 +2061,12 @@ def XemTatCaTamVang():
 
 
 def AuthenFamily():
-
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = win_bg
+    btn_ho_khau_bg = selected_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     f_all_authen_family = tkinter.Frame(
         f_authen_family, highlightbackground="black", highlightthickness=2)
     f_authen_family.grid_columnconfigure(0, weight=1)
@@ -2191,7 +2107,12 @@ def ThemHoKhau():
         for widget in f.winfo_children():
             widget.destroy()
     f_family.tkraise()
-
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = win_bg
+    btn_ho_khau_bg = selected_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     # Create a child frame to destroy when no use parent frame
     f_all_family = tkinter.Frame(
         f_family, highlightbackground="black", highlightthickness=2)
@@ -2269,7 +2190,12 @@ def ThayDoiThongTinHoKhau():
         for widget in f.winfo_children():
             widget.destroy()
     f_family.tkraise()
-
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = win_bg
+    btn_ho_khau_bg = selected_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     # Create a child frame to destroy when no use parent frame
     f_all_family = tkinter.Frame(
         f_family, highlightbackground="black", highlightthickness=2)
@@ -2375,7 +2301,12 @@ def XemHoKhau():
         for widget in f.winfo_children():
             widget.destroy()
     f_family.tkraise()
-
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = win_bg
+    btn_ho_khau_bg = selected_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     # Create a child frame to destroy when no use parent frame
     f_all_family = tkinter.Frame(
         f_family, highlightbackground="black", highlightthickness=2)
@@ -2616,6 +2547,12 @@ def XemHoKhau():
 
 
 def LichSu():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = win_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = selected_bg
     f_all_lich_su = tkinter.Frame(f_lich_su)
     f_lich_su.grid_columnconfigure(0, weight=1)
     f_lich_su.grid_rowconfigure(0, weight=1)
@@ -2647,6 +2584,12 @@ def LichSu():
 
 
 def XemTatCaLichSuBienDoi():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = win_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = selected_bg
     f_all_tat_ca_lich_su = tkinter.Frame(
         f_tat_ca_lich_su_bien_doi, highlightbackground="black", highlightthickness=2)
     f_tat_ca_lich_su_bien_doi.grid_columnconfigure(0, weight=1)
@@ -2740,6 +2683,12 @@ def XemTatCaLichSuBienDoi():
 
 
 def AuthenXemLichSuBienDoiTheoHoKhau():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = win_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = selected_bg
     # Create a child frame to destroy when no use parent frame
     f_all_authen_lich_su_gia_dinh = tkinter.Frame(
         f_authen_lich_su_bien_doi_theo_ho_khau, highlightbackground="black", highlightthickness=2)
@@ -2775,6 +2724,12 @@ def AuthenXemLichSuBienDoiTheoHoKhau():
 
 
 def XemLichSuBienDoiTheoHoKhau(maHoKhau):
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = win_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = selected_bg
     f_all_lich_su_gia_dinh = tkinter.Frame(
         f_lich_su_bien_doi_theo_ho_khau, highlightbackground="black", highlightthickness=2)
     f_lich_su_bien_doi_theo_ho_khau.grid_columnconfigure(0, weight=1)
@@ -2871,6 +2826,12 @@ def XemLichSuBienDoiTheoHoKhau(maHoKhau):
 
 
 def ThongKe():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = win_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = selected_bg
+    btn_lich_su_bg = win_bg
     f_all_thong_ke = tkinter.Frame(
         f_thong_ke, highlightbackground="black", highlightthickness=2)
     f_thong_ke.grid_columnconfigure(0, weight=1)
@@ -2903,6 +2864,12 @@ def ThongKe():
 
 
 def ThongKeTheoDoTuoi():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = win_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = selected_bg
+    btn_lich_su_bg = win_bg
     f_all_thong_ke_theo_do_tuoi = tkinter.Frame(
         f_thong_ke_theo_do_tuoi, highlightbackground="black", highlightthickness=2, bg="white")
     f_thong_ke_theo_do_tuoi.grid_columnconfigure(0, weight=1)
@@ -2939,6 +2906,12 @@ def ThongKeTheoDoTuoi():
 
 
 def ThongKeTheoGioiTinh():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = win_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = selected_bg
+    btn_lich_su_bg = win_bg
     MaleColor = "blue"
     FemaleColor = "orange"
     f_all_thong_ke_theo_gioi_tinh = tkinter.Frame(
@@ -2985,6 +2958,12 @@ def ThongKeTheoGioiTinh():
 
 
 def ThongKeTamTruTamVang():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = win_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = win_bg
+    btn_thong_ke_bg = selected_bg
+    btn_lich_su_bg = win_bg
     TamTruColor = "blue"
     TamVangColor = "orange"
     f_all_thong_ke_tam_tru_tam_vang = tkinter.Frame(
@@ -3034,11 +3013,18 @@ def ThongKeTamTruTamVang():
 
 
 def KienNghi():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = win_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = selected_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     f_all_kien_nghi = tkinter.Frame(
         f_kien_nghi, highlightbackground="black", highlightthickness=2)
     f_kien_nghi.grid_columnconfigure(0, weight=1)
     f_kien_nghi.grid_rowconfigure(0, weight=1)
     f_all_kien_nghi.grid(column=0, row=0, sticky='news', padx=10, pady=10)
+
     tkinter.Label(f_all_kien_nghi, text="Kiến nghị", font=font_header1, justify=LEFT).grid(
         column=0, row=0, columnspan=1, padx=padx, pady=pady, sticky=W)
 
@@ -3077,6 +3063,12 @@ def KienNghi():
 
 
 def TaoKienNghi():
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = win_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = selected_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
     f_all_tao_kien_nghi = tkinter.Frame(
         f_tao_kien_nghi, highlightbackground="black", highlightthickness=2)
     f_tao_kien_nghi.grid_columnconfigure(0, weight=1)
@@ -3152,6 +3144,12 @@ def XemKienNghi(Data, tuongTac):
         for widget in f.winfo_children():
             widget.destroy()
     f_xem_kien_nghi.tkraise()
+    global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
+    btn_trang_chu_bg = win_bg
+    btn_ho_khau_bg = win_bg
+    btn_kien_nghi_bg = selected_bg
+    btn_thong_ke_bg = win_bg
+    btn_lich_su_bg = win_bg
 
     listVar = []
     listMaKienNghi = []
@@ -3362,7 +3360,7 @@ def TraLoiKienNghi(Data, index, tuongTac):
     f_all_tra_loi_kien_nghi.grid_rowconfigure(6, weight=10)
     f_all_tra_loi_kien_nghi.grid_rowconfigure(7, weight=10)
 
-    tkinter.Button(f_all_tra_loi_kien_nghi, text="trở lại", cursor='hand2',
+    tkinter.Button(f_all_tra_loi_kien_nghi, text="trở lại", font=font_content, fg="white", bg="blue", cursor='hand2',
                    command=lambda: GoBack()).grid(column=0, row=0, columnspan=2, sticky=NW)
     tkinter.Label(f_all_tra_loi_kien_nghi, text="Họ và tên: " +
                   Data[index][0].HoTen, font=font_content, anchor=NW, justify=LEFT).grid(column=0, row=1, columnspan=2, sticky=NW)
