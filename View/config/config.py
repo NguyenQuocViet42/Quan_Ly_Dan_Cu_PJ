@@ -4,9 +4,6 @@ import tkinter
 import os
 from PIL import ImageTk, Image
 '''
-kiến nghị: demand
-yêu cầu: request
-phản hồi: response
 '''
 dirname = os.path.dirname(__file__)
 
@@ -69,4 +66,4 @@ map_month = {
 }
 today = date.today()
 currentDate = map_weekday[today.weekday(
-)]+", " + map_month[today.month] + str(today.day) + ", "+str(today.year)
+)]+", " + map_month[today.month] + " " + str(today.day) + ", "+str(today.year)

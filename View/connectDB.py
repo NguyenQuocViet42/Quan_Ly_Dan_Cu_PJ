@@ -7,6 +7,9 @@ from Class.DangNhap import DangNhap as QL
 from Class.BIENDOI import BIENDOI as TaoBienDoi
 from Class.CUDAN import CUDAN as TaoCuDan
 from Class.KIENNGHI import KIENNGHI as TaoKienNghi
+from Class.TAMTRU import TAMTRU as TaoTamTru
+from Class.TAMVANG import TAMVANG as TaoTamVang
+
 from Class.TraLoiKienNghi import TraLoiKienNghi as TaoTraLoiKienNghi
 import socket
 
@@ -225,6 +228,12 @@ def InsertTamVang(ID, HoTen, CCCD, NoiTamVang, Tu, Den, LyDo, NgayLamDon):
 # Xem giấy tạm vắng
 
 
+def getAllTamVang():
+    query = "select * from TAMVANG"
+    cursor.execute(query)
+    return cursor.fetchall()  # list [tuple Tạm vắng]
+
+
 def getTamVang(HoTen, CCCD):
     query = " select * from TAMVANG where upper(HoTen) = ? and CCCD = ?"
     values = (HoTen.upper(), CCCD)
@@ -241,6 +250,12 @@ def InsertTamTru(ID, HoTen, CCCD, QueQuan, DiaChiThuongTru, Tu, Den, LyDo, NgayL
     cursor.execute(query, values)
     mydb.commit()
 # Xem giấy tạm trú
+
+
+def getAllTamTru():
+    query = "select * from TAMTRU"
+    cursor.execute(query)
+    return cursor.fetchall()  # list [tuple Tạm trú]
 
 
 def getTamTru(HoTen, CCCD):
@@ -384,10 +399,13 @@ def TimToanBoDonKienNghiTheoTrangThai(TrangThai):
     list = cursor.fetchall()
     return list
 
+# Trạng Thái: Mới ghi nhận, Chưa xử lý, Đã xử lý, Đã thông báo
+
 
 def LayKienNghiDaTraLoi():
-    query = "select * from TraLoiKienNghi"
-    cursor.execute(query)
+    query = "select * from TraLoiKienNghi where TrangThai = ?"
+    val = ("Đã xử lý",)
+    cursor.execute(query, val)
     listTraLoi = []
     for TraLoi in cursor.fetchall():
         listTraLoi.append(TaoTraLoiKienNghi.init_values(TraLoi))

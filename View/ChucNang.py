@@ -7,6 +7,8 @@ from Class.CUDAN import CUDAN as TaoCuDan
 from Class.BIENDOI import BIENDOI as TaoBienDoi
 from Class.SOHOKHAU import SOHOKHAU as TaoHoKhau
 from Class.KIENNGHI import KIENNGHI as TaoKienNghi
+from Class.TAMTRU import TAMTRU as TaoTamTru
+from Class.TAMVANG import TAMVANG as TaoTamVang
 from Class.TraLoiKienNghi import TraLoiKienNghi as TaoTraLoiKienNghi
 from Class.BangGopKienNghi import BangGopKienNghi as TaoBangGopKienNghi
 import os
@@ -188,6 +190,7 @@ def TachHoKhau(HoKhau_1, HoKhau_2):
     biendoi = TaoBienDoi(1, 1, KieuBienDoi='Tách hộ khẩu',
                          NoiDungBienDoi=NoiDung, MaSo=MaSo_1, IDQuanLy=QuanLy.IDQuanLy)
     connectDB.insertBienDoi(biendoi)
+    return MaSo_2
 
 
 """ Khi hộ gia đình có ai đó đi xa dài ngày thì phải đến gặp tổ trưởng thông báo và xin cấp giấy tạm vắng có thời hạn. Ngược lại nếu có nhân khẩu từ địa
@@ -217,16 +220,39 @@ def CapGiayTamVang(HoTen, CCCD, NoiTamVang, NgayBatDau: datetime.datetime, NgayK
 # MaGiayTamVang, HoTen, CCCD, NoiTamVang ,Tu, Den, LyDo, NgayLamDon
 
 
-def XemGiayTamVang(HoTen, CCCD):
-    error_code = 0
+def getAllTamVang():
+    listTamVang = []
     try:
-        ThongTinGiayTamVang = connectDB.getTamVang(HoTen, CCCD)[0]
+        tamVangs = connectDB.getAllTamVang()
+        for tamVang in tamVangs:
+            listTamVang.append(TaoTamVang.init_values(tamVang))
+        return listTamVang
     except:
-        error_code = 1
+        return listTamVang
+
+
+def XemGiayTamVang(HoTen, CCCD):
+    try:
+        ThongTinGiayTamVang = connectDB.getTamVang(HoTen, CCCD)
+        if (len(ThongTinGiayTamVang)):
+            return 0, ThongTinGiayTamVang[0]
+        else:
+            return 2, []
+    except:
         return 1, 1
-    return error_code, ThongTinGiayTamVang
 
 # ----------------------------------------------------------------
+
+
+def getAllTamTru():
+    listTamTru = []
+    try:
+        tamTrus = connectDB.getAllTamTru()
+        for tamTru in tamTrus:
+            listTamTru.append(TaoTamTru.init_values(tamTru))
+        return listTamTru
+    except:
+        return listTamTru
 
 
 def CapGiayTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.datetime, NgayKetThuc: datetime.datetime, LyDo, NgayLamDon: datetime.datetime):
@@ -255,10 +281,13 @@ def CapGiayTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.da
 
 def XemGiayTamTru(HoTen, CCCD):
     try:
-        ThongTinGiayTamTru = connectDB.getTamTru(HoTen, CCCD)[0]
+        ThongTinGiayTamTru = connectDB.getTamTru(HoTen, CCCD)
+        if len(ThongTinGiayTamTru):
+            return 0, ThongTinGiayTamTru[0]
+        else:
+            return 2, []
     except:
         return 1, 1
-    return 0, ThongTinGiayTamTru
 
 
 """ Xem lịch sử biến đổi nhân khẩu """
