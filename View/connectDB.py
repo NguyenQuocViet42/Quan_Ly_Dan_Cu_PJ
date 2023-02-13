@@ -277,7 +277,7 @@ def TimIDTuMaSoCCCDHoTen(MaSo, CCCD, HoTen):
 
 
 def GetDanhSachThayDoiNhanKhau():
-    query = "select * from BienDoi"
+    query = "select * from BienDoi order by MaBienDoi desc"
     cursor.execute(query)
     return cursor.fetchall()
 

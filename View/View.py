@@ -1299,6 +1299,8 @@ def TachKhau(maHoKhau, hoKhau, listCuDan):
 
         if (check):
             MaSoMoi = ChucNang.TachHoKhau(hoKhauOld, hoKhauNew)
+            pyperclip.copy(MaSoMoi)
+
             messagebox.showinfo(
                 "", "Tách khẩu thành công với mã hộ khẩu mới là:\n               "+str(MaSoMoi)),
             switch(f_trang_chu)
@@ -1374,7 +1376,7 @@ def TaoGiayTamTru():
     tkinter.Label(f_all_tao_giay_tam_tru, text="Tên tôi là:", font=font_content, anchor=W).grid(
         column=0, row=1, sticky=W, padx=padx, pady=pady, columnspan=1)
     hoVaTen = tkinter.Entry(f_all_tao_giay_tam_tru,
-                            font=font_content)
+                            font=font_content, width=60)
     hoVaTen.grid(column=1, row=1, sticky=W,
                  padx=padx, pady=pady, columnspan=3)
     # row 2
@@ -1384,6 +1386,11 @@ def TaoGiayTamTru():
     CCCD.grid(column=1, row=2, sticky=W,
               padx=padx, pady=pady, columnspan=1)
 
+    tkinter.Label(f_all_tao_giay_tam_tru, text="Mã Hộ Khẩu:", font=font_content, anchor=W).grid(
+        column=2, row=2, sticky=W, padx=padx, pady=pady, columnspan=1)
+    maSo = tkinter.Entry(f_all_tao_giay_tam_tru, font=font_content, width=20)
+    maSo.grid(column=3, row=2, sticky=W,
+              padx=padx, pady=pady, columnspan=1)
     # row 3
     tkinter.Label(f_all_tao_giay_tam_tru, text="Quê quán:", font=font_content, anchor=W).grid(
         column=0, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
@@ -1393,7 +1400,7 @@ def TaoGiayTamTru():
                  padx=padx, pady=pady, columnspan=3)
 
     # row 4
-    tkinter.Label(f_all_tao_giay_tam_tru, text="Địa chỉ thường trú:", font=font_content, anchor=W).grid(
+    tkinter.Label(f_all_tao_giay_tam_tru, text="Địa chỉ tạm trú:", font=font_content, anchor=W).grid(
         column=0, row=4, sticky=W, padx=padx, pady=pady, columnspan=1)
     thuongTru = tkinter.Entry(f_all_tao_giay_tam_tru,
                               font=font_content, width=60)
@@ -1441,10 +1448,10 @@ def TaoGiayTamTru():
     errorMessage.grid(column=0, row=9, columnspan=4)
 
     def submit():
-        if (hoVaTen.get() == "" or CCCD.get() == "" or queQuan.get() == "" or thuongTru.get() == "" or lyDo.get("1.0", 'end-1c') == ""):
+        if (hoVaTen.get() == "" or CCCD.get() == "" or maSo.get() == "" or queQuan.get() == "" or thuongTru.get() == "" or lyDo.get("1.0", 'end-1c') == ""):
             errorMessage['text'] = "Vui lòng điền đầy đủ các trường!"
             return
-        errorCode = ChucNang.CapGiayTamTru(hoVaTen.get(), CCCD.get(), queQuan.get(), thuongTru.get(), tuNgay.get_date().strftime(
+        errorCode = ChucNang.CapGiayTamTru(hoVaTen.get(), CCCD.get(), maSo.get(), queQuan.get(), thuongTru.get(), tuNgay.get_date().strftime(
             "%m/%d/%y"), denNgay.get_date().strftime("%m/%d/%y"), lyDo.get("1.0", 'end-1c'), ngayLamDon.get_date().strftime("%m/%d/%y"))
         if (errorCode == 0):
             messagebox.showinfo("", "Đã hoàn thành đơn tạm trú")
@@ -1547,6 +1554,10 @@ def XemGiayTamTru(thongTinGiayTamTru, frame):
         column=0, row=2, sticky=W, padx=padx, pady=pady, columnspan=1)
     tkinter.Label(f_all_xem_giay_tam_tru, text=thongTinGiayTamTru.CCCD,
                   font=font_content, anchor=W, justify=LEFT).grid(column=1, row=2, columnspan=3, padx=padx, pady=pady, sticky=W)
+    tkinter.Label(f_all_xem_giay_tam_tru, text="Địa chỉ tạm trú:", font=font_content, anchor=W).grid(
+        column=0, row=3, sticky=W, padx=padx, pady=pady, columnspan=1)
+    tkinter.Label(f_all_xem_giay_tam_tru, text=thongTinGiayTamTru.DiaChiTamTru,
+                  font=font_content, anchor=W, justify=LEFT).grid(column=1, row=3, columnspan=3, padx=padx, pady=pady, sticky=W)
 
     # row 5
     tkinter.Label(f_all_xem_giay_tam_tru, text="Từ ngày: ", font=font_content, anchor=W).grid(
@@ -2182,6 +2193,8 @@ def ThemHoKhau():
         if (maSo == "" or nha == "" or xa == "" or quan == "" or tinh == ""):
             errorMessage['text'] = "Vui lòng nhập đầy đủ thông tin!"
             return
+        if (len(maSo) != 9):
+            errorMessage['text'] = "Mã hộ khẩu phải có 9 chữ số"
         else:
             errorCode = ChucNang.TaoHoKhauMoi(maSo, nha, xa, quan, tinh)
             if (errorCode):
@@ -2426,7 +2439,7 @@ def XemHoKhau():
                 f_all_family.grid_columnconfigure(4, weight=0)
 
                 tkinter.Label(f_all_family, text="Không có data", fg="red",
-                              font=font_header1).grid(column=0, row=0)
+                              font=font_header1).grid(column=0, row=0, columnspan=4, sticky=N)
             else:
                 # Không cho đi về trước nhân khẩu đầu tiên
                 if (i <= 0):
@@ -2776,7 +2789,7 @@ def XemLichSuBienDoiTheoHoKhau(maHoKhau):
             tkinter.Label(f_all_lich_su_gia_dinh, text="Lịch sử của hộ khẩu "+str(maHoKhau), font=font_header1,
                           justify=LEFT).grid(column=0, row=0, columnspan=5, padx=padx, pady=pady, sticky=N)
             tkinter.Label(f_all_lich_su_gia_dinh, text="Lịch sử trống", fg="red",
-                          font=font_header3).grid(column=0, row=0, columnspan=5, sticky=N)
+                          font=font_header3).grid(column=0, row=1, columnspan=5, sticky=N)
         else:
             # Không cho đi về trước page đầu tiên
             if (i <= 0):
@@ -3379,20 +3392,23 @@ def TraLoiKienNghi(Data, index, tuongTac):
                   str(Data[index][1].MaKienNghi), font=font_content, anchor=NW, justify=LEFT).grid(column=0, row=2, columnspan=2, sticky=NW)
     tkinter.Label(f_all_tra_loi_kien_nghi, text="Nội dung: " +
                   Data[index][1].NoiDung, wraplength=600, font=font_content, anchor=NW, justify=LEFT).grid(column=0, row=3, columnspan=3, sticky=NW)
+    tkinter.Label(f_all_tra_loi_kien_nghi, text="Ngày kiến nghị: " +
+                  (Data[index][1].NgayKN).strftime("%m/%d/%y"), font=font_content, anchor=NW, justify=LEFT).grid(column=0, row=4, columnspan=3, sticky=NW)
+
     ttk.Separator(f_all_tra_loi_kien_nghi, orient=HORIZONTAL).grid(
-        column=0, row=4, columnspan=3, sticky=EW)
+        column=0, row=5, columnspan=3, sticky=EW)
 
     tkinter.Label(f_all_tra_loi_kien_nghi, text="Trả lời: ", font=font_content,
-                  anchor=W, justify=LEFT). grid(column=0, row=5, columnspan=1, sticky=NW)
+                  anchor=W, justify=LEFT). grid(column=0, row=6, columnspan=1, sticky=NW)
     traLoi = tkinter.Text(f_all_tra_loi_kien_nghi,
                           font=font_content_mini, height=15, width=100, wrap=WORD)
-    traLoi.grid(column=1, row=5, columnspan=2, sticky=NW)
+    traLoi.grid(column=1, row=6, columnspan=2, sticky=NW)
     tkinter.Button(f_all_tra_loi_kien_nghi, text="Gửi", font=font_content, cursor='hand2',
-                   fg="white", bg="blue", command=lambda: submit()).grid(column=0, row=6, columnspan=3, sticky=N)
+                   fg="white", bg="blue", command=lambda: submit()).grid(column=0, row=7, columnspan=3, sticky=N)
 
     errMessage = tkinter.Label(
         f_all_tra_loi_kien_nghi, text="", font=font_content, fg="red", justify=CENTER)
-    errMessage.grid(column=0, row=7, columnspan=3)
+    errMessage.grid(column=0, row=8, columnspan=3)
 
     def GoBack():
         f_xem_kien_nghi.tkraise()
@@ -3472,6 +3488,6 @@ def LogIn():
             f_log_in.destroy()
 
 
-# LogIn()
-switch(f_trang_chu)
+LogIn()
+# switch(f_trang_chu)
 root.mainloop()

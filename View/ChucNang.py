@@ -257,10 +257,10 @@ def getAllTamTru():
         return listTamTru
 
 
-def CapGiayTamTru(HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.datetime, NgayKetThuc: datetime.datetime, LyDo, NgayLamDon: datetime.datetime):
+def CapGiayTamTru(HoTen, CCCD, MaSo, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.datetime, NgayKetThuc: datetime.datetime, LyDo, NgayLamDon: datetime.datetime):
     error_code = 0
     ThemNhanKhauMoi(CCCD=CCCD, Hoten=HoTen, GioiTinh='Nam', NgaySinh=NgayLamDon, DanToc='Kinh', QuocTich='Việt Nam', NgheNghiep='Tạm Trú',
-                    QueQuan=QueQuan, BiDanh='NULL', MaSo=999999999, QuanHe='Tạm Trú', NgayDangKyThuongTru=NgayBatDau, DiaChiCu=QueQuan)
+                    QueQuan=QueQuan, BiDanh='NULL', MaSo=MaSo, QuanHe='Tạm Trú', NgayDangKyThuongTru=NgayBatDau, DiaChiCu=QueQuan)
     try:
         MaSo = connectDB.LayMaHoKhauTuTenCCCD(HoTen, CCCD)
         id = connectDB.TimIDTuMaSoCCCDHoTen(MaSo, CCCD, HoTen)
