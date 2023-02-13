@@ -154,18 +154,20 @@ def ThayDoiChuHo(DanhSachIDThanhVien, DanhSachQuanHe, MaSo):
     connectDB.insertBienDoi(biendoi)
 
 
-def TaoHoKhauMoi(SoNha, Phuong, Quan, Tinh):
-    MaSo = random.randint(240000002, 259999999)
+def TaoHoKhauMoi(MaSo, SoNha, Phuong, Quan, Tinh):
+    MaSo = int(MaSo)
+    # MaSo = random.randint(240000002, 259999999)
     DanhSachMaHoKhau = connectDB.LayDanhSachMaHoKhau()
-    while MaSo in DanhSachMaHoKhau:
-        MaSo = random.randint(240000002, 259999999)
-    connectDB.TaoHoKhauMoi(MaSo,
-                           SoNha, Phuong, Quan, Tinh)
-    NoiDung = 'Sổ hộ khẩu với mã sổ: ' + str(MaSo) + " đã được tạo"
-    biendoi = TaoBienDoi(1, 1, KieuBienDoi='Tạo hộ khẩu mới',
-                         NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy=QuanLy.IDQuanLy)
-    connectDB.insertBienDoi(biendoi)
-    return MaSo
+    if MaSo in DanhSachMaHoKhau:
+        return 1
+    else:
+        connectDB.TaoHoKhauMoi(MaSo,
+                               SoNha, Phuong, Quan, Tinh)
+        NoiDung = 'Sổ hộ khẩu với mã sổ: ' + str(MaSo) + " đã được tạo"
+        biendoi = TaoBienDoi(1, 1, KieuBienDoi='Tạo hộ khẩu mới',
+                             NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy=QuanLy.IDQuanLy)
+        connectDB.insertBienDoi(biendoi)
+        return 0
 
 
 """ Khi tách hộ từ một hộ khẩu đã có thì một sổ hộ khẩu mới sẽ được tạo ra với các nhân khẩu được chọn """

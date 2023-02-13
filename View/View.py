@@ -2134,55 +2134,64 @@ def ThemHoKhau():
     tkinter.Label(f_all_family, text="Thêm hộ khẩu", font=font_header1,
                   anchor=N, justify=CENTER).grid(column=0, row=0, columnspan=2)
 
-    tkinter.Label(f_all_family, text="Số nhà/tên đường:",
+    tkinter.Label(f_all_family, text="Mã hộ khẩu:",
                   font=font_content, anchor=W, justify=LEFT).grid(column=0, row=1, sticky=W, padx=padx, pady=pady)
+    maHoKhau = tkinter.Entry(f_all_family, font=font_content,
+                             width=60, justify=LEFT)
+    maHoKhau.grid(column=1, row=1, sticky=W, padx=padx, pady=pady)
+
+    tkinter.Label(f_all_family, text="Số nhà/tên đường:",
+                  font=font_content, anchor=W, justify=LEFT).grid(column=0, row=2, sticky=W, padx=padx, pady=pady)
     soNhaTenDuong = tkinter.Entry(f_all_family, font=font_content,
                                   width=60, justify=LEFT)
-    soNhaTenDuong.grid(column=1, row=1, sticky=W, padx=padx, pady=pady)
+    soNhaTenDuong.grid(column=1, row=2, sticky=W, padx=padx, pady=pady)
 
     tkinter.Label(f_all_family, text="Xã/Phường:",
-                  font=font_content, anchor=W, justify=LEFT).grid(column=0, row=2, sticky=W, padx=padx, pady=pady)
+                  font=font_content, anchor=W, justify=LEFT).grid(column=0, row=3, sticky=W, padx=padx, pady=pady)
     xaPhuong = tkinter.Entry(f_all_family, font=font_content,
                              width=60, justify=LEFT)
-    xaPhuong.grid(column=1, row=2, sticky=W, padx=padx, pady=pady)
+    xaPhuong.grid(column=1, row=3, sticky=W, padx=padx, pady=pady)
 
     tkinter.Label(f_all_family, text="Quận/Huyện:",
-                  font=font_content, anchor=W, justify=LEFT).grid(column=0, row=3, sticky=W, padx=padx, pady=pady)
+                  font=font_content, anchor=W, justify=LEFT).grid(column=0, row=4, sticky=W, padx=padx, pady=pady)
     quanHuyen = tkinter.Entry(f_all_family, font=font_content,
                               width=60, justify=LEFT)
-    quanHuyen.grid(column=1, row=3, sticky=W, padx=padx, pady=pady)
+    quanHuyen.grid(column=1, row=4, sticky=W, padx=padx, pady=pady)
 
     tkinter.Label(f_all_family, text="Tỉnh/Thành phố:",
-                  font=font_content, anchor=W, justify=LEFT).grid(column=0, row=4, sticky=W, padx=padx, pady=pady)
+                  font=font_content, anchor=W, justify=LEFT).grid(column=0, row=5, sticky=W, padx=padx, pady=pady)
     tinhThanhPho = tkinter.Entry(f_all_family, font=font_content,
                                  width=60, justify=LEFT)
-    tinhThanhPho.grid(column=1, row=4, sticky=W, padx=padx, pady=pady)
+    tinhThanhPho.grid(column=1, row=5, sticky=W, padx=padx, pady=pady)
 
     tkinter.Button(f_all_family, text="Thêm", font=font_header3, bg="blue", cursor='hand2',
-                   fg="white", command=lambda: submit()).grid(column=0, row=5, columnspan=2)
+                   fg="white", command=lambda: submit()).grid(column=0, row=6, columnspan=2)
 
     errorMessage = tkinter.Label(
         f_all_family, text="", fg="red", justify=CENTER, font=font_content)
-    errorMessage.grid(column=0, row=6, columnspan=2,
+    errorMessage.grid(column=0, row=7, columnspan=2,
                       sticky=N, padx=padx, pady=pady)
 
     def submit():
+        maSo = maHoKhau.get()
         nha = soNhaTenDuong.get()
         xa = xaPhuong.get()
         quan = quanHuyen.get()
         tinh = tinhThanhPho.get()
 
-        if (nha == "" or xa == "" or quan == "" or tinh == ""):
+        if (maSo == "" or nha == "" or xa == "" or quan == "" or tinh == ""):
             errorMessage['text'] = "Vui lòng nhập đầy đủ thông tin!"
             return
         else:
-            MaSo = ChucNang.TaoHoKhauMoi(nha, xa, quan, tinh)
-            pyperclip.copy(MaSo)
-            messagebox.showinfo(
-                "", f'''Tạo mới thành công sổ hộ khẩu có mã:\n             {MaSo}               \nMã hộ khẩu đã được lưu vào clipboard, hãy thêm nhân khẩu''')
-
-
-switch(f_trang_chu)
+            errorCode = ChucNang.TaoHoKhauMoi(maSo, nha, xa, quan, tinh)
+            if (errorCode):
+                errorMessage['text'] = "Vui lòng kiểm tra lại mã hộ khẩu!"
+                return
+            else:
+                pyperclip.copy(maSo)
+                messagebox.showinfo(
+                    "", 'Sổ hộ khẩu với mã sổ: ' + str(maSo) + " đã được tạo")
+                switch(f_trang_chu)
 
 
 def ThayDoiThongTinHoKhau():
