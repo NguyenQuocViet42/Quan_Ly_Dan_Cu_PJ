@@ -1269,7 +1269,11 @@ def TachKhau(maHoKhau, hoKhau, listCuDan):
             if (listEntry[i].get() == ""):
                 check = False
                 errorMessage['text'] = "Vui lòng điền đủ tất cả các trường quan hệ mới"
-                break
+                return
+            if (soNha.get() == "" or phuong.get() == "" or huyen.get() == "" or tinh.get() == ""):
+                check = False
+                errorMessage['text'] = "Vui lòng điền địa chỉ hộ khẩu mới!"
+                return
             # Hộ khẩu mới
             if (listVar[i].get() == 1):
                 listCuDanNew.append([listCuDan[i][0], listEntry[i].get()])
@@ -1451,6 +1455,7 @@ def TaoGiayTamTru():
         if (hoVaTen.get() == "" or CCCD.get() == "" or maSo.get() == "" or queQuan.get() == "" or thuongTru.get() == "" or lyDo.get("1.0", 'end-1c') == ""):
             errorMessage['text'] = "Vui lòng điền đầy đủ các trường!"
             return
+
         errorCode = ChucNang.CapGiayTamTru(hoVaTen.get(), CCCD.get(), maSo.get(), queQuan.get(), thuongTru.get(), tuNgay.get_date().strftime(
             "%m/%d/%y"), denNgay.get_date().strftime("%m/%d/%y"), lyDo.get("1.0", 'end-1c'), ngayLamDon.get_date().strftime("%m/%d/%y"))
         if (errorCode == 0):
@@ -1830,6 +1835,9 @@ def TaoGiayTamVang():
             switch(f_trang_chu)
         elif (errorCode == 1):
             errorMessage['text'] = "Vui lòng kiểm tra lại thông tin!"
+            return
+        elif (errorCode == 2):
+            errorMessage['text'] = "Người này đã mất. Vui lòng kiểm tra lại thông tin!"
             return
 
 
@@ -3153,6 +3161,9 @@ def TaoKienNghi():
         elif (errorCode == 0):
             messagebox.showinfo("", "Đã gửi đơn kiến nghị")
             switch(f_trang_chu)
+        elif (errorCode == 2):
+            errorMessage['text'] = "Người này đã mất. Vui lòng kiểm tra lại thông tin!"
+            return
 
 
 # Data =[[CuDan, KienNghi]]

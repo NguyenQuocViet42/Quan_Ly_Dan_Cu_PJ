@@ -294,10 +294,10 @@ def XemDanhSachThayDoiNhanKhau(MaSo):
 
 
 def LaySoLuongGioiTinh():
-    query = " select count(ID) from CUDAN"
+    query = " select count(ID) from CUDAN where GhiChu is NULL or GhiChu != N'Đã mất'"
     cursor.execute(query)
     SoLuongCuDan = cursor.fetchall()[0][0]
-    query = " select count(ID) from CUDAN where upper(GioiTinh) = upper('Nam')"
+    query = " select count(ID) from CUDAN where upper(GioiTinh) = upper('Nam') and (GhiChu is NULL or GhiChu != N'Đã mất')"
     cursor.execute(query)
     SoLuongNam = cursor.fetchall()[0][0]
     SoLuongNu = SoLuongCuDan - SoLuongNam
@@ -307,7 +307,7 @@ def LaySoLuongGioiTinh():
 
 
 def LayDanhSachTuoi():
-    query = " select ( year(getdate()) - year(NgaySinh)) from CUDAN "
+    query = " select ( year(getdate()) - year(NgaySinh)) from CUDAN where GhiChu is NULL or GhiChu != N'Đã mất'"
     cursor.execute(query)
     DuLieuTuoi = cursor.fetchall()
     DanhSachTuoi = []

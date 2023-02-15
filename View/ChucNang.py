@@ -207,6 +207,8 @@ def CapGiayTamVang(HoTen, CCCD, NoiTamVang, NgayBatDau: datetime.datetime, NgayK
     except:
         error_code = 1
         return error_code
+    if (connectDB.getCUDANFROMID(id)[16] == "Đã mất"):
+        return 2
     connectDB.InsertTamVang(id, HoTen, CCCD, NoiTamVang,
                             NgayBatDau, NgayKetThuc, LyDo, NgayLamDon)
     NoiDung = 'Cấp giấy tạm vắng cho cư dân ' + HoTen + ', số căn cước ' + CCCD + \
@@ -367,7 +369,9 @@ def TaoDonKienNghi(HoTen, CCCD, NoiDung, NgayKN: datetime.datetime, PhanLoai):
     try:
         CuDan = connectDB.TimCUDANTuHoTenCCCD(HoTen, CCCD)
     except:
-        return 1, 'Họ tên và căn cước không hợp lệ', 1
+        return 1, 'Họ tên và căn cước không hợp lệ'
+    if (CuDan.GhiChu == "Đã mất"):
+        return 2, ""
     DonKienNghi = TaoKienNghi(
         1, CuDan.ID, CCCD, NoiDung, NgayKN, PhanLoai, 'Mới ghi nhận')
     return 0, connectDB.InsertDonKienNghi(DonKienNghi)
