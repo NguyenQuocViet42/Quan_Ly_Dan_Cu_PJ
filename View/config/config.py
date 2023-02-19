@@ -19,27 +19,14 @@ win_h = 700
 win_w = 1000
 
 win_bg = _from_rgb((255, 255, 255))
+response_demand_bg = _from_rgb((230, 230, 230))
 selected_bg = "lightblue"
-
-
-# leftFrame_win
-
-
-# rightFrame_win
 
 # button
 button_w = int(0.22*win_w)
 button_h = int(0.2*button_w)
 
 # response_demand
-response_demand_bg = _from_rgb((230, 230, 230))
-
-# Test
-list_kien_nghi = [
-    ["title1 dài hơn 20 ký tự ở đây, dàichhnef vẻ vẫn hơi ngắn",
-        "conten1 conten1 conten1conten1conten1 conten1 conten1 conten1 conten1 conten1 conten1"],
-    ["title2", "Nhập môn công nghệ phần mềm"]
-]
 
 map_weekday = {
     0: "Monday",

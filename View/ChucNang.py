@@ -104,6 +104,9 @@ def ThemNhanKhauMoi(CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghie
     val = (CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan,
            BiDanh, MaSo, QuanHe, NgayDangKyThuongTru, DiaChiCu, None, None, None)
     # Thêm vào data base
+    if (CCCD.upper() != "MỚI SINH"):
+        if (len(connectDB.getCUDANFROMCCCD(CCCD))):
+            return 1
     connectDB.insertCUDAN(val)
     ID = connectDB.getCUDANFROMHOTENVACCCD(Hoten, CCCD)[0][0]
     if (QuanHe.upper() == "CHỦ HỘ"):
@@ -113,6 +116,7 @@ def ThemNhanKhauMoi(CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghie
     biendoi = TaoBienDoi(1, 1, KieuBienDoi='Thêm nhân khẩu mới',
                          NoiDungBienDoi=NoiDung, MaSo=MaSo, IDQuanLy=QuanLy.IDQuanLy)
     connectDB.insertBienDoi(biendoi)
+    return 0
 
 
 """ Thay đổi nhân khẩu: nếu có một nhân khẩu chuyển đi nơi khác thì sẽ thêm các chi tiết như sau: ngày chuyển đi, nơi chuyển, ghi chú. Trường hợp 

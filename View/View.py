@@ -5,6 +5,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib
 import tkinter
 import config.config as config
+import babel.numbers
 from tkinter import ttk
 from tkinter import messagebox
 from tkinter import *
@@ -12,13 +13,20 @@ from tkcalendar import Calendar, DateEntry
 from PIL import ImageTk, Image
 import PIL
 import os
+import sys
 import pyperclip
 
 matplotlib.use('TkAgg')
 
-ID = 2
 
-dirname = os.path.dirname(__file__)
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except:
+        base_path = os.path.dirname(__file__)
+    return os.path.join(base_path, relative_path)
+
+
 win_bg = config.win_bg
 selected_bg = config.selected_bg
 btn_trang_chu_bg = win_bg
@@ -49,107 +57,91 @@ root.geometry(f"{config.win_w}x{config.win_h}+{int(x)}+0")
 
 '''Load IMAGE'''
 # Đăng nhập
-pathLogoLogin = os.path.join(
-    dirname, 'config\\image\\icon_homepage.png')
-logoIconLogin = PIL.Image.open(pathLogoLogin)
+logoIconLogin = PIL.Image.open(
+    resource_path('config\\image\\icon_homepage.png'))
 logoLogin = logoIconLogin.resize(
     (100, 100), Image.ANTIALIAS)
 logoLogin = ImageTk.PhotoImage(logoLogin)
 # Nav Bar
-pathLogo = os.path.join(
-    dirname, 'config\\image\\icon_homepage.png')
-logoIcon = PIL.Image.open(pathLogo)
+logoIcon = PIL.Image.open(resource_path('config\\image\\icon_homepage.png'))
 logo = logoIcon.resize(
     (60, 60), Image.ANTIALIAS)
 logo = ImageTk.PhotoImage(logo)
 # ---------------
-pathNavHomePageIcon = os.path.join(
-    dirname, 'config\\image\\icon_nav_home.png')
-navHomePageImage = PIL.Image.open(pathNavHomePageIcon)
+navHomePageImage = PIL.Image.open(
+    resource_path('config\\image\\icon_nav_home.png'))
 navHomePageImage = navHomePageImage.resize(
     (30, 30), Image.ANTIALIAS)
 navHomePageImage = ImageTk.PhotoImage(navHomePageImage)
 # -------------------------
-pathNavFamilyIcon = os.path.join(
-    dirname, 'config\\image\\icon_nav_family.png')
-navFamilyImage = PIL.Image.open(pathNavFamilyIcon)
+navFamilyImage = PIL.Image.open(
+    resource_path('config\\image\\icon_nav_family.png'))
 navFamilyImage = navFamilyImage.resize(
     (30, 30), Image.ANTIALIAS)
 navFamilyImage = ImageTk.PhotoImage(navFamilyImage)
 # -------------------------
-pathNavDemandIcon = os.path.join(
-    dirname, 'config\\image\\icon_nav_demand.png')
-navDemandImage = PIL.Image.open(pathNavDemandIcon)
+navDemandImage = PIL.Image.open(
+    resource_path('config\\image\\icon_nav_demand.png'))
 navDemandImage = navDemandImage.resize(
     (30, 30), Image.ANTIALIAS)
 navDemandImage = ImageTk.PhotoImage(navDemandImage)
 # -------------------------
-pathThongKeBtn = os.path.join(
-    dirname, 'config\\image\\thong_ke_button.png')
-navThongKeImage = PIL.Image.open(pathThongKeBtn)
+navThongKeImage = PIL.Image.open(
+    resource_path('config\\image\\thong_ke_button.png'))
 navThongKeImage = navThongKeImage.resize(
     (30, 30), Image.ANTIALIAS)
 navThongKeImage = ImageTk.PhotoImage(navThongKeImage)
 # -------------------------
-pathLichSuIcon = os.path.join(
-    dirname, 'config\\image\\icon_lich_su.png')
-lichSuImage = PIL.Image.open(pathLichSuIcon)
+lichSuImage = PIL.Image.open(resource_path('config\\image\\icon_lich_su.png'))
 lichSuImage = lichSuImage.resize(
     (30, 30), Image.ANTIALIAS)
 lichSuImage = ImageTk.PhotoImage(lichSuImage)
 # ------------------------
-pathDangXuatIcon = os.path.join(
-    dirname, 'config\\image\\icon_dang_xuat.png')
-dangXuatImage = PIL.Image.open(pathDangXuatIcon)
+dangXuatImage = PIL.Image.open(
+    resource_path('config\\image\\icon_dang_xuat.png'))
 dangXuatImage = dangXuatImage.resize(
     (30, 30), Image.ANTIALIAS)
 dangXuatImage = ImageTk.PhotoImage(dangXuatImage)
 
 '''HOME'''
 # -- load icon schedule
-pathSchedule = os.path.join(
-    dirname, 'config\\image\\icon_schedule.png')
-scheduleImage = PIL.Image.open(pathSchedule)
+scheduleImage = PIL.Image.open(
+    resource_path('config\\image\\icon_schedule.png'))
 scheduleImage = scheduleImage.resize(
     (16, 16), Image.ANTIALIAS)
 scheduleImage = ImageTk.PhotoImage(scheduleImage)
 # ------------------------
 # ThayDoiNhanKhau
-pathThayDoiNhanKhau = os.path.join(
-    dirname, 'config\\image\\change_person_button.png')
-ThayDoiNhanKhauImage = PIL.Image.open(pathThayDoiNhanKhau)
+ThayDoiNhanKhauImage = PIL.Image.open(
+    resource_path('config\\image\\change_person_button.png'))
 ThayDoiNhanKhauImage = ThayDoiNhanKhauImage.resize(
     (config.button_w, config.button_h), Image.ANTIALIAS)
 ThayDoiNhanKhauImage = ImageTk.PhotoImage(ThayDoiNhanKhauImage)
 # -------------------------
 # viewMyInfo
-pathViewMyInfo = os.path.join(
-    dirname, 'config\\image\\view_my_info_button.png')
-viewMyInfoImage = PIL.Image.open(pathViewMyInfo)
+viewMyInfoImage = PIL.Image.open(resource_path(
+    'config\\image\\view_my_info_button.png'))
 viewMyInfoImage = viewMyInfoImage.resize(
     (config.button_w, config.button_h), Image.ANTIALIAS)
 viewMyInfoImage = ImageTk.PhotoImage(viewMyInfoImage)
 # ------------------------
 # tách khẩu
-pathTachKhau = os.path.join(
-    dirname, 'config\\image\\tach_khau_button.png')
-tachKhauImage = PIL.Image.open(pathTachKhau)
+tachKhauImage = PIL.Image.open(resource_path(
+    'config\\image\\tach_khau_button.png'))
 tachKhauImage = tachKhauImage.resize(
     (config.button_w, config.button_h), Image.ANTIALIAS)
 tachKhauImage = ImageTk.PhotoImage(tachKhauImage)
 # ------------------------
 # tạm trú
-pathTamTru = os.path.join(
-    dirname, 'config\\image\\tam_tru_button.png')
-tamTruImage = PIL.Image.open(pathTamTru)
+tamTruImage = PIL.Image.open(resource_path(
+    'config\\image\\tam_tru_button.png'))
 tamTruImage = tamTruImage.resize(
     (config.button_w, config.button_h), Image.ANTIALIAS)
 tamTruImage = ImageTk.PhotoImage(tamTruImage)
 # ------------------------
 # tạm vắng
-pathTamVang = os.path.join(
-    dirname, 'config\\image\\tam_vang_button.png')
-tamVangImage = PIL.Image.open(pathTamVang)
+tamVangImage = PIL.Image.open(resource_path(
+    'config\\image\\tam_vang_button.png'))
 tamVangImage = tamVangImage.resize(
     (config.button_w, config.button_h), Image.ANTIALIAS)
 tamVangImage = ImageTk.PhotoImage(tamVangImage)
@@ -175,9 +167,6 @@ def switch(frame, maHoKhau="", hoKhau=(), listCuDan=[]):
     elif (frame == f_bien_doi_nhan_khau):
         BienDoiNhanKhau()
     # thêm nhân khẩu mới
-    elif (frame == f_them_nhan_khau):
-        ThemNhanKhau()
-
     elif (frame == f_thay_doi_nhan_khau):
         ThayDoiNhanKhau()
     # thay đổi chủ hộ
@@ -191,16 +180,12 @@ def switch(frame, maHoKhau="", hoKhau=(), listCuDan=[]):
         TachKhau(maHoKhau=maHoKhau, hoKhau=hoKhau, listCuDan=listCuDan)
     elif (frame == f_tam_tru):
         TamTru()
-    elif (frame == f_tao_giay_tam_tru):
-        TaoGiayTamTru()
     elif (frame == f_authen_xem_giay_tam_tru):
         AuthenXemGiayTamTru()
     elif (frame == f_xem_tat_ca_tam_tru):
         XemTatCaTamTru()
     elif (frame == f_tam_vang):
         TamVang()
-    elif (frame == f_tao_giay_tam_vang):
-        TaoGiayTamVang()
     elif (frame == f_authen_xem_giay_tam_vang):
         AuthenXemGiayTamVang()
     elif (frame == f_xem_tat_ca_tam_vang):
@@ -223,8 +208,6 @@ def switch(frame, maHoKhau="", hoKhau=(), listCuDan=[]):
         ThongKeTamTruTamVang()
     elif (frame == f_kien_nghi):
         KienNghi()
-    elif (frame == f_tao_kien_nghi):
-        TaoKienNghi()
     elif (frame == f_tra_loi_kien_nghi):
         TraLoiKienNghi()
 
@@ -542,7 +525,7 @@ def BienDoiNhanKhau():
 
     def submit(chose):
         if (chose == "Thêm nhân khẩu mới"):
-            switch(f_them_nhan_khau)
+            ThemNhanKhau()
         elif (chose == "Thay đổi nhân khẩu"):
             switch(f_thay_doi_nhan_khau)
         elif (chose == "Thay đổi chủ hộ"):
@@ -553,6 +536,10 @@ def BienDoiNhanKhau():
 
 
 def ThemNhanKhau():
+    for f in frames:
+        for widget in f.winfo_children():
+            widget.destroy()
+    f_them_nhan_khau.tkraise()
     global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
     btn_trang_chu_bg = selected_bg
     btn_ho_khau_bg = win_bg
@@ -711,19 +698,22 @@ def ThemNhanKhau():
             return
 
         # CCCD, Hoten, GioiTinh, NgaySinh, DanToc, QuocTich, NgheNghiep, QueQuan, BiDanh, Mã sổ , QuanHe, Ngày đăng kí thường trú, dịa chỉ cũ
-        ChucNang.ThemNhanKhauMoi(CCCD.get(),  # căn cước
-                                 hoTen.get(),  # họ và tên
-                                 chosed.get(),  # giới tính
-                                 ngaySinh.get_date().strftime("%m/%d/%y"),  # ngày sinh
-                                 danToc.get(),  # dân tộc
-                                 quocTich.get(),  # quốc tịch
-                                 ngheNghiep.get(),  # nghề nghiệp
-                                 queQuan.get(),  # quê quán
-                                 biDanh.get(),  # bí danh
-                                 maHoKhau.get(),  # mã sổ hộ khẩu
-                                 quanHe.get(),  # quan hệ vs chủ hộ
-                                 ngayDK.get_date().strftime("%m/%d/%y"),  # ngày đăng kí thường trú
-                                 diaChiCu.get())  # địa chỉ cũ
+        errorCode = ChucNang.ThemNhanKhauMoi(CCCD.get(),  # căn cước
+                                             hoTen.get(),  # họ và tên
+                                             chosed.get(),  # giới tính
+                                             ngaySinh.get_date().strftime("%m/%d/%y"),  # ngày sinh
+                                             danToc.get(),  # dân tộc
+                                             quocTich.get(),  # quốc tịch
+                                             ngheNghiep.get(),  # nghề nghiệp
+                                             queQuan.get(),  # quê quán
+                                             biDanh.get(),  # bí danh
+                                             maHoKhau.get(),  # mã sổ hộ khẩu
+                                             quanHe.get(),  # quan hệ vs chủ hộ
+                                             ngayDK.get_date().strftime("%m/%d/%y"),  # ngày đăng kí thường trú
+                                             diaChiCu.get())  # địa chỉ cũ
+        if (errorCode == 1):
+            errorMessage['text'] = "CCCD này đã tồn tại!"
+            return
         messagebox.showinfo("", "Thêm nhân khẩu mới thành công!")
         switch(f_trang_chu)
 
@@ -1344,7 +1334,7 @@ def TamTru():
 
     def submit(chose):
         if (chose == "Tạo giấy tạm trú"):
-            switch(f_tao_giay_tam_tru)
+            TaoGiayTamTru()
         elif (chose == "Xem giấy tạm trú"):
             switch(f_authen_xem_giay_tam_tru)
         elif (chose == "Xem tất cả giấy tạm trú"):
@@ -1354,6 +1344,10 @@ def TamTru():
 # HoTen, CCCD, QueQuan, DiaChiThuongTru, NgayBatDau: datetime.datetime, NgayKetThuc: datetime.datetime, LyDo, NgayLamDon: datetime.datetime
 
 def TaoGiayTamTru():
+    for f in frames:
+        for widget in f.winfo_children():
+            widget.destroy()
+    f_tao_giay_tam_tru.tkraise()
     global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
     btn_trang_chu_bg = selected_bg
     btn_ho_khau_bg = win_bg
@@ -1730,7 +1724,7 @@ def TamVang():
 
     def submit(chose):
         if (chose == "Tạo giấy tạm vắng"):
-            switch(f_tao_giay_tam_vang)
+            TaoGiayTamVang()
         elif (chose == "Xem giấy tạm vắng"):
             switch(f_authen_xem_giay_tam_vang)
         elif (chose == "Xem tất cả tạm vắng"):
@@ -1740,6 +1734,10 @@ def TamVang():
 # HoTen, CCCD, NoiTamVang, NgayBatDau: datetime.datetime, NgayKetThuc: datetime.datetime, LyDo, NgayLamDon: datetime.datetime
 
 def TaoGiayTamVang():
+    for f in frames:
+        for widget in f.winfo_children():
+            widget.destroy()
+    f_tao_giay_tam_vang.tkraise()
     global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
     btn_trang_chu_bg = selected_bg
     btn_ho_khau_bg = win_bg
@@ -3073,7 +3071,7 @@ def KienNghi():
 
     def submit(chose):
         if (chose == "Tạo kiến nghị"):
-            switch(f_tao_kien_nghi)
+            TaoKienNghi()
         elif (chose == "Kiến nghị đã xử lý"):
             Data = ChucNang.GetTraLoiKienNghi()
             XemKienNghi(Data, False)
@@ -3093,6 +3091,10 @@ def KienNghi():
 
 
 def TaoKienNghi():
+    for f in frames:
+        for widget in f.winfo_children():
+            widget.destroy()
+    f_tao_kien_nghi.tkraise()
     global btn_trang_chu_bg, btn_ho_khau_bg, btn_kien_nghi_bg, btn_thong_ke_bg, btn_lich_su_bg
     btn_trang_chu_bg = win_bg
     btn_ho_khau_bg = win_bg
@@ -3500,5 +3502,5 @@ def LogIn():
 
 
 LogIn()
-# switch(f_trang_chu)
+
 root.mainloop()

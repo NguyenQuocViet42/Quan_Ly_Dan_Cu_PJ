@@ -60,6 +60,14 @@ def insertCUDAN(values):
 # Lấy thông tin cư dân
 
 
+def getCUDANFROMCCCD(CCCD):
+    query = "select CUDAN.* from CUDAN where CUDAN.CCCD = ?"
+    val = (CCCD,)
+    # biến truyền vào dưới dạng 1 mảng
+    cursor.execute(query, val)
+    return cursor.fetchall()
+
+
 def getCUDANFROMHOTENVACCCD(HoTen, CCCD):
     query = "select CUDAN.* from CUDAN where CUDAN.HoTen = ? and CUDAN.CCCD = ?"
     val = (HoTen, CCCD,)
